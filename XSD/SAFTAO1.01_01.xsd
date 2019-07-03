@@ -132,7 +132,7 @@
         <xs:element ref="CompanyID"/>
         <xs:element name="TaxRegistrationNumber" type="SAFAOAngolaVatNumber"/>
         <xs:element ref="TaxAccountingBasis"/>
-        <xs:element ref="CompanyName" />
+        <xs:element ref="CompanyName"/>
         <xs:element minOccurs="0" ref="BusinessName"/>
         <xs:element ref="CompanyAddress"/>
         <xs:element ref="FiscalYear"/>
@@ -824,7 +824,7 @@
   <xs:element name="RecordID" type="SAFAOtextTypeMandatoryMax30Car"/>
   <xs:element name="Reference" type="SAFAOtextTypeMandatoryMax60Car"/>
   <xs:element name="Region" type="SAFAOtextTypeMandatoryMax50Car"/>
-  <xs:element name="Province" type="SAFAOtextTypeMandatoryMax50Car" />
+  <xs:element name="Province" type="SAFAOtextTypeMandatoryMax50Car"/>
   <xs:element name="SettlementAmount" type="SAFmonetaryType"/>
   <xs:element name="ShipFrom" type="ShippingPointStructure"/>
   <xs:element name="ShipFromAddress" type="AddressStructure"/>
@@ -1291,9 +1291,9 @@
   </xs:simpleType>
     <!-- Codigo Postal de Angola -->
     <xs:simpleType name="PostalCodeAO">
-        <xs:restriction base="xs:string" >
-          <xs:minLength value="0" />
-          <xs:maxLength value="10" />
+        <xs:restriction base="xs:string">
+          <xs:minLength value="0"/>
+          <xs:maxLength value="10"/>
         </xs:restriction>
       </xs:simpleType>
   <!-- Periodo do movimento contabilistico -->
@@ -1365,9 +1365,10 @@
     <xs:annotation>
       <xs:documentation>Preencher com o NIF Angolano sem espaços e sem qualquer prefixo do país.</xs:documentation>
     </xs:annotation>
-    <xs:restriction base="xs:integer">
-      <xs:minInclusive value="100000000000000"/>
-      <xs:maxInclusive value="900000000000000"/>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Z\d]*"/>
+      <xs:maxLength value="15"/>
+      <xs:minLength value="10"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="SAFAOProductID">
@@ -1504,3 +1505,5 @@
     </xs:restriction>
   </xs:simpleType>
 </xs:schema>
+
+
