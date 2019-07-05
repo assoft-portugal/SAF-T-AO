@@ -5,8 +5,8 @@
   xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>
-      <doc:Title>Standard Audit File - Angola Version</doc:Title>
-      <doc:Subject>Standard Audit File - Angola Version</doc:Subject>
+      <doc:Title>Standard Audit File - Angola</doc:Title>
+      <doc:Subject>Standard Audit File - Angola</doc:Subject>
       <doc:Copyright>Copyright OECD</doc:Copyright>
       <doc:Version>
         <doc:Number>1.01_01</doc:Number>
@@ -14,7 +14,10 @@
       </doc:Version>
       <doc:Author>AGT - Administração Geral Tributária</doc:Author>
       <!-- Contributos para o Projeto -->
-      <doc:Contributor>ASSOFT - Associação Portuguesa de Software</doc:Contributor>
+      <doc:Contributors>
+        <doc:Contributor>ASSOFT - Associação Portuguesa de Software</doc:Contributor>
+        <doc:Contributor>Nelson Lopes | https://github.com/cryptolopes</doc:Contributor>    
+      </doc:Contributors>
       <doc:ModificationDate>2017-07-01</doc:ModificationDate>
     </xs:documentation>
   </xs:annotation>
@@ -138,7 +141,14 @@
         <xs:element ref="FiscalYear"/>
         <xs:element ref="StartDate"/>
         <xs:element ref="EndDate"/>
-        <xs:element fixed="EUR" name="CurrencyCode"/>
+        <xs:element name="CurrencyCode" minOccurs="1" maxOccurs="1">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="AOA"/>
+                    <xs:enumeration value="USD"/>
+                </xs:restriction>
+            </xs:simpleType>    
+        </xs:element>
         <xs:element ref="DateCreated"/>
         <xs:element ref="TaxEntity"/>
         <xs:element ref="ProductCompanyTaxID"/>
@@ -642,9 +652,9 @@
           <xs:element minOccurs="0" ref="StreetName"/>
           <xs:element ref="AddressDetail"/>
           <xs:element ref="City"/>
-          <xs:element name="PostalCode" type="PostalCodeAO"/>
+          <xs:element minOccurs="0" name="PostalCode" type="PostalCodeAO"/>
           <xs:element minOccurs="0" ref="Province"/>
-          <xs:element fixed="PT" name="Country"/>
+          <xs:element fixed="AO" name="Country"/>
         </xs:sequence>
       </xs:complexType>
   <!-- Estrutura de valor monetario -->
@@ -771,7 +781,7 @@
   <xs:element name="City" type="SAFAOtextTypeMandatoryMax50Car"/>
   <xs:element name="ClosingCreditBalance" type="SAFmonetaryType"/>
   <xs:element name="ClosingDebitBalance" type="SAFmonetaryType"/>
-  <xs:element name="CompanyAddress" type="AddressStructurePT"/>
+  <xs:element name="CompanyAddress" type="AddressStructureAO"/>
   <xs:element name="CompanyName" type="SAFAOtextTypeMandatoryMax100Car"/>
   <xs:element name="Contact" type="SAFAOtextTypeMandatoryMax50Car"/>
   <xs:element name="CreditAmount" type="SAFmonetaryType"/>
@@ -893,7 +903,6 @@
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
-        <xs:pattern value="([0-9]{9})+|([a-zA-Z0-9\-/_ãÃõÕéÉêÊàÀáÁóÓçÇíÍúÚºª&amp; ]+ [0-9/]+)" />
         <xs:minLength value="1"/>
         <xs:maxLength value="50"/>
       </xs:restriction>
@@ -1140,10 +1149,12 @@
       <xs:documentation>
           Deve ser preenchido com o tipo de programa fornecendo os dados aplicáveis
           (incluindo os documentos de conferência e os recibos emitidos, quando existam):
+            "A" -???
             “I” -Contabilidade integrada com a facturação;
             “C” -Contabilidade;
             “F” -Facturação;
             “P” -Facturação parcial;
+            "Q  -???"
             “R” -Recibos;
             “S” -Autofacturação.
             (a) Deve ser indicado este tipo de programa se este emitir só este tipo de documento. 
@@ -1152,14 +1163,14 @@
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
+        <xs:enumeration value="A"/>
         <xs:enumeration value="C"/>
-        <xs:enumeration value="E"/>
         <xs:enumeration value="F"/>
         <xs:enumeration value="I"/>
         <xs:enumeration value="P"/>
+        <xs:enumeration value="Q"/>
         <xs:enumeration value="R"/>
         <xs:enumeration value="S"/>
-        <xs:enumeration value="T"/>
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
@@ -1367,8 +1378,8 @@
     </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:pattern value="[A-Z\d]*"/>
-      <xs:maxLength value="15"/>
       <xs:minLength value="10"/>
+      <xs:maxLength value="15"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="SAFAOProductID">
