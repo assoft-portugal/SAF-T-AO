@@ -29,7 +29,7 @@
         <xs:element name="MasterFiles">
           <xs:complexType>
             <xs:sequence>
-              <xs:element minOccurs="0" maxOccurs="unbounded" ref="GeneralLedger"/>
+              <xs:element minOccurs="0" maxOccurs="unbounded" ref="GeneralLedgerAccounts"/>
               <xs:element minOccurs="0" maxOccurs="unbounded" ref="Customer"/>
               <xs:element minOccurs="0" maxOccurs="unbounded" ref="Supplier"/>
               <xs:element minOccurs="0" maxOccurs="unbounded" ref="Product"/>
@@ -43,7 +43,7 @@
     </xs:complexType>
     <!-- Constraint-->
     <xs:unique name="AccountIDConstraint">
-      <xs:selector xpath="ns:MasterFiles/ns:GeneralLedger"/>
+      <xs:selector xpath="ns:MasterFiles/ns:GeneralLedgerAccounts"/>
       <xs:field xpath="ns:AccountID"/>
     </xs:unique>
     <xs:unique name="CustomerIDConstraint">
@@ -165,7 +165,7 @@
   </xs:element>
   <!-- Ficheiros Mestre (AuditFile.MasterFiles) -->
   <!--    Estrutura do Plano de Contas (AuditFile.MasterFiles.GeneralLedger)-->
-  <xs:element name="GeneralLedger">
+  <xs:element name="GeneralLedgerAccounts">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="AccountID" type="SAFAOGLAccountID"/>
@@ -633,18 +633,6 @@
       <xs:element ref="Country"/>
     </xs:sequence>
   </xs:complexType>
-  <!-- Estrutura de Moradas para Portugal-->
-  <xs:complexType name="AddressStructurePT">
-    <xs:sequence>
-      <xs:element minOccurs="0" ref="BuildingNumber"/>
-      <xs:element minOccurs="0" ref="StreetName"/>
-      <xs:element ref="AddressDetail"/>
-      <xs:element ref="City"/>
-      <xs:element name="PostalCode" type="PostalCodePT"/>
-      <xs:element minOccurs="0" ref="Region"/>
-      <xs:element fixed="PT" name="Country"/>
-    </xs:sequence>
-  </xs:complexType>
     <!-- Estrutura de Moradas para Angola-->
     <xs:complexType name="AddressStructureAO">
         <xs:sequence>
@@ -654,7 +642,7 @@
           <xs:element ref="City"/>
           <xs:element minOccurs="0" name="PostalCode" type="PostalCodeAO"/>
           <xs:element minOccurs="0" ref="Province"/>
-          <xs:element fixed="AO" name="Country"/>
+          <xs:element name="Country" fixed="AO"/>
         </xs:sequence>
       </xs:complexType>
   <!-- Estrutura de valor monetario -->
@@ -771,7 +759,7 @@
     </xs:sequence>
   </xs:complexType>
   <!-- ELEMENTOS SIMPLES -->
-  <xs:element name="AccountDescription" type="SAFAOtextTypeMandatoryMax60Car"/>
+  <xs:element name="AccountDescription" type="SAFAOtextTypeMandatoryMax100Car"/>
   <xs:element name="Address" type="AddressStructure"/>
   <xs:element name="AddressDetail" type="SAFAOtextTypeMandatoryMax100Car"/>
   <xs:element name="ATDocCodeID" type="SAFAOtextTypeMandatoryMax200Car"/>
@@ -958,11 +946,17 @@
   <!-- Categoria da conta -->
   <xs:element name="GroupingCategory">
     <xs:annotation>
-      <xs:documentation>GR para conta de 1. grau da contabilidade geral, GA para conta agregadora ou integradora da contabilidade geral, GM para conta de movimento da contabilidade geral, AR para conta de 1. grau da contabilidade analitica, AA para conta agregadora ou integradora da contabilidade analitica, AM para conta de movimento da contabilidade analitica </xs:documentation>
+      <xs:documentation>
+          Deve ser indicado o tipo e a categoria da conta: “GR” – Conta de 1.º grau da contabilidade geral;
+          “GA” – Conta agregadora ou integradora da contabilidade geral;
+          “GM” – Conta de movimento da contabilidade geral;
+          “AR” – Conta de 1.º grau da contabilidade analítica;
+          “AA” – Conta agregadora ou integradora da contabilidade analítica; e
+          “AM” – Conta de movimento da contabilidade analítica. 
+      </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
-        <xs:enumeration value="GR"/>
         <xs:enumeration value="GA"/>
         <xs:enumeration value="GM"/>
         <xs:enumeration value="AR"/>
@@ -992,7 +986,6 @@
         <xs:enumeration value="S"/>
         <xs:enumeration value="A"/>
         <xs:enumeration value="R"/>
-        <xs:enumeration value="F"/>
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
@@ -1000,21 +993,40 @@
   <xs:element name="InvoiceType">
     <xs:annotation>
       <xs:documentation>
-        Restricao:FT para Fatura, emitida nos termos do artigo 36. do Codigo do IVA, FS para Fatura simplificada, emitida nos termos do artigo 40. do Codigo do IVA, FR para Fatura-recibo, ND para Nota de debito, NC para Nota de credito, VD para Venda a dinheiro e factura/recibo (a), TV para Talao de venda (a), TD para Talao de devolucao (a), AA para Alienacao de ativos (a), DA para Devolucao de  ativos (a). Para o setor Segurador, ainda pode ser preenchido com: RP para Premio ou recibo de premio, RE para Estorno ou recibo de estorno, CS para Imputacao a co-seguradoras, LD para Imputacao a co-seguradora l�der, RA para Resseguro aceite. (a) Para os dados ate 2012-12-31
+          Deve ser preenchido com:
+
+          “FT” – Factura;
+          “FR” – Factura/recibo; 
+          “VD” – Venda a dinheiro;
+          “GF” – Factura genérica;
+          “FG” -Factura global
+          “AC” – Aviso de cobrança
+          “ND” – Nota de débito
+          “NC” – Nota de crédito
+           “AF” – Factura/recibo (autofacturação)
+          “TV” – Talão de venda
+          
+          Para o sector Segurador quando não deva constar da tabela 4.3. 
+          - Documentos de conferência de mercadorias ou de prestação de serviços (WorkingDocuments), pode ainda ser preenchido com:
+          “RP” – Prémio ou recibo de prémio; 
+          “RE” – Estorno ou recibo de estorno; 
+          “CS” – Imputação a co-seguradoras;
+          “LD” – Imputação a co-seguradora líder;
+          “RA” – Resseguro aceite.
       </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
         <xs:enumeration value="FT"/>
-        <xs:enumeration value="FS"/>
         <xs:enumeration value="FR"/>
         <xs:enumeration value="ND"/>
+        <xs:enumeration value="GF"/>
+        <xs:enumeration value="FG"/>
+        <xs:enumeration value="AC"/>
         <xs:enumeration value="NC"/>
         <xs:enumeration value="VD"/>
         <xs:enumeration value="TV"/>
         <xs:enumeration value="TD"/>
-        <xs:enumeration value="AA"/>
-        <xs:enumeration value="DA"/>
         <!-- Para o sector segurador-->
         <xs:enumeration value="RP"/>
         <xs:enumeration value="RE"/>
@@ -1217,7 +1229,7 @@
     <xs:simpleType>
       <xs:restriction base="xs:integer">
         <xs:minInclusive value="0"/>
-        <xs:maxInclusive value="1"/>
+        <xs:maxInclusive value="3"/>
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
