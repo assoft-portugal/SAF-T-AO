@@ -1183,12 +1183,12 @@
       <xs:documentation>
           Deve ser preenchido com o tipo de programa fornecendo os dados aplicáveis
           (incluindo os documentos de conferência e os recibos emitidos, quando existam):
-            "A" -???
+            "A" -Aquisição de bens e serviços;
             “I” -Contabilidade integrada com a facturação;
             “C” -Contabilidade;
             “F” -Facturação;
             “P” -Facturação parcial;
-            "Q  -???"
+            "Q  -Aquisição de bens e serviços integrada com a facturação;
             “R” -Recibos;
             “S” -Autofacturação.
             (a) Deve ser indicado este tipo de programa se este emitir só este tipo de documento. 
