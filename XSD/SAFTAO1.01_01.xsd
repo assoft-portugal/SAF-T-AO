@@ -29,7 +29,7 @@
         <xs:element name="MasterFiles">
           <xs:complexType>
             <xs:sequence>
-              <xs:element minOccurs="0" maxOccurs="unbounded" ref="GeneralLedger"/>
+              <xs:element minOccurs="0" maxOccurs="unbounded" ref="GeneralLedgerAccounts"/>
               <xs:element minOccurs="0" maxOccurs="unbounded" ref="Customer"/>
               <xs:element minOccurs="0" maxOccurs="unbounded" ref="Supplier"/>
               <xs:element minOccurs="0" maxOccurs="unbounded" ref="Product"/>
@@ -43,7 +43,7 @@
     </xs:complexType>
     <!-- Constraint-->
     <xs:unique name="AccountIDConstraint">
-      <xs:selector xpath="ns:MasterFiles/ns:GeneralLedger"/>
+      <xs:selector xpath="ns:MasterFiles/ns:GeneralLedgerAccounts"/>
       <xs:field xpath="ns:AccountID"/>
     </xs:unique>
     <xs:unique name="CustomerIDConstraint">
@@ -165,7 +165,7 @@
   </xs:element>
   <!-- Ficheiros Mestre (AuditFile.MasterFiles) -->
   <!--    Estrutura do Plano de Contas (AuditFile.MasterFiles.GeneralLedger)-->
-  <xs:element name="GeneralLedger">
+  <xs:element name="GeneralLedgerAccounts">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="AccountID" type="SAFAOGLAccountID"/>
@@ -226,6 +226,7 @@
         <xs:element minOccurs="0" ref="ProductGroup"/>
         <xs:element ref="ProductDescription"/>
         <xs:element ref="ProductNumberCode"/>
+        <xs:element name="CustomsDetails" type="CustomsDetails" minOccurs="0" />      
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -242,7 +243,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="TaxType"/>
-        <xs:element ref="TaxCountryRegion"/>
+        <xs:element ref="TaxCountryRegion" minOccurs="0"/>
         <xs:element name="TaxCode" type="TaxTableEntryTaxCode"/>
         <xs:element name="Description" type="SAFAOtextTypeMandatoryMax255Car"/>
         <xs:element minOccurs="0" ref="TaxExpirationDate"/>
@@ -332,7 +333,7 @@
                       </xs:complexType>
                     </xs:element>
                     <xs:element ref="Hash"/>
-                    <xs:element minOccurs="0" ref="HashControl"/>
+                    <xs:element ref="HashControl"/>
                     <xs:element minOccurs="0" ref="Period"/>
                     <xs:element ref="InvoiceDate"/>
                     <xs:element ref="InvoiceType"/>
@@ -356,16 +357,19 @@
                           <xs:element ref="Quantity"/>
                           <xs:element ref="UnitOfMeasure"/>
                           <xs:element ref="UnitPrice"/>
+                          <xs:element ref="TaxBase" minOccurs="0" />
                           <xs:element ref="TaxPointDate"/>
                           <xs:element minOccurs="0" maxOccurs="unbounded" name="References" type="References"/>
                           <xs:element ref="Description"/>
+                          <xs:element name="ProductSerialNumber" type="ProductSerialNumber" minOccurs="0" />
                           <xs:choice>
                             <xs:element ref="DebitAmount"/>
                             <xs:element ref="CreditAmount"/>
                           </xs:choice>
                           <xs:element name="Tax" type="Tax"/>
-                          <xs:element minOccurs="0" ref="TaxExemptionReason"/>
+                          <xs:group ref="TaxExemptions" minOccurs="0"/>
                           <xs:element minOccurs="0" ref="SettlementAmount"/>
+                          <xs:element name="CustomsInformation" type="CustomsInformation" minOccurs="0" />
                         </xs:sequence>
                       </xs:complexType>
                     </xs:element>
@@ -412,7 +416,7 @@
                       </xs:complexType>
                     </xs:element>
                     <xs:element ref="Hash"/>
-                    <xs:element minOccurs="0" ref="HashControl"/>
+                    <xs:element ref="HashControl"/>
                     <xs:element minOccurs="0" ref="Period"/>
                     <xs:element ref="MovementDate"/>
                     <xs:element ref="MovementType"/>
@@ -491,7 +495,7 @@
                       </xs:complexType>
                     </xs:element>
                     <xs:element ref="Hash"/>
-                    <xs:element minOccurs="0" ref="HashControl"/>
+                    <xs:element ref="HashControl"/>
                     <xs:element minOccurs="0" ref="Period"/>
                     <xs:element ref="WorkDate"/>
                     <xs:element ref="WorkType"/>
@@ -628,21 +632,9 @@
       <xs:element minOccurs="0" ref="StreetName"/>
       <xs:element ref="AddressDetail"/>
       <xs:element ref="City"/>
-      <xs:element ref="PostalCode"/>
-      <xs:element minOccurs="0" ref="Region"/>
+      <xs:element ref="PostalCode" minOccurs="0"/>
+      <xs:element minOccurs="0" ref="Province"/>
       <xs:element ref="Country"/>
-    </xs:sequence>
-  </xs:complexType>
-  <!-- Estrutura de Moradas para Portugal-->
-  <xs:complexType name="AddressStructurePT">
-    <xs:sequence>
-      <xs:element minOccurs="0" ref="BuildingNumber"/>
-      <xs:element minOccurs="0" ref="StreetName"/>
-      <xs:element ref="AddressDetail"/>
-      <xs:element ref="City"/>
-      <xs:element name="PostalCode" type="PostalCodePT"/>
-      <xs:element minOccurs="0" ref="Region"/>
-      <xs:element fixed="PT" name="Country"/>
     </xs:sequence>
   </xs:complexType>
     <!-- Estrutura de Moradas para Angola-->
@@ -654,7 +646,7 @@
           <xs:element ref="City"/>
           <xs:element minOccurs="0" name="PostalCode" type="PostalCodeAO"/>
           <xs:element minOccurs="0" ref="Province"/>
-          <xs:element fixed="AO" name="Country"/>
+          <xs:element name="Country" fixed="AO"/>
         </xs:sequence>
       </xs:complexType>
   <!-- Estrutura de valor monetario -->
@@ -666,11 +658,33 @@
       <xs:element minOccurs="0" ref="ExchangeRate"/>
     </xs:sequence>
   </xs:complexType>
+  <!-- Estrutura de caraterizacao aduaneira de produtos-->
+  <xs:complexType name="CustomsDetails">
+      <xs:annotation>
+        <xs:documentation>Preencher com o nº ONU para produtos perigosos </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+          <xs:element ref="UNNumber" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+  </xs:complexType>
+  <!-- Estrutura de informacao aduaneira-->
+  <xs:complexType name="CustomsInformation">
+      <xs:sequence>
+          <xs:element ref="ARCNo" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="IECAmount" minOccurs="0" />
+      </xs:sequence>
+  </xs:complexType>
+  <!-- Estrutura de numero de serie do produto-->
+  <xs:complexType name="ProductSerialNumber">
+      <xs:sequence>
+          <xs:element ref="SerialNumber" maxOccurs="unbounded" />
+      </xs:sequence>
+  </xs:complexType>
   <!-- Estrutura de Taxa de documentos de movimentacao de mercadorias-->
   <xs:complexType name="MovementTax">
     <xs:sequence>
       <xs:element name="TaxType" type="SAFTAOMovementTaxType"/>
-      <xs:element ref="TaxCountryRegion"/>
+      <xs:element ref="TaxCountryRegion" minOccurs="0"/>
       <xs:element name="TaxCode" type="SAFTAOMovementTaxCode"/>
       <xs:element ref="TaxPercentage"/>
     </xs:sequence>
@@ -694,7 +708,7 @@
   <xs:complexType name="PaymentTax">
     <xs:sequence>
       <xs:element ref="TaxType"/>
-      <xs:element ref="TaxCountryRegion"/>
+      <xs:element ref="TaxCountryRegion" minOccurs="0"/>
       <xs:element name="TaxCode" type="PaymentTaxCode"/>
       <xs:choice>
         <xs:element ref="TaxPercentage"/>
@@ -745,8 +759,8 @@
       <xs:element minOccurs="0" ref="StreetName"/>
       <xs:element ref="AddressDetail"/>
       <xs:element ref="City"/>
-      <xs:element ref="PostalCode"/>
-      <xs:element minOccurs="0" ref="Region"/>
+      <xs:element ref="PostalCode" minOccurs="0"/>
+      <xs:element minOccurs="0" ref="Province"/>
       <xs:element name="Country" type="SupplierCountry"/>
     </xs:sequence>
   </xs:complexType>
@@ -754,7 +768,7 @@
   <xs:complexType name="Tax">
     <xs:sequence>
       <xs:element ref="TaxType"/>
-      <xs:element ref="TaxCountryRegion"/>
+      <xs:element ref="TaxCountryRegion" minOccurs="0"/>
       <xs:element ref="TaxCode"/>
       <xs:choice>
         <xs:element ref="TaxPercentage"/>
@@ -771,38 +785,40 @@
     </xs:sequence>
   </xs:complexType>
   <!-- ELEMENTOS SIMPLES -->
-  <xs:element name="AccountDescription" type="SAFAOtextTypeMandatoryMax60Car"/>
+  <xs:element name="AccountDescription" type="SAFAOtextTypeMandatoryMax100Car"/>
   <xs:element name="Address" type="AddressStructure"/>
-  <xs:element name="AddressDetail" type="SAFAOtextTypeMandatoryMax100Car"/>
+  <xs:element name="AddressDetail" type="SAFAOtextTypeMandatoryMax250Car"/>
+  <xs:element name="ARCNo" type="SAFAOtextTypeMandatoryMax21Car" />
   <xs:element name="ATDocCodeID" type="SAFAOtextTypeMandatoryMax200Car"/>
   <xs:element name="BillingAddress" type="AddressStructure"/>
-  <xs:element name="BuildingNumber" type="SAFAOtextTypeMandatoryMax10Car"/>
+  <xs:element name="BuildingNumber" type="SAFAOtextTypeMandatoryMax15Car"/>
   <xs:element name="BusinessName" type="SAFAOtextTypeMandatoryMax60Car"/>
   <xs:element name="City" type="SAFAOtextTypeMandatoryMax50Car"/>
   <xs:element name="ClosingCreditBalance" type="SAFmonetaryType"/>
   <xs:element name="ClosingDebitBalance" type="SAFmonetaryType"/>
   <xs:element name="CompanyAddress" type="AddressStructureAO"/>
-  <xs:element name="CompanyName" type="SAFAOtextTypeMandatoryMax100Car"/>
+  <xs:element name="CompanyName" type="SAFAOtextTypeMandatoryMax200Car"/>
   <xs:element name="Contact" type="SAFAOtextTypeMandatoryMax50Car"/>
   <xs:element name="CreditAmount" type="SAFmonetaryType"/>
   <xs:element name="CurrencyAmount" type="SAFmonetaryType"/>
   <xs:element name="CustomerID" type="SAFAOtextTypeMandatoryMax30Car"/>
-  <xs:element name="CustomerTaxID" type="SAFAOtextTypeMandatoryMax20Car"/>
+  <xs:element name="CustomerTaxID" type="SAFAOtextTypeMandatoryMax30Car"/>
   <xs:element name="DateCreated" type="SAFAODateSpan"/>
   <xs:element name="DebitAmount" type="SAFmonetaryType"/>
   <xs:element name="DeliveryDate" type="SAFdateType"/>
   <xs:element name="DeliveryID" type="SAFAOtextTypeMandatoryMax255Car"/>
   <xs:element name="Description" type="SAFAOtextTypeMandatoryMax200Car"/>
   <xs:element name="DocArchivalNumber" type="SAFTAODocArchivalNumber"/>
-  <xs:element name="Email" type="SAFAOtextTypeMandatoryMax60Car"/>
+  <xs:element name="Email" type="SAFAOtextTypeMandatoryMax255Car"/>
   <xs:element name="EndDate" type="SAFAODateSpan"/>
   <xs:element name="ExchangeRate" type="SAFdecimalType"/>
   <xs:element name="Fax" type="SAFAOtextTypeMandatoryMax20Car"/>
   <xs:element name="GLPostingDate" type="SAFdateTimeType"/>
   <xs:element name="GrossTotal" type="SAFmonetaryType"/>
   <xs:element name="Hash" type="SAFAOtextTypeMandatoryMax172Car"/>
-  <xs:element name="HashControl" type="SAFAOtextTypeMandatoryMax40Car"/>
+  <xs:element name="HashControl" type="SAFAOtextTypeMandatoryMax70Car"/>
   <xs:element name="HeaderComment" type="SAFAOtextTypeMandatoryMax255Car"/>
+  <xs:element name="IECAmount" type="SAFmonetaryType" />
   <xs:element name="InvoiceDate" type="SAFdateType"/>
   <xs:element name="InvoiceStatusDate" type="SAFdateTimeType"/>
   <xs:element name="JournalID" type="SAFAOJournalID"/>
@@ -827,7 +843,7 @@
   <xs:element name="ProductDescription" type="SAFAOtextTypeMandatoryMax200Car"/>
   <xs:element name="ProductGroup" type="SAFAOtextTypeMandatoryMax50Car"/>
   <xs:element name="ProductID" type="SAFAOProductID"/>
-  <xs:element name="ProductNumberCode" type="SAFAOtextTypeMandatoryMax50Car"/>
+  <xs:element name="ProductNumberCode" type="SAFAOtextTypeMandatoryMax60Car"/>
   <xs:element name="ProductVersion" type="SAFAOtextTypeMandatoryMax30Car"/>
   <xs:element name="Quantity" type="SAFdecimalType"/>
   <xs:element name="Reason" type="SAFAOtextTypeMandatoryMax50Car"/>
@@ -835,6 +851,7 @@
   <xs:element name="Reference" type="SAFAOtextTypeMandatoryMax60Car"/>
   <xs:element name="Region" type="SAFAOtextTypeMandatoryMax50Car"/>
   <xs:element name="Province" type="SAFAOtextTypeMandatoryMax50Car"/>
+  <xs:element name="SerialNumber" type="SAFAOtextTypeMandatoryMax100Car" />
   <xs:element name="SettlementAmount" type="SAFmonetaryType"/>
   <xs:element name="ShipFrom" type="ShippingPointStructure"/>
   <xs:element name="ShipFromAddress" type="AddressStructure"/>
@@ -844,14 +861,16 @@
   <xs:element name="SourceDocumentID" type="SAFAOtextTypeMandatoryMax30Car"/>
   <xs:element name="SourceID" type="SAFAOtextTypeMandatoryMax30Car"/>
   <xs:element name="StartDate" type="SAFAODateSpan"/>
-  <xs:element name="StreetName" type="SAFAOtextTypeMandatoryMax90Car"/>
+  <xs:element name="StreetName" type="SAFAOtextTypeMandatoryMax200Car"/>
   <xs:element name="SupplierID" type="SAFAOtextTypeMandatoryMax30Car"/>
   <xs:element name="SupplierTaxID" type="SAFAOtextTypeMandatoryMax20Car"/>
   <xs:element name="SystemEntryDate" type="SAFdateTimeType"/>
   <xs:element name="SystemID" type="SAFAOtextTypeMandatoryMax35Car"/>
   <xs:element name="TaxAmount" type="SAFmonetaryType"/>
+  <xs:element name="TaxBase" type="SAFmonetaryType" />
   <xs:element name="TaxEntity" type="SAFAOtextTypeMandatoryMax20Car"/>
   <xs:element name="TaxExemptionReason" type="SAFAOPortugueseTaxExemption"/>
+  <xs:element name="TaxExemptionCode" type="SAFAOTaxExemptionCode" />
   <xs:element name="TaxExpirationDate" type="SAFdateType"/>
   <xs:element name="TaxPayable" type="SAFmonetaryType"/>
   <xs:element name="TaxPercentage" type="SAFdecimalType"/>
@@ -865,6 +884,7 @@
   <xs:element name="TransactionID" type="SAFAOTransactionID"/>
   <xs:element name="UnitOfMeasure" type="SAFAOtextTypeMandatoryMax20Car"/>
   <xs:element name="UnitPrice" type="SAFmonetaryType"/>
+  <xs:element name="UNNumber" type="SAFAOUNNumber" />
   <xs:element name="WarehouseID" type="SAFAOtextTypeMandatoryMax50Car"/>
   <xs:element name="Website" type="SAFAOtextTypeMandatoryMax60Car"/>
   <xs:element name="WorkDate" type="SAFdateType"/>
@@ -958,11 +978,17 @@
   <!-- Categoria da conta -->
   <xs:element name="GroupingCategory">
     <xs:annotation>
-      <xs:documentation>GR para conta de 1. grau da contabilidade geral, GA para conta agregadora ou integradora da contabilidade geral, GM para conta de movimento da contabilidade geral, AR para conta de 1. grau da contabilidade analitica, AA para conta agregadora ou integradora da contabilidade analitica, AM para conta de movimento da contabilidade analitica </xs:documentation>
+      <xs:documentation>
+          Deve ser indicado o tipo e a categoria da conta: “GR” – Conta de 1.º grau da contabilidade geral;
+          “GA” – Conta agregadora ou integradora da contabilidade geral;
+          “GM” – Conta de movimento da contabilidade geral;
+          “AR” – Conta de 1.º grau da contabilidade analítica;
+          “AA” – Conta agregadora ou integradora da contabilidade analítica; e
+          “AM” – Conta de movimento da contabilidade analítica. 
+      </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
-        <xs:enumeration value="GR"/>
         <xs:enumeration value="GA"/>
         <xs:enumeration value="GM"/>
         <xs:enumeration value="AR"/>
@@ -984,7 +1010,13 @@
   <!-- Estado do documento SalesInvoices -->
   <xs:element name="InvoiceStatus">
     <xs:annotation>
-      <xs:documentation>N para Normal, S para Autofaturacao, A para Documento anulado, R para Documento de resumo doutros documentos criados noutras aplicacoes e gerado nesta aplicacao, F para Documento faturado </xs:documentation>
+      <xs:documentation>
+          Deve ser preenchido com:
+          “N” – Normal;
+          “S” – Autofacturação;
+          “A” – Documento anulado;
+          “R” – Documento de resumo doutros documentos criados noutras aplicações e gerado nesta aplicação;
+      </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -992,7 +1024,6 @@
         <xs:enumeration value="S"/>
         <xs:enumeration value="A"/>
         <xs:enumeration value="R"/>
-        <xs:enumeration value="F"/>
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
@@ -1000,21 +1031,40 @@
   <xs:element name="InvoiceType">
     <xs:annotation>
       <xs:documentation>
-        Restricao:FT para Fatura, emitida nos termos do artigo 36. do Codigo do IVA, FS para Fatura simplificada, emitida nos termos do artigo 40. do Codigo do IVA, FR para Fatura-recibo, ND para Nota de debito, NC para Nota de credito, VD para Venda a dinheiro e factura/recibo (a), TV para Talao de venda (a), TD para Talao de devolucao (a), AA para Alienacao de ativos (a), DA para Devolucao de  ativos (a). Para o setor Segurador, ainda pode ser preenchido com: RP para Premio ou recibo de premio, RE para Estorno ou recibo de estorno, CS para Imputacao a co-seguradoras, LD para Imputacao a co-seguradora l�der, RA para Resseguro aceite. (a) Para os dados ate 2012-12-31
+          Deve ser preenchido com:
+
+          “FT” – Factura;
+          “FR” – Factura/recibo; 
+          “VD” – Venda a dinheiro;
+          “GF” – Factura genérica;
+          “FG” -Factura global
+          “AC” – Aviso de cobrança
+          “ND” – Nota de débito
+          “NC” – Nota de crédito
+           “AF” – Factura/recibo (autofacturação)
+          “TV” – Talão de venda
+          
+          Para o sector Segurador quando não deva constar da tabela 4.3. 
+          - Documentos de conferência de mercadorias ou de prestação de serviços (WorkingDocuments), pode ainda ser preenchido com:
+          “RP” – Prémio ou recibo de prémio; 
+          “RE” – Estorno ou recibo de estorno; 
+          “CS” – Imputação a co-seguradoras;
+          “LD” – Imputação a co-seguradora líder;
+          “RA” – Resseguro aceite.
       </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
         <xs:enumeration value="FT"/>
-        <xs:enumeration value="FS"/>
         <xs:enumeration value="FR"/>
         <xs:enumeration value="ND"/>
+        <xs:enumeration value="GF"/>
+        <xs:enumeration value="FG"/>
+        <xs:enumeration value="AC"/>
         <xs:enumeration value="NC"/>
         <xs:enumeration value="VD"/>
         <xs:enumeration value="TV"/>
         <xs:enumeration value="TD"/>
-        <xs:enumeration value="AA"/>
-        <xs:enumeration value="DA"/>
         <!-- Para o sector segurador-->
         <xs:enumeration value="RP"/>
         <xs:enumeration value="RE"/>
@@ -1060,7 +1110,21 @@
   <xs:element name="PaymentMechanism">
     <xs:annotation>
       <xs:documentation>
-         Restricao:CC para Cartao credito, CD para Cartao debito, CH para Cheque bancario, CO para Cheque ou cartao oferta, CS para Compensacao de saldos em conta corrente, DE para Dinheiro eletronico, por exemplo em cartoes de fidelidade ou de pontos, LC para Letra comercial, MB para Referencias de pagamento para Multibanco, NU para Numerario, OU para Outros meios aqui nao assinalados, PR para Permuta de bens, TB para Transferencia bancaria ou debito direto autorizado, TR para Ticket restaurante
+          Deve ser preenchido com:
+          “CC” – Cartão crédito;
+          “CD” – Cartão débito;
+          “CH” – Cheque bancário;
+          “CI” – Crédito documentário internacional;
+          “CO” – Cheque ou cartão oferta;
+          “CS” – Compensação de saldos em conta corrente;
+          “DE” – Dinheiro electrónico, por exemplo residente em cartões de fidelidade ou de pontos;
+          “MB” – Referências de pagamento para Multicaixa; 
+          “NU” – Numerário;
+
+
+          “OU” – Outros meios aqui não assinalados;
+          “PR” – Permuta de bens;
+          “TB“ – Transferência bancária ou débito directo autorizado; etc. 
       </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
@@ -1068,16 +1132,15 @@
         <xs:enumeration value="CC"/>
         <xs:enumeration value="CD"/>
         <xs:enumeration value="CH"/>
+        <xs:enumeration value="CI"/>
         <xs:enumeration value="CO"/>
         <xs:enumeration value="CS"/>
         <xs:enumeration value="DE"/>
-        <xs:enumeration value="LC"/>
         <xs:enumeration value="MB"/>
         <xs:enumeration value="NU"/>
         <xs:enumeration value="OU"/>
         <xs:enumeration value="PR"/>
         <xs:enumeration value="TB"/>
-        <xs:enumeration value="TR"/>
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
@@ -1106,7 +1169,7 @@
   <!-- Codigo de de Imposto de pagamento-->
   <xs:simpleType name="PaymentTaxCode">
     <xs:restriction base="xs:string">
-      <xs:pattern value="RED|INT|NOR|ISE|OUT|([0-9.])*|NA"/>
+      <xs:pattern value="NOR|ISE|OUT|([0-9.])*|NA|NS"/>
       <xs:minLength value="1"/>
       <xs:maxLength value="10"/>
     </xs:restriction>
@@ -1123,13 +1186,24 @@
   <!-- Tipos de produto -->
   <xs:element name="ProductType">
     <xs:annotation>
-      <xs:documentation>Restricao: P para Produtos, S para Servicos, O para Outros (Ex: portes debitados, adiantamentos recebidos ou alienacao de ativos), I para Impostos, taxas e encargos parafiscais exceto IVA e IS que deverao ser refletidos na tabela 2.5 Tabela de impostos (TaxTable) </xs:documentation>
+      <xs:documentation>
+          Deve ser preenchido com:
+          “P” – Produtos;
+          “S” – Serviços;
+          “O” – Outros (Ex: portes debitados, adiantamentos recebidos ou alienação de activos);
+          “E” – Impostos Especiais de Consumo – (ex.:IEC);
+          “I” – Impostos, taxas e encargos parafiscais – excepto IVA e IS que deverão ser reflectidos na tabela 2.5
+
+          – Tabela de impostos (Tax Table) e Impostos Especiais de
+          Consumo, que deverão ser preenchidos com o código “E”.
+      </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
         <xs:enumeration value="P"/>
         <xs:enumeration value="S"/>
         <xs:enumeration value="O"/>
+        <xs:enumeration value="E"/>
         <xs:enumeration value="I"/>
       </xs:restriction>
     </xs:simpleType>
@@ -1149,12 +1223,12 @@
       <xs:documentation>
           Deve ser preenchido com o tipo de programa fornecendo os dados aplicáveis
           (incluindo os documentos de conferência e os recibos emitidos, quando existam):
-            "A" -???
+            "A" -Aquisição de bens e serviços;
             “I” -Contabilidade integrada com a facturação;
             “C” -Contabilidade;
             “F” -Facturação;
             “P” -Facturação parcial;
-            "Q  -???"
+            "Q  -Aquisição de bens e serviços integrada com a facturação;
             “R” -Recibos;
             “S” -Autofacturação.
             (a) Deve ser indicado este tipo de programa se este emitir só este tipo de documento. 
@@ -1176,9 +1250,22 @@
   </xs:element>
   <!-- Codigo de de Imposto -->
   <xs:element name="TaxCode">
+      <xs:annotation>
+          <xs:documentation>
+            Código da taxa na tabela de impostos.
+            No caso do campo 4.4.4.14.6.1. - Código do tipo de imposto (TaxType) = IVA, deve ser preenchido com:
+            “NOR” – Taxa normal; “ISE” – Isenta;
+            “OUT” – Outros, aplicável para os regimes especiais de IVA.
+            No caso do campo 4.4.4.14.6.1.
+            Código do tipo de imposto (TaxType) = IS, deve ser preenchido com:
+            O código da verba respectiva; “ISE” – Isenta.
+
+            No caso de não aplicabilidade de imposto deve ser preenchido com “NA”.
+          </xs:documentation>
+        </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
-        <xs:pattern value="RED|INT|NOR|ISE|OUT|([0-9.])*|NS"/>
+        <xs:pattern value="NOR|ISE|OUT|([0-9.])*|NS|NA"/>
         <xs:minLength value="1"/>
         <xs:maxLength value="10"/>
       </xs:restriction>
@@ -1197,7 +1284,7 @@
   <!-- Tipo de Imposto da tabela de impostos-->
   <xs:simpleType name="TaxTableEntryTaxCode">
     <xs:restriction base="xs:string">
-      <xs:pattern value="RED|INT|NOR|ISE|OUT|([0-9.])*|NS|NA"/>
+      <xs:pattern value="NOR|ISE|OUT|([0-9.])*|NS|NA"/>
       <xs:minLength value="1"/>
       <xs:maxLength value="10"/>
     </xs:restriction>
@@ -1217,7 +1304,7 @@
     <xs:simpleType>
       <xs:restriction base="xs:integer">
         <xs:minInclusive value="0"/>
-        <xs:maxInclusive value="1"/>
+        <xs:maxInclusive value="3"/>
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
@@ -1237,13 +1324,16 @@
   </xs:element>
   <!-- Codigo do tipo de imposto retido -->
   <xs:element name="WithholdingTaxType">
-    <xs:annotation>
-      <xs:documentation>Restricao: IRS para Imposto Sobre o Rendimento das Pessoas Singulares, IRC para Imposto Sobre o Rendimento das Pessoas colectivas, IS para Imposto do selo </xs:documentation>
-    </xs:annotation>
+      <xs:annotation>
+        <xs:documentation>
+          Neste campo deve ser indicado o tipo de imposto retido, preenchendo-o com:
+          “IRT” – Imposto sobre o rendimento de trabalho; “II” – Imposto sobre o industrial; “IS” – Imposto do selo. 
+        </xs:documentation>
+      </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
-        <xs:enumeration value="IRS"/>
-        <xs:enumeration value="IRC"/>
+        <xs:enumeration value="IRT"/>
+        <xs:enumeration value="II"/>
         <xs:enumeration value="IS"/>
       </xs:restriction>
     </xs:simpleType>
@@ -1343,7 +1433,7 @@
   </xs:simpleType>
   <xs:simpleType name="SAFTAOMovementTaxCode">
     <xs:restriction base="xs:string">
-      <xs:pattern value="RED|INT|NOR|ISE|OUT|NS"/>
+      <xs:pattern value="NOR|ISE|OUT|NS"/>
       <xs:minLength value="1"/>
       <xs:maxLength value="3"/>
     </xs:restriction>
@@ -1355,6 +1445,24 @@
       <xs:enumeration value="NS"/>
     </xs:restriction>
   </xs:simpleType>
+  <!-- Codigo do motivo de isencao de imposto -->
+  <xs:simpleType name="SAFAOTaxExemptionCode">
+      <xs:restriction base="xs:string">
+          <xs:pattern value="(M[0-9]{2})+" />
+      </xs:restriction>
+  </xs:simpleType>
+  <!-- Aplicação dos motivos de isenção de imposto -->
+  <xs:group name="TaxExemptions">
+    <xs:annotation>
+      <xs:documentation>
+        Quando aplicável, obriga ao preenchimento de ambos os campos.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+        <xs:element ref="TaxExemptionReason"/>
+        <xs:element ref="TaxExemptionCode" />
+    </xs:sequence>
+  </xs:group>
   <xs:simpleType name="SAFTAOPaymentType">
     <xs:annotation>
       <xs:documentation>
@@ -1392,7 +1500,11 @@
   <!-- Origem do documento -->
   <xs:simpleType name="SAFTAOSourceBilling">
     <xs:annotation>
-      <xs:documentation>P para documento produzido na aplicacao, I para documento integrado e produzido noutra aplicacao, M para documento proveniente de recuperacao ou de emissao manual </xs:documentation>
+      <xs:documentation>
+        P para documento produzido na aplicacao, 
+        I para documento integrado e produzido noutra aplicacao, 
+        M para documento proveniente de recuperacao ou de emissao manual 
+      </xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:enumeration value="P"/>
@@ -1423,12 +1535,24 @@
       <xs:maxLength value="10"/>
     </xs:restriction>
   </xs:simpleType>
+  <xs:simpleType name="SAFAOtextTypeMandatoryMax15Car">
+      <xs:restriction base="xs:string">
+        <xs:minLength value="1"/>
+        <xs:maxLength value="15"/>
+      </xs:restriction>
+    </xs:simpleType>
   <xs:simpleType name="SAFAOtextTypeMandatoryMax20Car">
     <xs:restriction base="xs:string">
       <xs:minLength value="1"/>
       <xs:maxLength value="20"/>
     </xs:restriction>
   </xs:simpleType>
+  <xs:simpleType name="SAFAOtextTypeMandatoryMax21Car">
+      <xs:restriction base="xs:string">
+        <xs:minLength value="1"/>
+        <xs:maxLength value="20"/>
+      </xs:restriction>
+    </xs:simpleType>
   <xs:simpleType name="SAFAOtextTypeMandatoryMax30Car">
     <xs:restriction base="xs:string">
       <xs:minLength value="1"/>
@@ -1489,6 +1613,12 @@
       <xs:maxLength value="200"/>
     </xs:restriction>
   </xs:simpleType>
+  <xs:simpleType name="SAFAOtextTypeMandatoryMax250Car">
+      <xs:restriction base="xs:string">
+        <xs:minLength value="1"/>
+        <xs:maxLength value="250"/>
+      </xs:restriction>
+    </xs:simpleType>
   <xs:simpleType name="SAFAOtextTypeMandatoryMax255Car">
     <xs:restriction base="xs:string">
       <xs:minLength value="1"/>
@@ -1502,11 +1632,28 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="SAFAOTransactionID">
+      <xs:annotation>
+        <xs:documentation>
+          O preenchimento é obrigatório, no caso de se tratar de um sistema integrado de contabilidade e facturação, 
+          ainda que o tipo de ficheiro (TaxAccountingBasis) não deva conter as tabelas relativas à contabilidade.
+          
+          Deve ser indicada a chave única da tabela 3.
+          Movimentos contabilísticos (GeneralLedgerEntries) da transacção onde foi lançado este documento, 
+          respeitando a regra aí definida para o campo 3.4.3.1 - Chave única do movimento contabilístico (TransactionID).
+        </xs:documentation>
+      </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:pattern value="[1-9][0-9]{3}-[01][0-9]-[0-3][0-9] [^ ]{1,30} [^ ]{1,20}"/>
       <xs:minLength value="1"/>
       <xs:maxLength value="70"/>
     </xs:restriction>
+  </xs:simpleType>
+  <!-- Numero ONU para substancias perigosas -->
+  <xs:simpleType name="SAFAOUNNumber">
+      <xs:restriction base="xs:string">
+          <xs:pattern value="[0-9]{4}" />
+          <xs:length value="4" />
+      </xs:restriction>
   </xs:simpleType>
   <!-- Codigo do pais (ISO 3166 1-alpha-2) -->
   <xs:simpleType name="SupplierCountry">
