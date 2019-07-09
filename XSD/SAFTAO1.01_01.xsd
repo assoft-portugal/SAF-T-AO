@@ -869,7 +869,7 @@
   <xs:element name="TaxAmount" type="SAFmonetaryType"/>
   <xs:element name="TaxBase" type="SAFmonetaryType" />
   <xs:element name="TaxEntity" type="SAFAOtextTypeMandatoryMax20Car"/>
-  <xs:element name="TaxExemptionReason" type="SAFAOPortugueseTaxExemption"/>
+  <xs:element name="TaxExemptionReason" type="SAFAOTaxExemption"/>
   <xs:element name="TaxExemptionCode" type="SAFAOTaxExemptionCode" />
   <xs:element name="TaxExpirationDate" type="SAFdateType"/>
   <xs:element name="TaxPayable" type="SAFmonetaryType"/>
@@ -1474,7 +1474,7 @@
       <xs:enumeration value="RG"/>
     </xs:restriction>
   </xs:simpleType>
-  <xs:simpleType name="SAFAOPortugueseTaxExemption">
+  <xs:simpleType name="SAFAOTaxExemption">
     <xs:restriction base="xs:string">
       <xs:minLength value="6"/>
       <xs:maxLength value="60"/>
