@@ -15,10 +15,10 @@
       <doc:Author>AGT - Administração Geral Tributária</doc:Author>
       <!-- Contributos para o Projeto -->
       <doc:Contributors>
-        <doc:Contributor>ASSOFT - Associação Portuguesa de Software</doc:Contributor>
-        <doc:Contributor>Nelson Lopes | https://github.com/cryptolopes</doc:Contributor>    
+        <doc:Contributor name="ASSOFT - Associação Portuguesa de Software" url="https://www.assoft.org/" />
+        <doc:Contributor name="Nelson Lopes" url="https://github.com/cryptolopes/"/>
       </doc:Contributors>
-      <doc:ModificationDate>2017-07-01</doc:ModificationDate>
+      <doc:ModificationDate>2017-07-11</doc:ModificationDate>
     </xs:documentation>
   </xs:annotation>
   <!-- Estrutura do ficheiro SAFT-AO-->
@@ -999,6 +999,22 @@
   </xs:element>
   <!-- Codigo unico do documento de venda -->
   <xs:element name="InvoiceNo">
+    <xs:annotation>
+      <xs:documentation>
+
+        Recomenda-se a utlização do seguinte formato:
+
+        InvoiceType + ESPAÇO + / + Número Sequencial
+        
+        Exemplos: 
+        InvoiceType: FT
+        InvoiceNo: FT S001/1
+
+        InvoiceType: NC
+        InvoiceNo: NC S001/1
+
+      </xs:documentation>
+    </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
         <xs:pattern value="[^ ]+ [^/^ ]+/[0-9]+"/>
