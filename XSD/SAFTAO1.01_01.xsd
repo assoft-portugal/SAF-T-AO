@@ -433,8 +433,7 @@
                     <xs:element minOccurs="0" maxOccurs="1" ref="ShipFrom"/>
                     <xs:element minOccurs="0" maxOccurs="1" ref="MovementEndTime"/>
                     <xs:element maxOccurs="1" ref="MovementStartTime"/>
-                    <!-- Nos documentos resumo (MovementStatus "R"), na falta desta informacao em concreto, a hora de inicio de transporte (MovementStartTime) pode ser indicada com a concatenacao da data constante no campo MovementDate com a hora 00:00:00-->
-                    <xs:element minOccurs="0" maxOccurs="1" ref="ATDocCodeID"/>
+                    <xs:element minOccurs="0" maxOccurs="1" ref="AGTDocCodeID"/>
                     <xs:element maxOccurs="unbounded" name="Line">
                       <xs:complexType>
                         <xs:sequence>
@@ -451,8 +450,9 @@
                             <xs:element ref="CreditAmount"/>
                           </xs:choice>
                           <xs:element minOccurs="0" name="Tax" type="MovementTax"/>
-                          <xs:element minOccurs="0" ref="TaxExemptionReason"/>
+                          <xs:group minOccurs="0" ref="TaxExemptions" />
                           <xs:element minOccurs="0" ref="SettlementAmount"/>
+                          <xs:element name="CustomsInformation" type="CustomsInformation" minOccurs="0" />
                         </xs:sequence>
                       </xs:complexType>
                     </xs:element>
@@ -789,7 +789,7 @@
   <xs:element name="Address" type="AddressStructure"/>
   <xs:element name="AddressDetail" type="SAFAOtextTypeMandatoryMax250Car"/>
   <xs:element name="ARCNo" type="SAFAOtextTypeMandatoryMax21Car" />
-  <xs:element name="ATDocCodeID" type="SAFAOtextTypeMandatoryMax200Car"/>
+  <xs:element name="AGTDocCodeID" type="SAFAOtextTypeMandatoryMax200Car"/>
   <xs:element name="BillingAddress" type="AddressStructure"/>
   <xs:element name="BuildingNumber" type="SAFAOtextTypeMandatoryMax15Car"/>
   <xs:element name="BusinessName" type="SAFAOtextTypeMandatoryMax60Car"/>
@@ -1093,7 +1093,14 @@
   <!-- Estado do documento MovementOfGoods -->
   <xs:element name="MovementStatus">
     <xs:annotation>
-      <xs:documentation>N para Normal, T para Por conta de terceiros, A para Documento anulado, F para Documento faturado, quando para este documento tambem existe na tabela 4.1. para Documentos comerciais a clientes (SalesInvoices) o correspondente do tipo fatura ou fatura simplificada, R para Documento de resumo doutros documentos criados noutras aplicacoes e gerado nesta aplicacao </xs:documentation>
+      <xs:documentation>
+          Deve ser preenchido com: “N” – Normal;
+          “T” – Por conta de terceiros;
+          “A” – Documento anulado;
+          “F” – Documento facturado, ainda que parcialmente, quando
+          para este documento também existe na tabela 4.1. – Documentos comerciais a clientes (SalesInvoices) o correspondente do tipo factura.
+          “R” – Documento de resumo doutros documentos criados noutras aplicações e gerado nesta aplicação. 
+      </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -1109,7 +1116,11 @@
   <xs:element name="MovementType">
     <xs:annotation>
       <xs:documentation>
-        Restricao: Tipos de Documento (GR para Guia de remessa, GT para Guia de transporte incluindo as globais, GA para Guia de movimentacao de ativos fixos proprios, GC para Guia de consignacao, GD para Guia ou nota de devolucao
+          Deve ser preenchido com:
+          “GR” – Guia de remessa;
+          “GT” – Guia de transporte (incluir aqui as guias globais);
+          “GA” – Guia de movimentação de activos fixos próprios; “GC” – Guia de consignação;
+          “GD” – Guia ou nota de devolução. 
       </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
@@ -1117,7 +1128,6 @@
         <xs:enumeration value="GR"/>
         <xs:enumeration value="GT"/>
         <xs:enumeration value="GA"/>
-        <xs:enumeration value="GC"/>
         <xs:enumeration value="GD"/>
       </xs:restriction>
     </xs:simpleType>
@@ -1449,7 +1459,7 @@
   </xs:simpleType>
   <xs:simpleType name="SAFTAOMovementTaxCode">
     <xs:restriction base="xs:string">
-      <xs:pattern value="NOR|ISE|OUT|NS"/>
+      <xs:pattern value="NOR|ISE|OUT"/>
       <xs:minLength value="1"/>
       <xs:maxLength value="3"/>
     </xs:restriction>
