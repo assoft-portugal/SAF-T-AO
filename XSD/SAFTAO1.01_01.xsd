@@ -289,8 +289,8 @@
                         <xs:annotation>
                           <xs:documentation>
                             Tem de ser tida em consideração a ordem dos elementos:
-                            Primeiro os de DebitLine
-                            Depois os de CreditLine
+                            * Primeiro os de DebitLine
+                            * Depois os de CreditLine
                           </xs:documentation>
                         </xs:annotation>
                         <xs:sequence>
@@ -298,64 +298,6 @@
                           <xs:group ref="CreditLineGroup" minOccurs="1" maxOccurs="unbounded" />
                         </xs:sequence>
                       </xs:complexType>
-                      <!--<xs:complexType>
-                        <xs:sequence>
-                          <xs:element name="DebitLine" maxOccurs="unbounded">
-                            <xs:complexType>
-                              <xs:sequence>
-                                <xs:element ref="RecordID" />
-                                <xs:element name="AccountID" type="SAFAOGLAccountID" />
-                                <xs:element ref="SourceDocumentID" minOccurs="0" />
-                                <xs:element ref="SystemEntryDate" />
-                                <xs:element ref="Description" />
-                                <xs:element name="DebitAmount" type="SAFmonetaryType" />
-                              </xs:sequence>
-                            </xs:complexType>
-                          </xs:element>
-                          <xs:element name="CreditLine" maxOccurs="unbounded">
-                            <xs:complexType>
-                              <xs:sequence>
-                                <xs:element ref="RecordID" />
-                                <xs:element name="AccountID" type="SAFAOGLAccountID" />
-                                <xs:element ref="SourceDocumentID" minOccurs="0" />
-                                <xs:element ref="SystemEntryDate" />
-                                <xs:element ref="Description" />
-                                <xs:element name="CreditAmount" type="SAFmonetaryType" />
-                              </xs:sequence>
-                            </xs:complexType>
-                          </xs:element>
-                        </xs:sequence>
-                        
-
-
-
-                        <xs:all>
-                          <xs:element name="DebitLine">
-                            <xs:complexType>
-                              <xs:sequence>
-                                <xs:element ref="RecordID" />
-                                <xs:element name="AccountID" type="SAFAOGLAccountID" />
-                                <xs:element ref="SourceDocumentID" minOccurs="0" />
-                                <xs:element ref="SystemEntryDate" />
-                                <xs:element ref="Description" />
-                                <xs:element name="DebitAmount" type="SAFmonetaryType" />
-                              </xs:sequence>
-                            </xs:complexType>
-                          </xs:element>
-                          <xs:element name="CreditLine">
-                            <xs:complexType>
-                              <xs:sequence>
-                                <xs:element ref="RecordID" />
-                                <xs:element name="AccountID" type="SAFAOGLAccountID" />
-                                <xs:element ref="SourceDocumentID" minOccurs="0" />
-                                <xs:element ref="SystemEntryDate" />
-                                <xs:element ref="Description" />
-                                <xs:element name="CreditAmount" type="SAFmonetaryType" />
-                              </xs:sequence>
-                            </xs:complexType>
-                          </xs:element>
-                        </xs:all>
-                      </xs:complexType>-->
                     </xs:element>
                   </xs:sequence>
                 </xs:complexType>
@@ -1833,4 +1775,3 @@
     </xs:restriction>
   </xs:simpleType>
 </xs:schema>
-
