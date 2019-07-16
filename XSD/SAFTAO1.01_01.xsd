@@ -15,7 +15,7 @@
         <doc:Contributor name="ASSOFT - Associação Portuguesa de Software" url="https://www.assoft.org/" />
         <doc:Contributor name="Nelson Lopes" url="https://github.com/cryptolopes/" />
       </doc:Contributors>
-      <doc:ModificationDate>2017-07-11</doc:ModificationDate>
+      <doc:ModificationDate>2017-07-16</doc:ModificationDate>
     </xs:documentation>
   </xs:annotation>
   <!-- Estrutura do ficheiro SAFT-AO-->
@@ -122,6 +122,15 @@
     <xs:keyref name="PaymentPaymentRefNoCustomerIDConstraint" refer="CustomerIDConstraint">
       <xs:selector xpath="ns:SourceDocuments/ns:Payments/ns:Payment" />
       <xs:field xpath="ns:CustomerID" />
+    </xs:keyref>
+  <!-- Constraints de Documentos Comerciais de Fornecedores -->
+    <xs:unique name="InvoicesNoConstraint">
+      <xs:selector xpath="ns:SourceDocuments/ns:PurchaseInvoices/ns:Invoices" />
+      <xs:field xpath="ns:InvoiceNo" />
+    </xs:unique>
+    <xs:keyref name="InvoiceSupplierIDConstraint" refer="SupplierIDConstraint">
+      <xs:selector xpath="ns:SourceDocuments/ns:PurchaseInvoices/ns:Invoices" />
+      <xs:field xpath="ns:SupplierID" />
     </xs:keyref>
   </xs:element>
   <!-- Estrutura de cabecalho (AuditFile.Header) -->
@@ -624,6 +633,42 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element minOccurs="0" name="PurchaseInvoices">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:documentation>
+                Documentos comerciais de Fornecedores
+              </xs:documentation>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:element ref="NumberOfEntries" />
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="Invoice">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element ref="InvoiceNo" />
+                    <xs:element minOccurs="0" ref="Period" />
+                    <xs:element ref="InvoiceDate" />
+                    <xs:element ref="InvoiceType" />
+                    <xs:element ref="SourceID" />
+                    <xs:element ref="SupplierID" />
+                    <xs:element name="DocumentTotals">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element ref="InputTax"/>
+                          <xs:element ref="TaxPayable" />
+                          <xs:element ref="NetTotal" />
+                          <xs:element ref="GrossTotal" />
+                          <xs:group ref="DeductibleTaxes" minOccurs="0" />
+                          <xs:element minOccurs="0" name="Currency" type="Currency" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>        
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -808,6 +853,8 @@
   <xs:element name="CustomerTaxID" type="SAFAOtextTypeMandatoryMax30Car" />
   <xs:element name="DateCreated" type="SAFAODateSpan" />
   <xs:element name="DebitAmount" type="SAFmonetaryType" />
+  <xs:element name="DeductibleTax" type="SAFMonetaryType2DecimalPlaces"/>
+  <xs:element name="DeductiblePercentage" type="SAFdecimalType"/>
   <xs:element name="DeliveryDate" type="SAFdateType" />
   <xs:element name="DeliveryID" type="SAFAOtextTypeMandatoryMax255Car" />
   <xs:element name="Description" type="SAFAOtextTypeMandatoryMax200Car" />
@@ -822,6 +869,7 @@
   <xs:element name="HashControl" type="SAFAOtextTypeMandatoryMax70Car" />
   <xs:element name="HeaderComment" type="SAFAOtextTypeMandatoryMax255Car" />
   <xs:element name="IECAmount" type="SAFmonetaryType" />
+  <xs:element name="InputTax" type="SAFMonetaryType2DecimalPlaces"/>
   <xs:element name="InvoiceDate" type="SAFdateType" />
   <xs:element name="InvoiceStatusDate" type="SAFdateTimeType" />
   <xs:element name="JournalID" type="SAFAOJournalID" />
@@ -1569,6 +1617,13 @@
           </xs:sequence>
         </xs:complexType>
       </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <!-- Estrutura de DeductibleTaxes -->
+  <xs:group name="DeductibleTaxes">
+    <xs:sequence>
+      <xs:element ref="DeductibleTax" minOccurs="1"/>
+      <xs:element ref="DeductiblePercentage" minOccurs="1" ></xs:element>
     </xs:sequence>
   </xs:group>
   <xs:simpleType name="SAFTAOPaymentType">
