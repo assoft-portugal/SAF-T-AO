@@ -982,7 +982,8 @@
   <xs:element name="GroupingCategory">
     <xs:annotation>
       <xs:documentation>
-          Deve ser indicado o tipo e a categoria da conta: “GR” – Conta de 1.º grau da contabilidade geral;
+          Deve ser indicado o tipo e a categoria da conta: 
+          “GR” – Conta de 1.º grau da contabilidade geral;
           “GA” – Conta agregadora ou integradora da contabilidade geral;
           “GM” – Conta de movimento da contabilidade geral;
           “AR” – Conta de 1.º grau da contabilidade analítica;
@@ -992,6 +993,7 @@
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
+        <xs:enumeration value="GR"/>
         <xs:enumeration value="GA" />
         <xs:enumeration value="GM" />
         <xs:enumeration value="AR" />
