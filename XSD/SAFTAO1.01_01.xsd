@@ -1478,6 +1478,7 @@
         <xs:enumeration value="CS" />
         <xs:enumeration value="LD" />
         <xs:enumeration value="RA" />
+        <xs:enumeration value="PP" />
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
