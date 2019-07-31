@@ -14,8 +14,9 @@
       <doc:Contributors>
         <doc:Contributor name="ASSOFT - Associação Portuguesa de Software" url="https://www.assoft.org/" />
         <doc:Contributor name="Nelson Lopes" url="https://github.com/cryptolopes/" />
+        <doc:Contributor name="Softpack - Software, Lda" url="https://www.softpack.pt/" />
       </doc:Contributors>
-      <doc:ModificationDate>2017-07-16</doc:ModificationDate>
+      <doc:ModificationDate>2017-07-31</doc:ModificationDate>
     </xs:documentation>
   </xs:annotation>
   <!-- Estrutura do ficheiro SAFT-AO-->
