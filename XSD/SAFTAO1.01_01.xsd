@@ -1172,8 +1172,8 @@
           Deve ser preenchido com:
           “GR” – Guia de remessa;
           “GT” – Guia de transporte (incluir aqui as guias globais);
-          “GA” – Guia de movimentação de activos fixos próprios; “GC” – Guia de consignação;
-          “GD” – Guia ou nota de devolução. 
+          “GA” – Guia de movimentação de activos fixos próprios;
+          “GC” – Guia de consignação;
       </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
@@ -1182,6 +1182,7 @@
         <xs:enumeration value="GT" />
         <xs:enumeration value="GA" />
         <xs:enumeration value="GD" />
+        <xs:enumeration value="GC" />
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
@@ -1479,6 +1480,7 @@
         <xs:enumeration value="CS" />
         <xs:enumeration value="LD" />
         <xs:enumeration value="RA" />
+        <xs:enumeration value="PP" />
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
