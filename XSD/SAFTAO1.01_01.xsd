@@ -8,15 +8,17 @@
       <doc:Version>
         <doc:Number>1.01_01</doc:Number>
         <doc:Status>Developement</doc:Status>
+        <doc:Repository>https://github.com/assoft-portugal/SAF-T-AO/</doc:Repository>
       </doc:Version>
       <doc:Author>AGT - Administração Geral Tributária</doc:Author>
       <!-- Contributos para o Projeto -->
       <doc:Contributors>
         <doc:Contributor name="ASSOFT - Associação Portuguesa de Software" url="https://www.assoft.org/" />
         <doc:Contributor name="Nelson Lopes" url="https://github.com/cryptolopes/" />
+        <doc:Contributor name="PRIMAVERA - Business Software Solutions, S.A." url="http://www.primaverabss.com/" />
         <doc:Contributor name="Softpack - Software, Lda" url="https://www.softpack.pt/" />
       </doc:Contributors>
-      <doc:ModificationDate>2017-07-31</doc:ModificationDate>
+      <doc:ModificationDate>2017-08-09</doc:ModificationDate>
     </xs:documentation>
   </xs:annotation>
   <!-- Estrutura do ficheiro SAFT-AO-->
@@ -707,7 +709,7 @@
       <xs:element minOccurs="0" ref="ExchangeRate" />
     </xs:sequence>
   </xs:complexType>
-  <!-- Estrutura de caraterizacao aduaneira de produtos-->
+  <!-- Estrutura de caracterização aduaneira de produtos-->
   <xs:complexType name="CustomsDetails">
     <xs:annotation>
       <xs:documentation>Preencher com o nº ONU para produtos perigosos </xs:documentation>
