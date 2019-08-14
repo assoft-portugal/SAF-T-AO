@@ -1175,8 +1175,9 @@
           Deve ser preenchido com:
           “GR” – Guia de remessa;
           “GT” – Guia de transporte (incluir aqui as guias globais);
-          “GA” – Guia de movimentação de activos fixos próprios;
+          “GA” – Guia de movimentação de activos fixos próprios; 
           “GC” – Guia de consignação;
+          “GD” – Guia ou nota de devolução. 
       </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
@@ -1276,9 +1277,7 @@
           “O” – Outros (Ex: portes debitados, adiantamentos recebidos ou alienação de activos);
           “E” – Impostos Especiais de Consumo – (ex.:IEC);
           “I” – Impostos, taxas e encargos parafiscais – excepto IVA e IS que deverão ser reflectidos na tabela 2.5
-
-          – Tabela de impostos (Tax Table) e Impostos Especiais de
-          Consumo, que deverão ser preenchidos com o código “E”.
+          – Tabela de impostos (Tax Table) e Impostos Especiais de Consumo, que deverão ser preenchidos com o código “E”.
       </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
@@ -1337,12 +1336,12 @@
       <xs:documentation>
             Código da taxa na tabela de impostos.
             No caso do campo 4.4.4.14.6.1. - Código do tipo de imposto (TaxType) = IVA, deve ser preenchido com:
-            “NOR” – Taxa normal; “ISE” – Isenta;
+            “NOR” – Taxa normal; 
+            “ISE” – Isenta;
             “OUT” – Outros, aplicável para os regimes especiais de IVA.
             No caso do campo 4.4.4.14.6.1.
             Código do tipo de imposto (TaxType) = IS, deve ser preenchido com:
             O código da verba respectiva; “ISE” – Isenta.
-
             No caso de não aplicabilidade de imposto deve ser preenchido com “NA”.
           </xs:documentation>
     </xs:annotation>
@@ -1562,7 +1561,7 @@
   </xs:simpleType>
   <xs:simpleType name="SAFTAOMovementTaxCode">
     <xs:restriction base="xs:string">
-      <xs:pattern value="NOR|ISE|OUT" />
+      <xs:pattern value="NOR|ISE|OUT|NS" />
       <xs:minLength value="1" />
       <xs:maxLength value="3" />
     </xs:restriction>
