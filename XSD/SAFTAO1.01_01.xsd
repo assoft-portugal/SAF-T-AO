@@ -18,7 +18,7 @@
         <doc:Contributor name="PRIMAVERA - Business Software Solutions, S.A." url="http://www.primaverabss.com/" />
         <doc:Contributor name="Softpack - Software, Lda" url="https://www.softpack.pt/" />
       </doc:Contributors>
-      <doc:ModificationDate>2017-08-09</doc:ModificationDate>
+      <doc:ModificationDate>2017-08-16</doc:ModificationDate>
     </xs:documentation>
   </xs:annotation>
   <!-- Estrutura do ficheiro SAFT-AO-->
