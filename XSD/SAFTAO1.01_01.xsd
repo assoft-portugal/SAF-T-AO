@@ -17,8 +17,9 @@
         <doc:Contributor name="Nelson Lopes" url="https://github.com/cryptolopes/" />
         <doc:Contributor name="PRIMAVERA - Business Software Solutions, S.A." url="http://www.primaverabss.com/" />
         <doc:Contributor name="Softpack - Software, Lda" url="https://www.softpack.pt/" />
+        <doc:Contributor name="Cacimbo Angola" url="https://www.cacimboangola.com/" />
       </doc:Contributors>
-      <doc:ModificationDate>2017-08-16</doc:ModificationDate>
+      <doc:ModificationDate>2017-08-17</doc:ModificationDate>
     </xs:documentation>
   </xs:annotation>
   <!-- Estrutura do ficheiro SAFT-AO-->
@@ -1658,7 +1659,6 @@
       <xs:documentation>Preencher com o NIF Angolano sem espaços e sem qualquer prefixo do país.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
-      <xs:pattern value="[A-Z\d]*" />
       <xs:minLength value="10" />
       <xs:maxLength value="15" />
     </xs:restriction>
