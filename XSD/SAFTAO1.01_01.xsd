@@ -729,7 +729,7 @@
   <!-- Estrutura de numero de serie do produto-->
   <xs:complexType name="ProductSerialNumber">
     <xs:sequence>
-      <xs:element ref="SerialNumber" maxOccurs="unbounded" />
+      <xs:element ref="SerialNumber" minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
   <!-- Estrutura de Taxa de documentos de movimentacao de mercadorias-->
