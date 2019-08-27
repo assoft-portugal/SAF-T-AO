@@ -8,15 +8,18 @@
       <doc:Version>
         <doc:Number>1.01_01</doc:Number>
         <doc:Status>Developement</doc:Status>
+        <doc:Repository>https://github.com/assoft-portugal/SAF-T-AO/</doc:Repository>
       </doc:Version>
       <doc:Author>AGT - Administração Geral Tributária</doc:Author>
       <!-- Contributos para o Projeto -->
       <doc:Contributors>
         <doc:Contributor name="ASSOFT - Associação Portuguesa de Software" url="https://www.assoft.org/" />
         <doc:Contributor name="Nelson Lopes" url="https://github.com/cryptolopes/" />
+        <doc:Contributor name="PRIMAVERA - Business Software Solutions, S.A." url="http://www.primaverabss.com/" />
         <doc:Contributor name="Softpack - Software, Lda" url="https://www.softpack.pt/" />
+        <doc:Contributor name="Cacimbo Angola" url="https://www.cacimboangola.com/" />
       </doc:Contributors>
-      <doc:ModificationDate>2017-07-31</doc:ModificationDate>
+      <doc:ModificationDate>2017-08-17</doc:ModificationDate>
     </xs:documentation>
   </xs:annotation>
   <!-- Estrutura do ficheiro SAFT-AO-->
@@ -707,7 +710,7 @@
       <xs:element minOccurs="0" ref="ExchangeRate" />
     </xs:sequence>
   </xs:complexType>
-  <!-- Estrutura de caraterizacao aduaneira de produtos-->
+  <!-- Estrutura de caracterização aduaneira de produtos-->
   <xs:complexType name="CustomsDetails">
     <xs:annotation>
       <xs:documentation>Preencher com o nº ONU para produtos perigosos </xs:documentation>
@@ -984,7 +987,7 @@
   <xs:element name="Country">
     <xs:simpleType>
       <xs:restriction base="xs:string">
-        <xs:pattern value="AD|AE|AF|AG|AI|AL|AM|AO|AQ|AR|AS|AT|AU|AW|AX|AZ|BA|BB|BD|BE|BF|BG|BH|BI|BJ|BL|BM|BN|BO|BQ|BR|BS|BT|BV|BW|BY|BZ|CA|CC|CD|CF|CG|CH|CI|CK|CL|CM|CN|CO|CR|CU|CV|CW|CX|CY|CZ|DE|DJ|DK|DM|DO|DZ|EC|EE|EG|EH|ER|ES|ET|FI|FJ|FK|FM|FO|FR|GA|GB|GD|GE|GF|GG|GH|GI|GL|GM|GN|GP|GQ|GR|GS|GT|GU|GW|GY|HK|HM|HN|HR|HT|HU|ID|IE|IL|IM|IN|IO|IQ|IR|IS|IT|JE|JM|JO|JP|KE|KG|KH|KI|KM|KN|KP|KR|KW|KY|KZ|LA|LB|LC|LI|LK|LR|LS|LT|LU|LV|LY|MA|MC|MD|ME|MF|MG|MH|MK|ML|MM|MN|MO|MP|MQ|MR|MS|MT|MU|MV|MW|MX|MY|MZ|NA|NC|NE|NF|NG|NI|NL|NO|NP|NR|NU|NZ|OM|PA|PE|PF|PG|PH|PK|PL|PM|PN|PR|PS|PT|PW|PY|QA|RE|RO|RS|RU|RW|SA|SB|SC|SD|SE|SG|SH|SI|SJ|SK|SL|SM|SN|SO|SR|SS|ST|SV|SX|SY|SZ|TC|TD|TF|TG|TH|TJ|TK|TL|TM|TN|TO|TR|TT|TV|TW|TZ|UA|UG|UM|US|UY|UZ|VA|VC|VE|VG|VI|VN|VU|WF|WS|XK|YE|YT|ZA|ZM|ZW|Desconhecido|" />
+        <xs:pattern value="AD|AE|AF|AG|AI|AL|AM|AO|AQ|AR|AS|AT|AU|AW|AX|AZ|BA|BB|BD|BE|BF|BG|BH|BI|BJ|BL|BM|BN|BO|BQ|BR|BS|BT|BV|BW|BY|BZ|CA|CC|CD|CF|CG|CH|CI|CK|CL|CM|CN|CO|CR|CU|CV|CW|CX|CY|CZ|DE|DJ|DK|DM|DO|DZ|EC|EE|EG|EH|ER|ES|ET|FI|FJ|FK|FM|FO|FR|GA|GB|GD|GE|GF|GG|GH|GI|GL|GM|GN|GP|GQ|GR|GS|GT|GU|GW|GY|HK|HM|HN|HR|HT|HU|ID|IE|IL|IM|IN|IO|IQ|IR|IS|IT|JE|JM|JO|JP|KE|KG|KH|KI|KM|KN|KP|KR|KW|KY|KZ|LA|LB|LC|LI|LK|LR|LS|LT|LU|LV|LY|MA|MC|MD|ME|MF|MG|MH|MK|ML|MM|MN|MO|MP|MQ|MR|MS|MT|MU|MV|MW|MX|MY|MZ|NA|NC|NE|NF|NG|NI|NL|NO|NP|NR|NU|NZ|OM|PA|PE|PF|PG|PH|PK|PL|PM|PN|PR|PS|PT|PW|PY|QA|RE|RO|RS|RU|RW|SA|SB|SC|SD|SE|SG|SH|SI|SJ|SK|SL|SM|SN|SO|SR|SS|ST|SV|SX|SY|SZ|TC|TD|TF|TG|TH|TJ|TK|TL|TM|TN|TO|TR|TT|TV|TW|TZ|UA|UG|UM|US|UY|UZ|VA|VC|VE|VG|VI|VN|VU|WF|WS|XK|YE|YT|ZA|ZM|ZW|Desconhecido" />
         <xs:minLength value="2" />
       </xs:restriction>
     </xs:simpleType>
@@ -1173,8 +1176,9 @@
           Deve ser preenchido com:
           “GR” – Guia de remessa;
           “GT” – Guia de transporte (incluir aqui as guias globais);
-          “GA” – Guia de movimentação de activos fixos próprios;
+          “GA” – Guia de movimentação de activos fixos próprios; 
           “GC” – Guia de consignação;
+          “GD” – Guia ou nota de devolução. 
       </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
@@ -1274,9 +1278,7 @@
           “O” – Outros (Ex: portes debitados, adiantamentos recebidos ou alienação de activos);
           “E” – Impostos Especiais de Consumo – (ex.:IEC);
           “I” – Impostos, taxas e encargos parafiscais – excepto IVA e IS que deverão ser reflectidos na tabela 2.5
-
-          – Tabela de impostos (Tax Table) e Impostos Especiais de
-          Consumo, que deverão ser preenchidos com o código “E”.
+          – Tabela de impostos (Tax Table) e Impostos Especiais de Consumo, que deverão ser preenchidos com o código “E”.
       </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
@@ -1335,12 +1337,12 @@
       <xs:documentation>
             Código da taxa na tabela de impostos.
             No caso do campo 4.4.4.14.6.1. - Código do tipo de imposto (TaxType) = IVA, deve ser preenchido com:
-            “NOR” – Taxa normal; “ISE” – Isenta;
+            “NOR” – Taxa normal; 
+            “ISE” – Isenta;
             “OUT” – Outros, aplicável para os regimes especiais de IVA.
             No caso do campo 4.4.4.14.6.1.
             Código do tipo de imposto (TaxType) = IS, deve ser preenchido com:
             O código da verba respectiva; “ISE” – Isenta.
-
             No caso de não aplicabilidade de imposto deve ser preenchido com “NA”.
           </xs:documentation>
     </xs:annotation>
@@ -1560,7 +1562,7 @@
   </xs:simpleType>
   <xs:simpleType name="SAFTAOMovementTaxCode">
     <xs:restriction base="xs:string">
-      <xs:pattern value="NOR|ISE|OUT" />
+      <xs:pattern value="NOR|ISE|OUT|NS" />
       <xs:minLength value="1" />
       <xs:maxLength value="3" />
     </xs:restriction>
@@ -1657,7 +1659,6 @@
       <xs:documentation>Preencher com o NIF Angolano sem espaços e sem qualquer prefixo do país.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
-      <xs:pattern value="[A-Z\d]*" />
       <xs:minLength value="10" />
       <xs:maxLength value="15" />
     </xs:restriction>
@@ -1830,7 +1831,7 @@
   <!-- Codigo do pais (ISO 3166 1-alpha-2) -->
   <xs:simpleType name="SupplierCountry">
     <xs:restriction base="xs:string">
-      <xs:pattern value="AD|AE|AF|AG|AI|AL|AM|AO|AQ|AR|AS|AT|AU|AW|AX|AZ|BA|BB|BD|BE|BF|BG|BH|BI|BJ|BL|BM|BN|BO|BQ|BR|BS|BT|BV|BW|BY|BZ|CA|CC|CD|CF|CG|CH|CI|CK|CL|CM|CN|CO|CR|CU|CV|CW|CX|CY|CZ|DE|DJ|DK|DM|DO|DZ|EC|EE|EG|EH|ER|ES|ET|FI|FJ|FK|FM|FO|FR|GA|GB|GD|GE|GF|GG|GH|GI|GL|GM|GN|GP|GQ|GR|GS|GT|GU|GW|GY|HK|HM|HN|HR|HT|HU|ID|IE|IL|IM|IN|IO|IQ|IR|IS|IT|JE|JM|JO|JP|KE|KG|KH|KI|KM|KN|KP|KR|KW|KY|KZ|LA|LB|LC|LI|LK|LR|LS|LT|LU|LV|LY|MA|MC|MD|ME|MF|MG|MH|MK|ML|MM|MN|MO|MP|MQ|MR|MS|MT|MU|MV|MW|MX|MY|MZ|NA|NC|NE|NF|NG|NI|NL|NO|NP|NR|NU|NZ|OM|PA|PE|PF|PG|PH|PK|PL|PM|PN|PR|PS|PT|PW|PY|QA|RE|RO|RS|RU|RW|SA|SB|SC|SD|SE|SG|SH|SI|SJ|SK|SL|SM|SN|SO|SR|SS|ST|SV|SX|SY|SZ|TC|TD|TF|TG|TH|TJ|TK|TL|TM|TN|TO|TR|TT|TV|TW|TZ|UA|UG|UM|US|UY|UZ|VA|VC|VE|VG|VI|VN|VU|WF|WS|XK|YE|YT|ZA|ZM|ZW|" />
+      <xs:pattern value="AD|AE|AF|AG|AI|AL|AM|AO|AQ|AR|AS|AT|AU|AW|AX|AZ|BA|BB|BD|BE|BF|BG|BH|BI|BJ|BL|BM|BN|BO|BQ|BR|BS|BT|BV|BW|BY|BZ|CA|CC|CD|CF|CG|CH|CI|CK|CL|CM|CN|CO|CR|CU|CV|CW|CX|CY|CZ|DE|DJ|DK|DM|DO|DZ|EC|EE|EG|EH|ER|ES|ET|FI|FJ|FK|FM|FO|FR|GA|GB|GD|GE|GF|GG|GH|GI|GL|GM|GN|GP|GQ|GR|GS|GT|GU|GW|GY|HK|HM|HN|HR|HT|HU|ID|IE|IL|IM|IN|IO|IQ|IR|IS|IT|JE|JM|JO|JP|KE|KG|KH|KI|KM|KN|KP|KR|KW|KY|KZ|LA|LB|LC|LI|LK|LR|LS|LT|LU|LV|LY|MA|MC|MD|ME|MF|MG|MH|MK|ML|MM|MN|MO|MP|MQ|MR|MS|MT|MU|MV|MW|MX|MY|MZ|NA|NC|NE|NF|NG|NI|NL|NO|NP|NR|NU|NZ|OM|PA|PE|PF|PG|PH|PK|PL|PM|PN|PR|PS|PT|PW|PY|QA|RE|RO|RS|RU|RW|SA|SB|SC|SD|SE|SG|SH|SI|SJ|SK|SL|SM|SN|SO|SR|SS|ST|SV|SX|SY|SZ|TC|TD|TF|TG|TH|TJ|TK|TL|TM|TN|TO|TR|TT|TV|TW|TZ|UA|UG|UM|US|UY|UZ|VA|VC|VE|VG|VI|VN|VU|WF|WS|XK|YE|YT|ZA|ZM|ZW" />
       <xs:length value="2" />
     </xs:restriction>
   </xs:simpleType>
