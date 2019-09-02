@@ -18,8 +18,9 @@
         <doc:Contributor name="PRIMAVERA - Business Software Solutions, S.A." url="http://www.primaverabss.com/" />
         <doc:Contributor name="Softpack - Software, Lda" url="https://www.softpack.pt/" />
         <doc:Contributor name="Cacimbo Angola" url="https://www.cacimboangola.com/" />
+        <doc:Contributor name="Infodelivery S.A." url="http://www.infodelivery.pt/" />
       </doc:Contributors>
-      <doc:ModificationDate>2017-08-17</doc:ModificationDate>
+      <doc:ModificationDate>2017-09-02</doc:ModificationDate>
     </xs:documentation>
   </xs:annotation>
   <!-- Estrutura do ficheiro SAFT-AO-->
@@ -461,6 +462,7 @@
                           <xs:element ref="UnitOfMeasure" />
                           <xs:element ref="UnitPrice" />
                           <xs:element ref="Description" />
+                          <xs:element name="ProductSerialNumber" type="ProductSerialNumber" minOccurs="0" />
                           <xs:choice>
                             <xs:element ref="DebitAmount" />
                             <xs:element ref="CreditAmount" />
@@ -531,6 +533,7 @@
                           <xs:element ref="UnitPrice" />
                           <xs:element ref="TaxPointDate" />
                           <xs:element ref="Description" />
+                          <xs:element name="ProductSerialNumber" type="ProductSerialNumber" minOccurs="0" />           
                           <xs:choice>
                             <xs:element ref="DebitAmount" />
                             <xs:element ref="CreditAmount" />
