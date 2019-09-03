@@ -19,8 +19,9 @@
         <doc:Contributor name="Softpack - Software, Lda" url="https://www.softpack.pt/" />
         <doc:Contributor name="Cacimbo Angola" url="https://www.cacimboangola.com/" />
         <doc:Contributor name="Infodelivery S.A." url="http://www.infodelivery.pt/" />
+        <doc:Contributor name="Eticadata Software Lda" url="http://www.eticadata.pt/" />
       </doc:Contributors>
-      <doc:ModificationDate>2017-09-02</doc:ModificationDate>
+      <doc:ModificationDate>2017-09-03</doc:ModificationDate>
     </xs:documentation>
   </xs:annotation>
   <!-- Estrutura do ficheiro SAFT-AO-->
@@ -1296,10 +1297,20 @@
   </xs:element>
   <!-- Indicador de Autofaturacao -->
   <xs:element name="SelfBillingIndicator">
+    <xs:annotation>
+      <xs:documentation>
+        PROPOSTA:
+        Deve ser preenchido: 
+        com “1” se respeitar a autofacturação,
+        Com “2” se é obrigado a cativar o IVA,
+        Com ”3” se tiver IVA cativo e autofacturação,
+        com “0” (zero) no caso de não cumprir com nenhuma condição .
+      </xs:documentation>
+    </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:integer">
         <xs:minInclusive value="0" />
-        <xs:maxInclusive value="1" />
+        <xs:maxInclusive value="3" />
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
@@ -1564,8 +1575,22 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="SAFTAOMovementTaxCode">
+    <xs:annotation>
+      <xs:documentation>
+          Código da taxa na tabela de impostos.
+          No caso do campo 4.4.4.14.6.1. - Código do tipo de imposto (TaxType) = IVA, deve ser preenchido com:
+
+          “NOR” – Taxa normal; “ISE” – Isenta;
+          “OUT” – Outros, aplicável para os regimes especiais de IVA.
+          No caso do campo 4.4.4.14.6.1.
+          Código do tipo de imposto (TaxType) = IS, deve ser preenchido com:
+          O código da verba respectiva; “ISE” – Isenta.
+
+          No caso de não aplicabilidade de imposto deve ser preenchido com “NA”.
+      </xs:documentation>
+    </xs:annotation>
     <xs:restriction base="xs:string">
-      <xs:pattern value="NOR|ISE|OUT|NS" />
+      <xs:pattern value="NOR|ISE|OUT|NS|NA" />
       <xs:minLength value="1" />
       <xs:maxLength value="3" />
     </xs:restriction>
