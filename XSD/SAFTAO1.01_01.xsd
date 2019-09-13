@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<xs:schema xmlns:doc="urn:schemas-basda-org:schema-extensions:documentation" xmlns:ns="urn:OECD:StandardAuditFile-Tax:AO_1.01_01" xmlns="urn:OECD:StandardAuditFile-Tax:AO_1.01_01" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:OECD:StandardAuditFile-Tax:AO_1.01_01" version="1.01_01" id="SAF-T_AO" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:doc="urn:schemas-basda-org:schema-extensions:documentation" 
+  xmlns:ns="urn:OECD:StandardAuditFile-Tax:AO_1.01_01" 
+  xmlns="urn:OECD:StandardAuditFile-Tax:AO_1.01_01" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:OECD:StandardAuditFile-Tax:AO_1.01_01" version="1.01_01" id="SAF-T_AO" 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>
       <doc:Title>Standard Audit File - Angola</doc:Title>
@@ -49,6 +52,10 @@
       <xs:selector xpath="ns:MasterFiles/ns:GeneralLedgerAccounts" />
       <xs:field xpath="ns:AccountID" />
     </xs:unique>
+    <xs:keyref name="GroupingCodeConstraint" refer="AccountIDConstraint">
+      <xs:selector xpath="ns:MasterFiles/ns:GeneralLedgerAccounts/ns:Account"/>
+      <xs:field xpath="ns:GroupingCode"/>
+    </xs:keyref>
     <xs:unique name="CustomerIDConstraint">
       <xs:selector xpath="ns:MasterFiles/ns:Customer" />
       <xs:field xpath="ns:CustomerID" />
@@ -61,26 +68,34 @@
       <xs:selector xpath="ns:MasterFiles/ns:Product" />
       <xs:field xpath="ns:ProductCode" />
     </xs:unique>
+    <xs:keyref name="GeneralLedgerEntriesDebitLineAccountIDConstraint" refer="AccountIDConstraint">
+      <xs:selector xpath="ns:GeneralLedgerEntries/ns:Journal/ns:Transaction/ns:Lines/ns:DebitLine"/>
+      <xs:field xpath="ns:AccountID"/>
+    </xs:keyref>
+    <xs:keyref name="GeneralLedgerEntriesCreditLineAccountIDConstraint" refer="AccountIDConstraint">
+      <xs:selector xpath="ns:GeneralLedgerEntries/ns:Journal/ns:Transaction/ns:Lines/ns:CreditLine"/>
+      <xs:field xpath="ns:AccountID"/>
+    </xs:keyref>
+    <xs:keyref name="GeneralLedgerEntriesCustomerIDConstraint" refer="CustomerIDConstraint">
+      <xs:selector xpath="ns:GeneralLedgerEntries/ns:Journal/ns:Transaction"/>
+      <xs:field xpath="ns:CustomerID"/>
+    </xs:keyref>
+    <xs:unique name="GeneralLedgerEntriesJournalIdConstraint">
+      <xs:selector xpath="ns:GeneralLedgerEntries/ns:Journal"/>
+      <xs:field xpath="ns:JournalID"/>
+    </xs:unique>
+    <xs:keyref name="GeneralLedgerEntriesSupplierIDConstraint" refer="SupplierIDConstraint">
+      <xs:selector xpath="ns:GeneralLedgerEntries/ns:Journal/ns:Transaction"/>
+      <xs:field xpath="ns:SupplierID"/>
+    </xs:keyref>
+    <xs:unique name="GeneralLedgerEntriesTransactionIdConstraint">
+      <xs:selector xpath="ns:GeneralLedgerEntries/ns:Journal/ns:Transaction"/>
+      <xs:field xpath="ns:TransactionID"/>
+    </xs:unique>
     <xs:keyref name="GeneralLedgerEntriesAccountIDConstraint" refer="AccountIDConstraint">
       <xs:selector xpath="ns:GeneralLedgerEntries/ns:Journal/ns:Transaction/ns:Line" />
       <xs:field xpath="ns:AccountID" />
     </xs:keyref>
-    <xs:keyref name="GeneralLedgerEntriesCustomerIDConstraint" refer="CustomerIDConstraint">
-      <xs:selector xpath="ns:GeneralLedgerEntries/ns:Journal/ns:Transaction" />
-      <xs:field xpath="ns:CustomerID" />
-    </xs:keyref>
-    <xs:unique name="GeneralLedgerEntriesJournalIdConstraint">
-      <xs:selector xpath="ns:GeneralLedgerEntries/ns:Journal" />
-      <xs:field xpath="ns:JournalID" />
-    </xs:unique>
-    <xs:keyref name="GeneralLedgerEntriesSupplierIDConstraint" refer="SupplierIDConstraint">
-      <xs:selector xpath="ns:GeneralLedgerEntries/ns:Journal/ns:Transaction" />
-      <xs:field xpath="ns:SupplierID" />
-    </xs:keyref>
-    <xs:unique name="GeneralLedgerEntriesTransactionIdConstraint">
-      <xs:selector xpath="ns:GeneralLedgerEntries/ns:Journal/ns:Transaction" />
-      <xs:field xpath="ns:TransactionID" />
-    </xs:unique>
     <xs:unique name="InvoiceNoConstraint">
       <xs:selector xpath="ns:SourceDocuments/ns:SalesInvoices/ns:Invoice" />
       <xs:field xpath="ns:InvoiceNo" />
@@ -129,7 +144,7 @@
       <xs:selector xpath="ns:SourceDocuments/ns:Payments/ns:Payment" />
       <xs:field xpath="ns:CustomerID" />
     </xs:keyref>
-  <!-- Constraints de Documentos Comerciais de Fornecedores -->
+    <!-- Constraints de Documentos Comerciais de Fornecedores -->
     <xs:unique name="InvoicesNoConstraint">
       <xs:selector xpath="ns:SourceDocuments/ns:PurchaseInvoices/ns:Invoices" />
       <xs:field xpath="ns:InvoiceNo" />
@@ -534,7 +549,7 @@
                           <xs:element ref="UnitPrice" />
                           <xs:element ref="TaxPointDate" />
                           <xs:element ref="Description" />
-                          <xs:element name="ProductSerialNumber" type="ProductSerialNumber" minOccurs="0" />           
+                          <xs:element name="ProductSerialNumber" type="ProductSerialNumber" minOccurs="0" />
                           <xs:choice>
                             <xs:element ref="DebitAmount" />
                             <xs:element ref="CreditAmount" />
@@ -676,7 +691,7 @@
               </xs:element>
             </xs:sequence>
           </xs:complexType>
-        </xs:element>        
+        </xs:element>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1330,7 +1345,7 @@
             “S” -Autofacturação.
             (a) Deve ser indicado este tipo de programa se este emitir só este tipo de documento. 
             Caso contrário, deverá ser utilizado o tipo “C”, “F” 
-        </xs:documentation>
+      </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -1358,7 +1373,7 @@
             Código do tipo de imposto (TaxType) = IS, deve ser preenchido com:
             O código da verba respectiva; “ISE” – Isenta.
             No caso de não aplicabilidade de imposto deve ser preenchido com “NA”.
-          </xs:documentation>
+      </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -1414,7 +1429,7 @@
           “R” – Regularizações do período de tributação; 
           “A” – Apuramento de resultados;
           “J” – Movimentos de ajustamento.  
-    </xs:documentation>
+      </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -1431,7 +1446,7 @@
       <xs:documentation>
           Neste campo deve ser indicado o tipo de imposto retido, preenchendo-o com:
           “IRT” – Imposto sobre o rendimento de trabalho; “II” – Imposto sobre o industrial; “IS” – Imposto do selo. 
-        </xs:documentation>
+      </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -1658,13 +1673,13 @@
   <xs:group name="DeductibleTaxes">
     <xs:sequence>
       <xs:element ref="DeductibleTax" minOccurs="1"/>
-      <xs:element ref="DeductiblePercentage" minOccurs="1" ></xs:element>
+      <xs:element ref="DeductiblePercentage" minOccurs="1"></xs:element>
     </xs:sequence>
   </xs:group>
   <xs:simpleType name="SAFTAOPaymentType">
     <xs:annotation>
       <xs:documentation>
-          >Deve ser preenchido com:
+        Deve ser preenchido com:
           “RC” – Recibo emitido
           “AR” – Aviso de cobrança/recibo 
           “RG” – Outros recibos emitidos.
@@ -1841,7 +1856,7 @@
           Deve ser indicada a chave única da tabela 3.
           Movimentos contabilísticos (GeneralLedgerEntries) da transacção onde foi lançado este documento, 
           respeitando a regra aí definida para o campo 3.4.3.1 - Chave única do movimento contabilístico (TransactionID).
-        </xs:documentation>
+      </xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:pattern value="[1-9][0-9]{3}-[01][0-9]-[0-3][0-9] [^ ]{1,30} [^ ]{1,20}" />
