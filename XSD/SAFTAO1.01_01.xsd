@@ -931,7 +931,7 @@
   <xs:element name="ShipFromAddress" type="AddressStructure" />
   <xs:element name="ShipTo" type="ShippingPointStructure" />
   <xs:element name="ShipToAddress" type="AddressStructure" />
-  <xs:element name="SoftwareValidationNumber" type="xs:string" />
+  <xs:element name="SoftwareValidationNumber" type="ns:SAFAOAngolaVatNumber" />
   <xs:element name="SourceDocumentID" type="SAFAOtextTypeMandatoryMax30Car" />
   <xs:element name="SourceID" type="SAFAOtextTypeMandatoryMax30Car" />
   <xs:element name="StartDate" type="SAFAODateSpan" />
@@ -1865,6 +1865,13 @@
     <xs:restriction base="xs:string">
       <xs:minLength value="0" />
       <xs:maxLength value="40" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SAFAOValidationNumber">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="10" />
+      <xs:maxLength value="70" />
+      <xs:pattern value="[1-9]+\d?/AGT/\d{4}" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="SAFAOTransactionID">
