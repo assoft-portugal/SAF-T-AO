@@ -889,7 +889,7 @@
   <xs:element name="GLPostingDate" type="SAFdateType" />
   <xs:element name="GrossTotal" type="SAFMonetaryType2DecimalPlaces" />
   <xs:element name="Hash" type="SAFAOtextTypeMandatoryMax172Car" />
-  <xs:element name="HashControl" type="SAFAOtextTypeMandatoryMax70Car" />
+  <xs:element name="HashControl" type="SAFAOHashControl" />
   <xs:element name="HeaderComment" type="SAFAOtextTypeMandatoryMax255Car" />
   <xs:element name="IECAmount" type="SAFmonetaryType" />
   <xs:element name="InputTax" type="SAFMonetaryType2DecimalPlaces"/>
@@ -931,7 +931,7 @@
   <xs:element name="ShipFromAddress" type="AddressStructure" />
   <xs:element name="ShipTo" type="ShippingPointStructure" />
   <xs:element name="ShipToAddress" type="AddressStructure" />
-  <xs:element name="SoftwareValidationNumber" type="xs:nonNegativeInteger" />
+  <xs:element name="SoftwareValidationNumber" type="xs:string" />
   <xs:element name="SourceDocumentID" type="SAFAOtextTypeMandatoryMax30Car" />
   <xs:element name="SourceID" type="SAFAOtextTypeMandatoryMax30Car" />
   <xs:element name="StartDate" type="SAFAODateSpan" />
@@ -1742,6 +1742,13 @@
     </xs:restriction>
   </xs:simpleType>
   <!-- Origem do documento -->
+  <xs:simpleType name="SAFAOHashControl">
+    <xs:restriction base="xs:string">
+      <xs:pattern value=".+-.+" />
+      <xs:minLength value="1" />
+      <xs:maxLength value="70" />
+    </xs:restriction>
+  </xs:simpleType>
   <xs:simpleType name="SAFTAOSourcePayment">
     <xs:annotation>
       <xs:documentation>P para documento produzido na aplicacao, I para documento integrado e produzido noutra aplicacao, M para documento proveniente de recuperacao ou de emissao manual </xs:documentation>
