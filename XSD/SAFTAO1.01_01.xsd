@@ -182,6 +182,7 @@
         <xs:element ref="SoftwareValidationNumber" />
         <xs:element ref="ProductID" />
         <xs:element ref="ProductVersion" />
+        <xs:element minOccurs="0" ref="PublicKeys" />
         <xs:element minOccurs="0" ref="HeaderComment" />
         <xs:element minOccurs="0" ref="Telephone" />
         <xs:element minOccurs="0" ref="Fax" />
@@ -919,6 +920,7 @@
   <xs:element name="ProductID" type="SAFAOProductID" />
   <xs:element name="ProductNumberCode" type="SAFAOtextTypeMandatoryMax60Car" />
   <xs:element name="ProductVersion" type="SAFAOtextTypeMandatoryMax30Car" />
+  <xs:element name="PublicKeys" type="PublicKeyStructure" />
   <xs:element name="Quantity" type="SAFdecimalType" />
   <xs:element name="Reason" type="SAFAOtextTypeMandatoryMax50Car" />
   <xs:element name="RecordID" type="SAFAOtextTypeMandatoryMax30Car" />
@@ -1749,6 +1751,24 @@
       <xs:maxLength value="70" />
     </xs:restriction>
   </xs:simpleType>
+  <xs:complexType name="PublicKeyStructure">
+    <xs:annotation>
+      <xs:documentation>
+        Elemento opcional para a anotação das Chaves Públicas
+        usadas nas assinaturas do elemento Hash.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence maxOccurs="unbounded">
+      <xs:element name="PublicKey">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="ns:HashControl" />
+            <xs:element name="Key" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
   <xs:simpleType name="SAFTAOSourcePayment">
     <xs:annotation>
       <xs:documentation>P para documento produzido na aplicacao, I para documento integrado e produzido noutra aplicacao, M para documento proveniente de recuperacao ou de emissao manual </xs:documentation>
