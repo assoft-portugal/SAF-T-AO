@@ -23,8 +23,9 @@
         <doc:Contributor name="Cacimbo Angola" url="https://www.cacimboangola.com/" />
         <doc:Contributor name="Infodelivery S.A." url="http://www.infodelivery.pt/" />
         <doc:Contributor name="Eticadata Software Lda" url="http://www.eticadata.pt/" />
+        <doc:Contributor name="SOFTSTORE, S.A." url="http://www.softstore.pt/" />
       </doc:Contributors>
-      <doc:ModificationDate>2017-09-03</doc:ModificationDate>
+      <doc:ModificationDate>2017-10-11</doc:ModificationDate>
     </xs:documentation>
   </xs:annotation>
   <!-- Estrutura do ficheiro SAFT-AO-->
