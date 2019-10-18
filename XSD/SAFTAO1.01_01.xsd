@@ -932,7 +932,7 @@
   <xs:element name="ShipFromAddress" type="AddressStructure" />
   <xs:element name="ShipTo" type="ShippingPointStructure" />
   <xs:element name="ShipToAddress" type="AddressStructure" />
-  <xs:element name="SoftwareValidationNumber" type="xs:nonNegativeInteger" />
+  <xs:element name="SoftwareValidationNumber" type="ns:SAFAOtextValidationNumber" />
   <xs:element name="SourceDocumentID" type="SAFAOtextTypeMandatoryMax30Car" />
   <xs:element name="SourceID" type="SAFAOtextTypeMandatoryMax30Car" />
   <xs:element name="StartDate" type="SAFAODateSpan" />
@@ -1859,6 +1859,19 @@
     <xs:restriction base="xs:string">
       <xs:minLength value="0" />
       <xs:maxLength value="40" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SAFAOtextValidationNumber">
+    <xs:annotation>
+      <xs:documentation>
+        Número da validação, atribuído à entidade produtora do software.
+        Se não aplicável, deve ser preenchido com «0» (zero).
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="70" />
+      <xs:pattern value="[1-9]+\d?/AGT/\d{4}|[0]" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="SAFAOTransactionID">
