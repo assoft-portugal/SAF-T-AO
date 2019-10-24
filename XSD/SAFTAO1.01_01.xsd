@@ -291,6 +291,13 @@
   <!-- Estrutura de Movimentos Contabilisticos (AuditFile.GeneralLedgerEntries)-->
   <xs:element name="GeneralLedgerEntries">
     <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+          Neste elemento registam-se os movimentos contabilísticos correspondentes ao periodo de exportação
+          a que diz respeito o SAF-T (AO), não devendo os movimentos de abertura ser objeto de exportação,
+          na medida em que estes são apenas refletidos ao nível do elemento GeneralLedgerAccounts.
+        </xs:documentation>
+      </xs:annotation>
       <xs:sequence>
         <xs:element ref="NumberOfEntries" />
         <xs:element ref="TotalDebit" />
