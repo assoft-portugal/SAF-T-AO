@@ -24,6 +24,7 @@
         <doc:Contributor name="Infodelivery S.A." url="http://www.infodelivery.pt/" />
         <doc:Contributor name="Eticadata Software Lda" url="http://www.eticadata.pt/" />
         <doc:Contributor name="SOFTSTORE, S.A." url="http://www.softstore.pt/" />
+        <doc:Contributor name="SAP PORTUGAL - Sistemas, Aplicações e Produtos Informáticos, Sociedade Unipessoal Lda." url="http://www.sap.com/" />
       </doc:Contributors>
       <doc:ModificationDate>2017-10-25</doc:ModificationDate>
     </xs:documentation>
@@ -778,7 +779,7 @@
   <!-- Estrutura de pagamentos-->
   <xs:complexType name="PaymentMethod">
     <xs:sequence>
-      <xs:element ref="PaymentMechanism" />
+      <xs:element ref="PaymentMechanism" minOccurs="0" />
       <xs:element name="PaymentAmount" type="SAFmonetaryType" />
       <xs:element name="PaymentDate" type="SAFdateType" />
     </xs:sequence>
@@ -1894,7 +1895,7 @@
     <xs:restriction base="xs:string">
       <xs:minLength value="1" />
       <xs:maxLength value="70" />
-      <xs:pattern value="[1-9]+\d?/AGT/\d{4}|[0]" />
+      <xs:pattern value="\d+/AGT/\d{4}|[0]" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="SAFAOTransactionID">
