@@ -25,7 +25,7 @@
         <doc:Contributor name="Eticadata Software Lda" url="http://www.eticadata.pt/" />
         <doc:Contributor name="SOFTSTORE, S.A." url="http://www.softstore.pt/" />
       </doc:Contributors>
-      <doc:ModificationDate>2017-10-11</doc:ModificationDate>
+      <doc:ModificationDate>2017-10-25</doc:ModificationDate>
     </xs:documentation>
   </xs:annotation>
   <!-- Estrutura do ficheiro SAFT-AO-->
@@ -934,7 +934,23 @@
   <xs:element name="Region" type="SAFAOtextTypeMandatoryMax50Car" />
   <xs:element name="Province" type="SAFAOtextTypeMandatoryMax50Car" />
   <xs:element name="SerialNumber" type="SAFAOtextTypeMandatoryMax100Car" />
-  <xs:element name="SettlementAmount" type="SAFmonetaryType" />
+  <xs:element name="SettlementAmount" type="SAFmonetaryType">
+    <xs:annotation>
+      <xs:documentation>
+        Para os elementos presentes em:
+        (1) /AuditFile/SourceDocuments/SalesInvoices/Invoice/Line/SettlementAmount
+        (2) /AuditFile/SourceDocuments/MovementOfGoods/StockMovement/Line/SettlementAmount
+        (3) /AuditFile/SourceDocuments/WorkingDocuments/WorkDocument/Line/SettlementAmount
+        (4) /AuditFile/SourceDocuments/Payments/Payment/Line/SettlementAmount
+        Deve refletir todos os descontos concedidos que afetem o total do documento - GrossTotal (descontos de linha e descontos glogais).
+
+        Para os elementos presentes em:
+        (5) /AuditFile/SourceDocuments/SalesInvoices/Invoice/DocumentTotals/Settlement/SettlementAmount
+        (6) /AuditFile/SourceDocuments/Payments/Payment/DocumentTotals/Settlement/SettlementAmount
+        Representa o valor acordado para desconto futuro, que afeta o total do documento - GrossTotal
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ShipFrom" type="ShippingPointStructure" />
   <xs:element name="ShipFromAddress" type="AddressStructure" />
   <xs:element name="ShipTo" type="ShippingPointStructure" />
