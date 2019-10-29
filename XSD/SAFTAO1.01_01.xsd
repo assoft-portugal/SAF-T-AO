@@ -982,8 +982,21 @@
   <xs:element name="TaxPointDate" type="SAFdateType" />
   <xs:element name="TaxVerificationDate" type="SAFdateType" />
   <xs:element name="Telephone" type="SAFAOtextTypeMandatoryMax20Car" />
-  <xs:element name="TotalCredit" type="SAFmonetaryType" />
-  <xs:element name="TotalDebit" type="SAFmonetaryType" />
+  <xs:element name="TotalCredit" type="SAFmonetaryType">
+    <xs:annotation>
+      <xs:documentation>
+        Deve conter a soma dos elementos CreditAmount dos documentos cujo os elementos InvoiceStatus, WorkStatus ou PaymentStatus seja igual a N.
+        Em GeneralLedgerEntries deve conter a soma de todos os elementos CreditAmount.
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="TotalDebit" type="SAFmonetaryType">
+    <xs:annotation>
+      <xs:documentation>
+        Deve conter a soma dos elementos DebitAmount dos documentos cujo os elementos InvoiceStatus, WorkStatus ou PaymentStatus seja igual a N. 
+        Em GeneralLedgerEntries deve conter a soma de todos os elementos DebitAmount.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="TotalQuantityIssued" type="SAFdecimalType" />
   <xs:element name="TransactionDate" type="SAFdateType" />
   <xs:element name="TransactionID" type="SAFAOTransactionID" />
@@ -1577,6 +1590,13 @@
       <xs:minInclusive value="0.00" />
     </xs:restriction>
   </xs:simpleType>
+  <!-- Elementos com Duas Casas Decimais -->
+  <xs:simpleType name="SAFMonetaryType2DecimalPlaces">
+    <xs:restriction base="xs:decimal">
+      <xs:pattern value="\d+(\.\d{2})" />
+      <xs:minInclusive value="0.00" />
+    </xs:restriction>
+  </xs:simpleType>
   <!-- TIPOS DE DADOS BASE SAFT Angola -->
   <!-- Codigo Postal de Portugal -->
   <xs:simpleType name="PostalCodePT">
@@ -1590,13 +1610,6 @@
     <xs:restriction base="xs:string">
       <xs:minLength value="0" />
       <xs:maxLength value="10" />
-    </xs:restriction>
-  </xs:simpleType>
-  <!-- Campos Monetários com Duas Casas Decimais -->
-  <xs:simpleType name="SAFMonetaryType2DecimalPlaces">
-    <xs:restriction base="xs:decimal">
-      <xs:pattern value="\d+(\.\d{2})" />
-      <xs:minInclusive value="0.00" />
     </xs:restriction>
   </xs:simpleType>
   <!-- Periodo do movimento contabilistico -->
