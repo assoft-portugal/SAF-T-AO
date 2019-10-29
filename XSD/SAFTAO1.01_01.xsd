@@ -994,7 +994,8 @@
     <xs:annotation>
       <xs:documentation>
         Deve conter a soma dos elementos DebitAmount dos documentos cujo os elementos InvoiceStatus, WorkStatus ou PaymentStatus seja igual a N. 
-        Em GeneralLedgerEntries deve conter a soma de todos os elementos DebitAmount.</xs:documentation>
+        Em GeneralLedgerEntries deve conter a soma de todos os elementos DebitAmount.
+      </xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="TotalQuantityIssued" type="SAFdecimalType" />
