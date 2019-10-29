@@ -913,7 +913,13 @@
   <xs:element name="MovementStartTime" type="SAFdateTimeType" />
   <xs:element name="MovementStatusDate" type="SAFdateTimeType" />
   <xs:element name="NetTotal" type="SAFMonetaryType2DecimalPlaces" />
-  <xs:element name="NumberOfEntries" type="xs:nonNegativeInteger" />
+  <xs:element name="NumberOfEntries" type="xs:nonNegativeInteger">
+    <xs:annotation>
+      <xs:documentation>
+        Deve conter o número total de documentos ou de movimentos, caso respeite o elemento GeneralLedgerEntries.
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="NumberOfMovementLines" type="xs:nonNegativeInteger" />
   <xs:element name="OpeningCreditBalance" type="SAFmonetaryType" />
   <xs:element name="OpeningDebitBalance" type="SAFmonetaryType" />
