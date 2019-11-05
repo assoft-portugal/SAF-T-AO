@@ -124,10 +124,12 @@
       <xs:field xpath="ns:CustomerID" />
     </xs:keyref>
   <!-- Constraints de Documentos Comerciais de Fornecedores -->
+  <!--
     <xs:unique name="InvoicesNoConstraint">
       <xs:selector xpath="ns:SourceDocuments/ns:PurchaseInvoices/ns:Invoices" />
       <xs:field xpath="ns:InvoiceNo" />
     </xs:unique>
+  -->
     <xs:keyref name="InvoiceSupplierIDConstraint" refer="SupplierIDConstraint">
       <xs:selector xpath="ns:SourceDocuments/ns:PurchaseInvoices/ns:Invoices" />
       <xs:field xpath="ns:SupplierID" />
@@ -645,7 +647,7 @@
               <xs:element minOccurs="0" maxOccurs="unbounded" name="Invoice">
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element ref="InvoiceNo" />
+                    <xs:element name="InvoiceNo" type="ns:SAFAOtextTypeMandatoryMax70Car" />
                     <xs:element minOccurs="0" ref="Period" />
                     <xs:element ref="InvoiceDate" />
                     <xs:element ref="InvoiceType" />
@@ -654,7 +656,7 @@
                     <xs:element name="DocumentTotals">
                       <xs:complexType>
                         <xs:sequence>
-                          <xs:element ref="InputTax"/>
+                          <xs:element ref="InputTax" minOccurs="0"/>
                           <xs:element ref="TaxPayable" />
                           <xs:element ref="NetTotal" />
                           <xs:element ref="GrossTotal" />
@@ -827,7 +829,7 @@
   <!-- Estrutura de Retencao na fonte-->
   <xs:complexType name="WithholdingTax">
     <xs:sequence>
-      <xs:element minOccurs="0" ref="WithholdingTaxType" />
+      <xs:element minOccurs="1" ref="WithholdingTaxType" />
       <xs:element minOccurs="0" name="WithholdingTaxDescription" type="SAFAOtextTypeMandatoryMax60Car" />
       <xs:element name="WithholdingTaxAmount" type="SAFmonetaryType" />
     </xs:sequence>
@@ -1411,7 +1413,10 @@
     <xs:annotation>
       <xs:documentation>
           Neste campo deve ser indicado o tipo de imposto retido, preenchendo-o com:
-          “IRT” – Imposto sobre o rendimento de trabalho; “II” – Imposto sobre o industrial; “IS” – Imposto do selo. 
+          “IRT” – Imposto sobre o rendimento de trabalho; 
+          “II” – Imposto sobre o industrial; 
+          “IS” – Imposto do selo;
+          "IVA" - Imposto sobre o Valor Acrescentado, quando sujeito a cativação.
         </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
@@ -1419,6 +1424,7 @@
         <xs:enumeration value="IRT" />
         <xs:enumeration value="II" />
         <xs:enumeration value="IS" />
+        <xs:enumeration value="IVA" />
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
@@ -1626,6 +1632,13 @@
     <xs:sequence>
       <xs:element ref="DeductibleTax" minOccurs="1"/>
       <xs:element ref="DeductiblePercentage" minOccurs="1" ></xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="WithholdingTax" type="WithholdingTax">
+        <xs:annotation>
+          <xs:documentation>
+            Informação relativa a impostos retidos pelo fornecedor. 
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
   </xs:group>
   <xs:simpleType name="SAFTAOPaymentType">
