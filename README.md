@@ -4,6 +4,7 @@
 [![GitHub issues](https://img.shields.io/github/issues-raw/assoft-portugal/SAF-T-AO)](https://github.com/assoft-portugal/SAF-T-AO/issues)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/assoft-portugal/SAF-T-AO)](https://github.com/assoft-portugal/SAF-T-AO/releases)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/assoft-portugal/SAF-T-AO/blob/master/LICENSE)
+[![Discussion](https://img.shields.io/badge/discussion-yammer-blue.svg)](https://www.yammer.com/assoft-members/#/threads/inGroup?type=in_group&feedId=17835940&view=all)
 
 
 Official XSD from the Government of Angola for use in SAF-T AO.
