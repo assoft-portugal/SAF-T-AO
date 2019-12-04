@@ -27,6 +27,7 @@
         <doc:Contributor name="SAP PORTUGAL - Sistemas, Aplicações e Produtos Informáticos, Sociedade Unipessoal Lda." url="http://www.sap.com/" />
         <doc:Contributor name="Texto Editores (SU) LDA" url="https://www.textoeditores.ao" />
         <doc:Contributor name="Paulo Matos" url="https://github.com/batalhadematos" />
+        <doc:Contributor name="ITGest" url="https://itgest.co.ao/" />
       </doc:Contributors>
       <doc:ModificationDate>2017-10-30</doc:ModificationDate>
     </xs:documentation>
