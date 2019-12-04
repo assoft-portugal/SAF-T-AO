@@ -1129,7 +1129,7 @@
 
         Recomenda-se a utlização do seguinte formato:
 
-        InvoiceType + ESPAÇO + / + Número Sequencial
+        InvoiceType + ESPAÇO + SÉRIE / + NÚMERO SEQUENCIAL
         
         Exemplos: 
         InvoiceType: FT
