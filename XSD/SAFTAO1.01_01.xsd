@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<xs:schema xmlns:doc="urn:schemas-basda-org:schema-extensions:documentation" xmlns:ns="urn:OECD:StandardAuditFile-Tax:AO_1.01_01" xmlns="urn:OECD:StandardAuditFile-Tax:AO_1.01_01" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:OECD:StandardAuditFile-Tax:AO_1.01_01" version="1.01_01" id="SAF-T_AO" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:doc="urn:schemas-basda-org:schema-extensions:documentation" 
+  xmlns:ns="urn:OECD:StandardAuditFile-Tax:AO_1.01_01" 
+  xmlns="urn:OECD:StandardAuditFile-Tax:AO_1.01_01" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:OECD:StandardAuditFile-Tax:AO_1.01_01" version="1.01_01" id="SAF-T_AO" 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>
       <doc:Title>Standard Audit File - Angola</doc:Title>
@@ -8,14 +11,25 @@
       <doc:Version>
         <doc:Number>1.01_01</doc:Number>
         <doc:Status>Developement</doc:Status>
+        <doc:Repository>https://github.com/assoft-portugal/SAF-T-AO/</doc:Repository>
       </doc:Version>
       <doc:Author>AGT - Administração Geral Tributária</doc:Author>
       <!-- Contributos para o Projeto -->
       <doc:Contributors>
         <doc:Contributor name="ASSOFT - Associação Portuguesa de Software" url="https://www.assoft.org/" />
         <doc:Contributor name="Nelson Lopes" url="https://github.com/cryptolopes/" />
+        <doc:Contributor name="PRIMAVERA - Business Software Solutions, S.A." url="http://www.primaverabss.com/" />
+        <doc:Contributor name="Softpack - Software, Lda" url="https://www.softpack.pt/" />
+        <doc:Contributor name="Cacimbo Angola" url="https://www.cacimboangola.com/" />
+        <doc:Contributor name="Infodelivery S.A." url="http://www.infodelivery.pt/" />
+        <doc:Contributor name="Eticadata Software Lda" url="http://www.eticadata.pt/" />
+        <doc:Contributor name="SOFTSTORE, S.A." url="http://www.softstore.pt/" />
+        <doc:Contributor name="SAP PORTUGAL - Sistemas, Aplicações e Produtos Informáticos, Sociedade Unipessoal Lda." url="http://www.sap.com/" />
+        <doc:Contributor name="Texto Editores (SU) LDA" url="https://www.textoeditores.ao" />
+        <doc:Contributor name="Paulo Matos" url="https://github.com/batalhadematos" />
+        <doc:Contributor name="ITGest" url="https://itgest.co.ao/" />
       </doc:Contributors>
-      <doc:ModificationDate>2017-07-16</doc:ModificationDate>
+      <doc:ModificationDate>2017-12-04</doc:ModificationDate>
     </xs:documentation>
   </xs:annotation>
   <!-- Estrutura do ficheiro SAFT-AO-->
@@ -43,6 +57,10 @@
       <xs:selector xpath="ns:MasterFiles/ns:GeneralLedgerAccounts" />
       <xs:field xpath="ns:AccountID" />
     </xs:unique>
+    <xs:keyref name="GroupingCodeConstraint" refer="AccountIDConstraint">
+      <xs:selector xpath="ns:MasterFiles/ns:GeneralLedgerAccounts/ns:Account"/>
+      <xs:field xpath="ns:GroupingCode"/>
+    </xs:keyref>
     <xs:unique name="CustomerIDConstraint">
       <xs:selector xpath="ns:MasterFiles/ns:Customer" />
       <xs:field xpath="ns:CustomerID" />
@@ -55,26 +73,34 @@
       <xs:selector xpath="ns:MasterFiles/ns:Product" />
       <xs:field xpath="ns:ProductCode" />
     </xs:unique>
+    <xs:keyref name="GeneralLedgerEntriesDebitLineAccountIDConstraint" refer="AccountIDConstraint">
+      <xs:selector xpath="ns:GeneralLedgerEntries/ns:Journal/ns:Transaction/ns:Lines/ns:DebitLine"/>
+      <xs:field xpath="ns:AccountID"/>
+    </xs:keyref>
+    <xs:keyref name="GeneralLedgerEntriesCreditLineAccountIDConstraint" refer="AccountIDConstraint">
+      <xs:selector xpath="ns:GeneralLedgerEntries/ns:Journal/ns:Transaction/ns:Lines/ns:CreditLine"/>
+      <xs:field xpath="ns:AccountID"/>
+    </xs:keyref>
+    <xs:keyref name="GeneralLedgerEntriesCustomerIDConstraint" refer="CustomerIDConstraint">
+      <xs:selector xpath="ns:GeneralLedgerEntries/ns:Journal/ns:Transaction"/>
+      <xs:field xpath="ns:CustomerID"/>
+    </xs:keyref>
+    <xs:unique name="GeneralLedgerEntriesJournalIdConstraint">
+      <xs:selector xpath="ns:GeneralLedgerEntries/ns:Journal"/>
+      <xs:field xpath="ns:JournalID"/>
+    </xs:unique>
+    <xs:keyref name="GeneralLedgerEntriesSupplierIDConstraint" refer="SupplierIDConstraint">
+      <xs:selector xpath="ns:GeneralLedgerEntries/ns:Journal/ns:Transaction"/>
+      <xs:field xpath="ns:SupplierID"/>
+    </xs:keyref>
+    <xs:unique name="GeneralLedgerEntriesTransactionIdConstraint">
+      <xs:selector xpath="ns:GeneralLedgerEntries/ns:Journal/ns:Transaction"/>
+      <xs:field xpath="ns:TransactionID"/>
+    </xs:unique>
     <xs:keyref name="GeneralLedgerEntriesAccountIDConstraint" refer="AccountIDConstraint">
       <xs:selector xpath="ns:GeneralLedgerEntries/ns:Journal/ns:Transaction/ns:Line" />
       <xs:field xpath="ns:AccountID" />
     </xs:keyref>
-    <xs:keyref name="GeneralLedgerEntriesCustomerIDConstraint" refer="CustomerIDConstraint">
-      <xs:selector xpath="ns:GeneralLedgerEntries/ns:Journal/ns:Transaction" />
-      <xs:field xpath="ns:CustomerID" />
-    </xs:keyref>
-    <xs:unique name="GeneralLedgerEntriesJournalIdConstraint">
-      <xs:selector xpath="ns:GeneralLedgerEntries/ns:Journal" />
-      <xs:field xpath="ns:JournalID" />
-    </xs:unique>
-    <xs:keyref name="GeneralLedgerEntriesSupplierIDConstraint" refer="SupplierIDConstraint">
-      <xs:selector xpath="ns:GeneralLedgerEntries/ns:Journal/ns:Transaction" />
-      <xs:field xpath="ns:SupplierID" />
-    </xs:keyref>
-    <xs:unique name="GeneralLedgerEntriesTransactionIdConstraint">
-      <xs:selector xpath="ns:GeneralLedgerEntries/ns:Journal/ns:Transaction" />
-      <xs:field xpath="ns:TransactionID" />
-    </xs:unique>
     <xs:unique name="InvoiceNoConstraint">
       <xs:selector xpath="ns:SourceDocuments/ns:SalesInvoices/ns:Invoice" />
       <xs:field xpath="ns:InvoiceNo" />
@@ -271,6 +297,13 @@
   <!-- Estrutura de Movimentos Contabilisticos (AuditFile.GeneralLedgerEntries)-->
   <xs:element name="GeneralLedgerEntries">
     <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>
+          Neste elemento registam-se os movimentos contabilísticos correspondentes ao periodo de exportação
+          a que diz respeito o SAF-T (AO), não devendo os movimentos de abertura ser objeto de exportação,
+          na medida em que estes são apenas refletidos ao nível do elemento GeneralLedgerAccounts.
+        </xs:documentation>
+      </xs:annotation>
       <xs:sequence>
         <xs:element ref="NumberOfEntries" />
         <xs:element ref="TotalDebit" />
@@ -459,6 +492,7 @@
                           <xs:element ref="UnitOfMeasure" />
                           <xs:element ref="UnitPrice" />
                           <xs:element ref="Description" />
+                          <xs:element name="ProductSerialNumber" type="ProductSerialNumber" minOccurs="0" />
                           <xs:choice>
                             <xs:element ref="DebitAmount" />
                             <xs:element ref="CreditAmount" />
@@ -516,6 +550,7 @@
                     <xs:element ref="SourceID" />
                     <xs:element minOccurs="0" ref="EACCode" />
                     <xs:element ref="SystemEntryDate" />
+                    <xs:element minOccurs="0" ref="TransactionID" />
                     <xs:element ref="CustomerID" />
                     <xs:element maxOccurs="unbounded" name="Line">
                       <xs:complexType>
@@ -529,6 +564,7 @@
                           <xs:element ref="UnitPrice" />
                           <xs:element ref="TaxPointDate" />
                           <xs:element ref="Description" />
+                          <xs:element name="ProductSerialNumber" type="ProductSerialNumber" minOccurs="0" />
                           <xs:choice>
                             <xs:element ref="DebitAmount" />
                             <xs:element ref="CreditAmount" />
@@ -670,7 +706,7 @@
               </xs:element>
             </xs:sequence>
           </xs:complexType>
-        </xs:element>        
+        </xs:element>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -708,7 +744,7 @@
       <xs:element minOccurs="0" ref="ExchangeRate" />
     </xs:sequence>
   </xs:complexType>
-  <!-- Estrutura de caraterizacao aduaneira de produtos-->
+  <!-- Estrutura de caracterização aduaneira de produtos-->
   <xs:complexType name="CustomsDetails">
     <xs:annotation>
       <xs:documentation>Preencher com o nº ONU para produtos perigosos </xs:documentation>
@@ -749,7 +785,7 @@
   <!-- Estrutura de pagamentos-->
   <xs:complexType name="PaymentMethod">
     <xs:sequence>
-      <xs:element ref="PaymentMechanism" />
+      <xs:element ref="PaymentMechanism" minOccurs="0" />
       <xs:element name="PaymentAmount" type="SAFmonetaryType" />
       <xs:element name="PaymentDate" type="SAFdateType" />
     </xs:sequence>
@@ -883,7 +919,13 @@
   <xs:element name="MovementStartTime" type="SAFdateTimeType" />
   <xs:element name="MovementStatusDate" type="SAFdateTimeType" />
   <xs:element name="NetTotal" type="SAFMonetaryType2DecimalPlaces" />
-  <xs:element name="NumberOfEntries" type="xs:nonNegativeInteger" />
+  <xs:element name="NumberOfEntries" type="xs:nonNegativeInteger">
+    <xs:annotation>
+      <xs:documentation>
+        Deve conter o número total de documentos ou de movimentos, caso respeite o elemento GeneralLedgerEntries.
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="NumberOfMovementLines" type="xs:nonNegativeInteger" />
   <xs:element name="OpeningCreditBalance" type="SAFmonetaryType" />
   <xs:element name="OpeningDebitBalance" type="SAFmonetaryType" />
@@ -905,12 +947,28 @@
   <xs:element name="Region" type="SAFAOtextTypeMandatoryMax50Car" />
   <xs:element name="Province" type="SAFAOtextTypeMandatoryMax50Car" />
   <xs:element name="SerialNumber" type="SAFAOtextTypeMandatoryMax100Car" />
-  <xs:element name="SettlementAmount" type="SAFmonetaryType" />
+  <xs:element name="SettlementAmount" type="SAFmonetaryType">
+    <xs:annotation>
+      <xs:documentation>
+        Para os elementos presentes em:
+        (1) /AuditFile/SourceDocuments/SalesInvoices/Invoice/Line/SettlementAmount
+        (2) /AuditFile/SourceDocuments/MovementOfGoods/StockMovement/Line/SettlementAmount
+        (3) /AuditFile/SourceDocuments/WorkingDocuments/WorkDocument/Line/SettlementAmount
+        (4) /AuditFile/SourceDocuments/Payments/Payment/Line/SettlementAmount
+        Deve refletir todos os descontos concedidos que afetem o total do documento - GrossTotal (descontos de linha e descontos glogais).
+
+        Para os elementos presentes em:
+        (5) /AuditFile/SourceDocuments/SalesInvoices/Invoice/DocumentTotals/Settlement/SettlementAmount
+        (6) /AuditFile/SourceDocuments/Payments/Payment/DocumentTotals/Settlement/SettlementAmount
+        Representa o valor acordado para desconto futuro, que afeta o total do documento - GrossTotal
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ShipFrom" type="ShippingPointStructure" />
   <xs:element name="ShipFromAddress" type="AddressStructure" />
   <xs:element name="ShipTo" type="ShippingPointStructure" />
   <xs:element name="ShipToAddress" type="AddressStructure" />
-  <xs:element name="SoftwareValidationNumber" type="xs:nonNegativeInteger" />
+  <xs:element name="SoftwareValidationNumber" type="ns:SAFAOtextValidationNumber" />
   <xs:element name="SourceDocumentID" type="SAFAOtextTypeMandatoryMax30Car" />
   <xs:element name="SourceID" type="SAFAOtextTypeMandatoryMax30Car" />
   <xs:element name="StartDate" type="SAFAODateSpan" />
@@ -930,8 +988,22 @@
   <xs:element name="TaxPointDate" type="SAFdateType" />
   <xs:element name="TaxVerificationDate" type="SAFdateType" />
   <xs:element name="Telephone" type="SAFAOtextTypeMandatoryMax20Car" />
-  <xs:element name="TotalCredit" type="SAFmonetaryType" />
-  <xs:element name="TotalDebit" type="SAFmonetaryType" />
+  <xs:element name="TotalCredit" type="SAFmonetaryType">
+    <xs:annotation>
+      <xs:documentation>
+        Deve conter a soma dos elementos CreditAmount dos documentos cujo os elementos InvoiceStatus, WorkStatus ou PaymentStatus seja igual a N.
+        Em GeneralLedgerEntries deve conter a soma de todos os elementos CreditAmount.
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="TotalDebit" type="SAFmonetaryType">
+    <xs:annotation>
+      <xs:documentation>
+        Deve conter a soma dos elementos DebitAmount dos documentos cujo os elementos InvoiceStatus, WorkStatus ou PaymentStatus seja igual a N. 
+        Em GeneralLedgerEntries deve conter a soma de todos os elementos DebitAmount.
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="TotalQuantityIssued" type="SAFdecimalType" />
   <xs:element name="TransactionDate" type="SAFdateType" />
   <xs:element name="TransactionID" type="SAFAOTransactionID" />
@@ -985,7 +1057,7 @@
   <xs:element name="Country">
     <xs:simpleType>
       <xs:restriction base="xs:string">
-        <xs:pattern value="AD|AE|AF|AG|AI|AL|AM|AO|AQ|AR|AS|AT|AU|AW|AX|AZ|BA|BB|BD|BE|BF|BG|BH|BI|BJ|BL|BM|BN|BO|BQ|BR|BS|BT|BV|BW|BY|BZ|CA|CC|CD|CF|CG|CH|CI|CK|CL|CM|CN|CO|CR|CU|CV|CW|CX|CY|CZ|DE|DJ|DK|DM|DO|DZ|EC|EE|EG|EH|ER|ES|ET|FI|FJ|FK|FM|FO|FR|GA|GB|GD|GE|GF|GG|GH|GI|GL|GM|GN|GP|GQ|GR|GS|GT|GU|GW|GY|HK|HM|HN|HR|HT|HU|ID|IE|IL|IM|IN|IO|IQ|IR|IS|IT|JE|JM|JO|JP|KE|KG|KH|KI|KM|KN|KP|KR|KW|KY|KZ|LA|LB|LC|LI|LK|LR|LS|LT|LU|LV|LY|MA|MC|MD|ME|MF|MG|MH|MK|ML|MM|MN|MO|MP|MQ|MR|MS|MT|MU|MV|MW|MX|MY|MZ|NA|NC|NE|NF|NG|NI|NL|NO|NP|NR|NU|NZ|OM|PA|PE|PF|PG|PH|PK|PL|PM|PN|PR|PS|PT|PW|PY|QA|RE|RO|RS|RU|RW|SA|SB|SC|SD|SE|SG|SH|SI|SJ|SK|SL|SM|SN|SO|SR|SS|ST|SV|SX|SY|SZ|TC|TD|TF|TG|TH|TJ|TK|TL|TM|TN|TO|TR|TT|TV|TW|TZ|UA|UG|UM|US|UY|UZ|VA|VC|VE|VG|VI|VN|VU|WF|WS|XK|YE|YT|ZA|ZM|ZW|Desconhecido|" />
+        <xs:pattern value="AD|AE|AF|AG|AI|AL|AM|AO|AQ|AR|AS|AT|AU|AW|AX|AZ|BA|BB|BD|BE|BF|BG|BH|BI|BJ|BL|BM|BN|BO|BQ|BR|BS|BT|BV|BW|BY|BZ|CA|CC|CD|CF|CG|CH|CI|CK|CL|CM|CN|CO|CR|CU|CV|CW|CX|CY|CZ|DE|DJ|DK|DM|DO|DZ|EC|EE|EG|EH|ER|ES|ET|FI|FJ|FK|FM|FO|FR|GA|GB|GD|GE|GF|GG|GH|GI|GL|GM|GN|GP|GQ|GR|GS|GT|GU|GW|GY|HK|HM|HN|HR|HT|HU|ID|IE|IL|IM|IN|IO|IQ|IR|IS|IT|JE|JM|JO|JP|KE|KG|KH|KI|KM|KN|KP|KR|KW|KY|KZ|LA|LB|LC|LI|LK|LR|LS|LT|LU|LV|LY|MA|MC|MD|ME|MF|MG|MH|MK|ML|MM|MN|MO|MP|MQ|MR|MS|MT|MU|MV|MW|MX|MY|MZ|NA|NC|NE|NF|NG|NI|NL|NO|NP|NR|NU|NZ|OM|PA|PE|PF|PG|PH|PK|PL|PM|PN|PR|PS|PT|PW|PY|QA|RE|RO|RS|RU|RW|SA|SB|SC|SD|SE|SG|SH|SI|SJ|SK|SL|SM|SN|SO|SR|SS|ST|SV|SX|SY|SZ|TC|TD|TF|TG|TH|TJ|TK|TL|TM|TN|TO|TR|TT|TV|TW|TZ|UA|UG|UM|US|UY|UZ|VA|VC|VE|VG|VI|VN|VU|WF|WS|XK|YE|YT|ZA|ZM|ZW|Desconhecido" />
         <xs:minLength value="2" />
       </xs:restriction>
     </xs:simpleType>
@@ -1032,7 +1104,8 @@
   <xs:element name="GroupingCategory">
     <xs:annotation>
       <xs:documentation>
-          Deve ser indicado o tipo e a categoria da conta: “GR” – Conta de 1.º grau da contabilidade geral;
+          Deve ser indicado o tipo e a categoria da conta: 
+          “GR” – Conta de 1.º grau da contabilidade geral;
           “GA” – Conta agregadora ou integradora da contabilidade geral;
           “GM” – Conta de movimento da contabilidade geral;
           “AR” – Conta de 1.º grau da contabilidade analítica;
@@ -1042,6 +1115,7 @@
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
+        <xs:enumeration value="GR"/>
         <xs:enumeration value="GA" />
         <xs:enumeration value="GM" />
         <xs:enumeration value="AR" />
@@ -1057,7 +1131,7 @@
 
         Recomenda-se a utlização do seguinte formato:
 
-        InvoiceType + ESPAÇO + / + Número Sequencial
+        InvoiceType + ESPAÇO + SÉRIE / + NÚMERO SEQUENCIAL
         
         Exemplos: 
         InvoiceType: FT
@@ -1100,25 +1174,32 @@
   <xs:element name="InvoiceType">
     <xs:annotation>
       <xs:documentation>
-          Deve ser preenchido com:
-
-          “FT” – Factura;
+        Deve ser preenchido com: 
+          “FT” – Factura; 
           “FR” – Factura/recibo; 
-          “VD” – Venda a dinheiro;
-          “GF” – Factura genérica;
-          “FG” -Factura global
-          “AC” – Aviso de cobrança
-          “ND” – Nota de débito
-          “NC” – Nota de crédito
-           “AF” – Factura/recibo (autofacturação)
-          “TV” – Talão de venda
+          “VD” – Venda a dinheiro; 
+          “GF” – Factura genérica; 
+          “FG” -Factura global 
+          “AC” – Aviso de cobrança 
+          “AR” – Aviso de cobrança/recibo 
+          “RE” – Recibo 
+          “ND” – Nota de débito 
+          “NC” – Nota de crédito 
+          “GR” – Guia de remessa 
+          “AF” – Factura/recibo (autofacturação) 
+          “TV” – Talão de venda; (a) 
+          “TS” – Talão de serviços prestados; 
           
-          Para o sector Segurador quando não deva constar da tabela 4.3. 
-          - Documentos de conferência de mercadorias ou de prestação de serviços (WorkingDocuments), pode ainda ser preenchido com:
+          (a) “TD” – Talão de devolução; 
+          (a) “AA” – Alienação de activos; 
+          (a) “DA” – Devolução de activos. 
+          (a) Para o sector Segurador quando não deva constar da tabela 4.3. - 
+        Documentos de conferência de mercadorias ou de prestação de serviços (WorkingDocuments), 
+        pode ainda ser preenchido com: 
           “RP” – Prémio ou recibo de prémio; 
           “RE” – Estorno ou recibo de estorno; 
-          “CS” – Imputação a co-seguradoras;
-          “LD” – Imputação a co-seguradora líder;
+          “CS” – Imputação a co-seguradoras; 
+          “LD” – Imputação a co-seguradora líder; 
           “RA” – Resseguro aceite.
       </xs:documentation>
     </xs:annotation>
@@ -1126,14 +1207,20 @@
       <xs:restriction base="xs:string">
         <xs:enumeration value="FT" />
         <xs:enumeration value="FR" />
-        <xs:enumeration value="ND" />
+        <xs:enumeration value="VD" />
         <xs:enumeration value="GF" />
         <xs:enumeration value="FG" />
         <xs:enumeration value="AC" />
+        <xs:enumeration value="AR" />
+        <xs:enumeration value="ND" />
         <xs:enumeration value="NC" />
-        <xs:enumeration value="VD" />
+        <xs:enumeration value="GR" />
+        <xs:enumeration value="AF" />
         <xs:enumeration value="TV" />
+        <xs:enumeration value="TS" />
         <xs:enumeration value="TD" />
+        <xs:enumeration value="AA" />
+        <xs:enumeration value="DA" />
         <!-- Para o sector segurador-->
         <xs:enumeration value="RP" />
         <xs:enumeration value="RE" />
@@ -1172,8 +1259,9 @@
           Deve ser preenchido com:
           “GR” – Guia de remessa;
           “GT” – Guia de transporte (incluir aqui as guias globais);
-          “GA” – Guia de movimentação de activos fixos próprios;
+          “GA” – Guia de movimentação de activos fixos próprios; 
           “GC” – Guia de consignação;
+          “GD” – Guia ou nota de devolução. 
       </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
@@ -1273,9 +1361,7 @@
           “O” – Outros (Ex: portes debitados, adiantamentos recebidos ou alienação de activos);
           “E” – Impostos Especiais de Consumo – (ex.:IEC);
           “I” – Impostos, taxas e encargos parafiscais – excepto IVA e IS que deverão ser reflectidos na tabela 2.5
-
-          – Tabela de impostos (Tax Table) e Impostos Especiais de
-          Consumo, que deverão ser preenchidos com o código “E”.
+          – Tabela de impostos (Tax Table) e Impostos Especiais de Consumo, que deverão ser preenchidos com o código “E”.
       </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
@@ -1290,10 +1376,20 @@
   </xs:element>
   <!-- Indicador de Autofaturacao -->
   <xs:element name="SelfBillingIndicator">
+    <xs:annotation>
+      <xs:documentation>
+        PROPOSTA:
+        Deve ser preenchido: 
+        com “1” se respeitar a autofacturação,
+        Com “2” se é obrigado a cativar o IVA,
+        Com ”3” se tiver IVA cativo e autofacturação,
+        com “0” (zero) no caso de não cumprir com nenhuma condição .
+      </xs:documentation>
+    </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:integer">
         <xs:minInclusive value="0" />
-        <xs:maxInclusive value="1" />
+        <xs:maxInclusive value="3" />
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
@@ -1313,7 +1409,7 @@
             “S” -Autofacturação.
             (a) Deve ser indicado este tipo de programa se este emitir só este tipo de documento. 
             Caso contrário, deverá ser utilizado o tipo “C”, “F” 
-        </xs:documentation>
+      </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -1334,14 +1430,14 @@
       <xs:documentation>
             Código da taxa na tabela de impostos.
             No caso do campo 4.4.4.14.6.1. - Código do tipo de imposto (TaxType) = IVA, deve ser preenchido com:
-            “NOR” – Taxa normal; “ISE” – Isenta;
+            “NOR” – Taxa normal; 
+            “ISE” – Isenta;
             “OUT” – Outros, aplicável para os regimes especiais de IVA.
             No caso do campo 4.4.4.14.6.1.
             Código do tipo de imposto (TaxType) = IS, deve ser preenchido com:
             O código da verba respectiva; “ISE” – Isenta.
-
             No caso de não aplicabilidade de imposto deve ser preenchido com “NA”.
-          </xs:documentation>
+      </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -1397,7 +1493,7 @@
           “R” – Regularizações do período de tributação; 
           “A” – Apuramento de resultados;
           “J” – Movimentos de ajustamento.  
-    </xs:documentation>
+      </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -1505,6 +1601,13 @@
       <xs:minInclusive value="0.00" />
     </xs:restriction>
   </xs:simpleType>
+  <!-- Elementos com Duas Casas Decimais -->
+  <xs:simpleType name="SAFMonetaryType2DecimalPlaces">
+    <xs:restriction base="xs:decimal">
+      <xs:pattern value="\d+(\.\d{2})" />
+      <xs:minInclusive value="0.00" />
+    </xs:restriction>
+  </xs:simpleType>
   <!-- TIPOS DE DADOS BASE SAFT Angola -->
   <!-- Codigo Postal de Portugal -->
   <xs:simpleType name="PostalCodePT">
@@ -1518,13 +1621,6 @@
     <xs:restriction base="xs:string">
       <xs:minLength value="0" />
       <xs:maxLength value="10" />
-    </xs:restriction>
-  </xs:simpleType>
-  <!-- Campos Monetários com Duas Casas Decimais -->
-  <xs:simpleType name="SAFMonetaryType2DecimalPlaces">
-    <xs:restriction base="xs:decimal">
-      <xs:pattern value="\d+(\.\d{2})" />
-      <xs:minInclusive value="0.00" />
     </xs:restriction>
   </xs:simpleType>
   <!-- Periodo do movimento contabilistico -->
@@ -1562,8 +1658,22 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="SAFTAOMovementTaxCode">
+    <xs:annotation>
+      <xs:documentation>
+          Código da taxa na tabela de impostos.
+          No caso do campo 4.4.4.14.6.1. - Código do tipo de imposto (TaxType) = IVA, deve ser preenchido com:
+
+          “NOR” – Taxa normal; “ISE” – Isenta;
+          “OUT” – Outros, aplicável para os regimes especiais de IVA.
+          No caso do campo 4.4.4.14.6.1.
+          Código do tipo de imposto (TaxType) = IS, deve ser preenchido com:
+          O código da verba respectiva; “ISE” – Isenta.
+
+          No caso de não aplicabilidade de imposto deve ser preenchido com “NA”.
+      </xs:documentation>
+    </xs:annotation>
     <xs:restriction base="xs:string">
-      <xs:pattern value="NOR|ISE|OUT" />
+      <xs:pattern value="NOR|ISE|OUT|NS|NA" />
       <xs:minLength value="1" />
       <xs:maxLength value="3" />
     </xs:restriction>
@@ -1644,7 +1754,7 @@
   <xs:simpleType name="SAFTAOPaymentType">
     <xs:annotation>
       <xs:documentation>
-          >Deve ser preenchido com:
+        Deve ser preenchido com:
           “RC” – Recibo emitido
           “AR” – Aviso de cobrança/recibo 
           “RG” – Outros recibos emitidos.
@@ -1667,7 +1777,6 @@
       <xs:documentation>Preencher com o NIF Angolano sem espaços e sem qualquer prefixo do país.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
-      <xs:pattern value="[A-Z\d]*" />
       <xs:minLength value="10" />
       <xs:maxLength value="15" />
     </xs:restriction>
@@ -1813,6 +1922,19 @@
       <xs:maxLength value="40" />
     </xs:restriction>
   </xs:simpleType>
+  <xs:simpleType name="SAFAOtextValidationNumber">
+    <xs:annotation>
+      <xs:documentation>
+        Número da validação, atribuído à entidade produtora do software.
+        Se não aplicável, deve ser preenchido com «0» (zero).
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="70" />
+      <xs:pattern value="\d+/AGT/\d{4}|[0]" />
+    </xs:restriction>
+  </xs:simpleType>
   <xs:simpleType name="SAFAOTransactionID">
     <xs:annotation>
       <xs:documentation>
@@ -1822,7 +1944,7 @@
           Deve ser indicada a chave única da tabela 3.
           Movimentos contabilísticos (GeneralLedgerEntries) da transacção onde foi lançado este documento, 
           respeitando a regra aí definida para o campo 3.4.3.1 - Chave única do movimento contabilístico (TransactionID).
-        </xs:documentation>
+      </xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:pattern value="[1-9][0-9]{3}-[01][0-9]-[0-3][0-9] [^ ]{1,30} [^ ]{1,20}" />
@@ -1840,7 +1962,7 @@
   <!-- Codigo do pais (ISO 3166 1-alpha-2) -->
   <xs:simpleType name="SupplierCountry">
     <xs:restriction base="xs:string">
-      <xs:pattern value="AD|AE|AF|AG|AI|AL|AM|AO|AQ|AR|AS|AT|AU|AW|AX|AZ|BA|BB|BD|BE|BF|BG|BH|BI|BJ|BL|BM|BN|BO|BQ|BR|BS|BT|BV|BW|BY|BZ|CA|CC|CD|CF|CG|CH|CI|CK|CL|CM|CN|CO|CR|CU|CV|CW|CX|CY|CZ|DE|DJ|DK|DM|DO|DZ|EC|EE|EG|EH|ER|ES|ET|FI|FJ|FK|FM|FO|FR|GA|GB|GD|GE|GF|GG|GH|GI|GL|GM|GN|GP|GQ|GR|GS|GT|GU|GW|GY|HK|HM|HN|HR|HT|HU|ID|IE|IL|IM|IN|IO|IQ|IR|IS|IT|JE|JM|JO|JP|KE|KG|KH|KI|KM|KN|KP|KR|KW|KY|KZ|LA|LB|LC|LI|LK|LR|LS|LT|LU|LV|LY|MA|MC|MD|ME|MF|MG|MH|MK|ML|MM|MN|MO|MP|MQ|MR|MS|MT|MU|MV|MW|MX|MY|MZ|NA|NC|NE|NF|NG|NI|NL|NO|NP|NR|NU|NZ|OM|PA|PE|PF|PG|PH|PK|PL|PM|PN|PR|PS|PT|PW|PY|QA|RE|RO|RS|RU|RW|SA|SB|SC|SD|SE|SG|SH|SI|SJ|SK|SL|SM|SN|SO|SR|SS|ST|SV|SX|SY|SZ|TC|TD|TF|TG|TH|TJ|TK|TL|TM|TN|TO|TR|TT|TV|TW|TZ|UA|UG|UM|US|UY|UZ|VA|VC|VE|VG|VI|VN|VU|WF|WS|XK|YE|YT|ZA|ZM|ZW|" />
+      <xs:pattern value="AD|AE|AF|AG|AI|AL|AM|AO|AQ|AR|AS|AT|AU|AW|AX|AZ|BA|BB|BD|BE|BF|BG|BH|BI|BJ|BL|BM|BN|BO|BQ|BR|BS|BT|BV|BW|BY|BZ|CA|CC|CD|CF|CG|CH|CI|CK|CL|CM|CN|CO|CR|CU|CV|CW|CX|CY|CZ|DE|DJ|DK|DM|DO|DZ|EC|EE|EG|EH|ER|ES|ET|FI|FJ|FK|FM|FO|FR|GA|GB|GD|GE|GF|GG|GH|GI|GL|GM|GN|GP|GQ|GR|GS|GT|GU|GW|GY|HK|HM|HN|HR|HT|HU|ID|IE|IL|IM|IN|IO|IQ|IR|IS|IT|JE|JM|JO|JP|KE|KG|KH|KI|KM|KN|KP|KR|KW|KY|KZ|LA|LB|LC|LI|LK|LR|LS|LT|LU|LV|LY|MA|MC|MD|ME|MF|MG|MH|MK|ML|MM|MN|MO|MP|MQ|MR|MS|MT|MU|MV|MW|MX|MY|MZ|NA|NC|NE|NF|NG|NI|NL|NO|NP|NR|NU|NZ|OM|PA|PE|PF|PG|PH|PK|PL|PM|PN|PR|PS|PT|PW|PY|QA|RE|RO|RS|RU|RW|SA|SB|SC|SD|SE|SG|SH|SI|SJ|SK|SL|SM|SN|SO|SR|SS|ST|SV|SX|SY|SZ|TC|TD|TF|TG|TH|TJ|TK|TL|TM|TN|TO|TR|TT|TV|TW|TZ|UA|UG|UM|US|UY|UZ|VA|VC|VE|VG|VI|VN|VU|WF|WS|XK|YE|YT|ZA|ZM|ZW" />
       <xs:length value="2" />
     </xs:restriction>
   </xs:simpleType>

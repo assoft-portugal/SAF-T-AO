@@ -1,0 +1,236 @@
+[
+    {
+      "TaxExemptionCode": "M00",
+      "TaxExemptionReason": "Regime transitório ",
+      "Law": "",
+      "Description": ""
+    },
+    {
+      "TaxExemptionCode": "M02",
+      "TaxExemptionReason": "Transmissão de bens e serviço não sujeita",
+      "Law": "",
+      "Description": ""
+    },
+    {
+      "TaxExemptionCode": "M04",
+      "TaxExemptionReason": "IVA – Regime de não sujeição",
+      "Law": "",
+      "Description": ""
+    },
+    {
+      "TaxExemptionCode": "M10",
+      "TaxExemptionReason": "Isento nos termos da alínea a) do nº1 do artigo 12.º do CIVA",
+      "Law": "Artigo 12.º do CIVA",
+      "Description": " A transmissão dos bens alimentares, conforme anexo I do presente código."
+    },
+    {
+      "TaxExemptionCode": "M11",
+      "TaxExemptionReason": "Isento nos termos da alínea b) do nº1 do artigo 12.º do CIVA",
+      "Law": "Artigo 12.º do CIVA",
+      "Description": "As transmissões de medicamentos destinados exclusivamente a fins terapêuticos e profilácticos."
+    },
+    {
+      "TaxExemptionCode": "M12",
+      "TaxExemptionReason": "Isento nos termos da alínea c) do nº1 do artigo 12.º do CIVA",
+      "Law": "Artigo 12.º do CIVA",
+      "Description": "As transmissões de cadeiras de rodas e veículos semelhantes, accionados manualmente ou por motor, para portadores de deficiência, aparelhos, máquinas de escrever com caracteres braille, impressoras para caracteres braille e os artefactos que se destinam a ser utilizados por invisuais ou a corrigir a audição"
+    },
+    {
+      "TaxExemptionCode": "M13",
+      "TaxExemptionReason": "Isento nos termos da alínea d) do nº1 do artigo 12.º do CIVA",
+      "Law": "Artigo 12.º do CIVA",
+      "Description": "A transmissão de livros, incluindo em formato digital"
+    },
+    {
+      "TaxExemptionCode": "M14",
+      "TaxExemptionReason": "Isento nos termos da alínea e) do nº1 do artigo 12.º do CIVA",
+      "Law": "Artigo 12.º do CIVA",
+      "Description": "A locação de bens imóveis destinados a fins habitacionais, designadamente prédios urbanos, fracções autónomas destes ou terrenos para construção, com excepção das prestações de serviços de alojamento efectuadas no âmbito da actividade hoteleira ou de outras com funções análogas"
+    },
+    {
+      "TaxExemptionCode": "M15",
+      "TaxExemptionReason": "Isento nos termos da alínea f) do nº1 do artigo 12.º do CIVA",
+      "Law": "Artigo 12.º do CIVA",
+      "Description": "As operações sujeitas ao imposto de SISA, ainda que dele isentas"
+    },
+    {
+      "TaxExemptionCode": "M16",
+      "TaxExemptionReason": "Isento nos termos da alínea g) do nº1 do artigo 12.º do CIVA",
+      "Law": "Artigo 12.º do CIVA",
+      "Description": "A exploração e a prática de jogos de fortuna ou azar e de diversão social, bem como as respectivas comissões e todas as operações relacionadas, quando as mesmas estejam sujeitas a Imposto Especial sobre o Jogos, nos termos da legislação aplicável"
+    },
+    {
+      "TaxExemptionCode": "M17",
+      "TaxExemptionReason": "Isento nos termos da alínea h) do nº1 do artigo 12.º do CIVA",
+      "Law": "Artigo 12.º do CIVA",
+      "Description": "O transporte colectivo de passageiros"
+    },
+    {
+      "TaxExemptionCode": "M18",
+      "TaxExemptionReason": "Isento nos termos da alínea i) do nº1 artigo 12.º do CIVA",
+      "Law": "Artigo 12.º do CIVA",
+      "Description": "As operações de intermediação financeira, incluindo a locação financeira, exceptuando-se aquelas em que uma taxa, ou contraprestação, especifica e predeterminada é cobrada pelo serviço."
+    },
+    {
+      "TaxExemptionCode": "M19",
+      "TaxExemptionReason": "Isento nos termos da alínea j) do nº1 do artigo 12.º do CIVA",
+      "Law": "Artigo 12.º do CIVA",
+      "Description": "O seguro de saúde, bem como a prestação de seguros e resseguros do ramo vida;"
+    },
+    {
+      "TaxExemptionCode": "M20",
+      "TaxExemptionReason": "Isento nos termos da alínea k) do nº1 do artigo 12.º do CIVA",
+      "Law": "Artigo 12.º do CIVA",
+      "Description": "As transmissões de  produtos petrolíferos conforme anexo II do presente código."
+    },
+    {
+      "TaxExemptionCode": "M21",
+      "TaxExemptionReason": "Isento nos termos da alínea l) do nº1 do artigo 12.º do CIVA",
+      "Law": "Artigo 12.º do CIVA",
+      "Description": "As prestações de serviço que tenham por objecto o ensino, efectuadas por estabelecimentos integrados conforme definidos na Lei de Bases do Sistema de Educação e Ensino, bem como por estabelecimentos de Ensino Superior devidamente reconhecidos pelo Ministério de Tutela."
+    },
+    {
+      "TaxExemptionCode": "M22",
+      "TaxExemptionReason": "Isento nos termos da alínea m) do artigo 12.º do CIVA",
+      "Law": "Artigo 12.º do CIVA",
+      "Description": "As prestações de serviço médico sanitário, efectuadas por estabelecimentos hospitalares, clinicas, dispensários e similares"
+    },
+    {
+      "TaxExemptionCode": "M23",
+      "TaxExemptionReason": "Isento nos termos da alínea n) do artigo 12.º do CIVA",
+      "Law": "Artigo 12.º do CIVA",
+      "Description": "O transporte de doentes ou feridos em ambulâncias ou outros veículos apropriados efectuados por organismos devidamente autorizados"
+    },
+    {
+      "TaxExemptionCode": "M24",
+      "TaxExemptionReason": "Isento nos termos da alínea 0) do artigo 12.º do CIVA",
+      "Law": "Artigo 12.º do CIVA",
+      "Description": "Os equipamentos médicos para o exercício da actividade dos estabelecimentos de saúde."
+    },
+    {
+      "TaxExemptionCode": "M80",
+      "TaxExemptionReason": "Isento nos termos da alinea a) do nº1 do artigo 14.º",
+      "Law": "Artigo 14.º do CIVA",
+      "Description": "As importações definitivas de bens cuja transmissão no território nacional seja isenta de imposto;"
+    },
+    {
+      "TaxExemptionCode": "M81",
+      "TaxExemptionReason": "Isento nos termos da alinea b) do nº1 do artigo 14.º",
+      "Law": "Artigo 14.º do CIVA",
+      "Description": "As importações de ouro, moedas ou notas de banco, efectuadas pelo Banco Nacional de Angola"
+    },
+    {
+      "TaxExemptionCode": "M82",
+      "TaxExemptionReason": "Isento nos termos da alinea c) do nº1 do artigo 14.º",
+      "Law": "Artigo 14.º do CIVA",
+      "Description": "A importação de bens destinados a ofertas para atenuar os efeitos das calamidades naturais, tais como cheias, tempestades, secas, ciclones, sismos, terramotos e outros de idêntica natureza, desde que devidamente autorizado pelo Titular do Poder Executivo"
+    },
+    {
+      "TaxExemptionCode": "M83",
+      "TaxExemptionReason": "Isento nos termos da alinea d) do nº1 do artigo 14.º",
+      "Law": "Artigo 14.º do CIVA",
+      "Description": "A importação de mercadorias ou equipamentos destinadas exclusiva e directamente à execução das operações petrolíferas e mineiras nos termos da Lei que estabelece o Regime Aduaneiro do Sector Petrolífero e do Código Mineiro, respectivamente."
+    },
+    {
+      "TaxExemptionCode": "M84",
+      "TaxExemptionReason": "Isento nos termos da alínea e) do nº1 do artigo 14.º",
+      "Law": "Artigo 14.º do CIVA",
+      "Description": "Importação de moeda estrangeira efectuada pelas instituições financeiras bancárias, nos termos definidos pelo Banco Nacional de Angola."
+    },
+    {
+      "TaxExemptionCode": "M85",
+      "TaxExemptionReason": "Isento nos termos da alinea a) do nº2 do artigo 14.º",
+      "Law": "Artigo 14.º do CIVA",
+      "Description": "No âmbito de tratados e acordos internacionais de que a República de Angola seja parte, nos termos previstos nesses tratados e acordos;"
+    },
+    {
+      "TaxExemptionCode": "M86",
+      "TaxExemptionReason": "Isento nos termos da alinea b) do nº2 do artigo 14.º",
+      "Law": "Artigo 14.º do CIVA",
+      "Description": "No âmbito de relações diplomáticas e consulares, quando a isenção resulte de tratados e acordos internacionais celebrados pela República de Angola"
+    },
+    {
+      "TaxExemptionCode": "M30",
+      "TaxExemptionReason": "Isento nos termos da alínea a) do artigo 15.º do CIVA",
+      "Law": "Artigo 15.º do CIVA",
+      "Description": "As transmissões de bens expedidos ou transportados com destino ao estrangeiro pelo vendedor ou por um terceiro por conta deste"
+    },
+    {
+      "TaxExemptionCode": "M31",
+      "TaxExemptionReason": "Isento nos termos da alínea b) do artigo 15.º do CIVA",
+      "Law": "Artigo 15.º do CIVA",
+      "Description": "As transmissões de bens de abastecimento postos a bordo das embarcações que efectuem navegação marítima em alto mar e que assegurem o transporte remunerado de passageiros ou o exercício de uma actividade comercial, industrial ou de pesca;"
+    },
+    {
+      "TaxExemptionCode": "M32",
+      "TaxExemptionReason": "Isento nos termos da alínea c) do artigo 15.º do CIVA",
+      "Law": "Artigo 15.º do CIVA",
+      "Description": "As transmissões de bens de abastecimento postos a bordo das aeronaves utilizadas por companhias de navegação aérea que se dediquem principalmente ao tráfego internacional e que assegurem o transporte remunerado de passageiros, ou o exercício de uma actividade comercial ou industrial"
+    },
+    {
+      "TaxExemptionCode": "M33",
+      "TaxExemptionReason": "Isento nos termos da alínea d) do artigo 15.º do CIVA",
+      "Law": "Artigo 15.º do CIVA",
+      "Description": "As transmissões de bens de abastecimento postos a bordo das embarcações de salvamento, assistência marítima, pesca costeira e embarcações de guerra, quando deixem o país com destino a um porto ou ancoradouro situado no estrangeiro"
+    },
+    {
+      "TaxExemptionCode": "M34",
+      "TaxExemptionReason": "Isento nos termos da alínea e) do artigo 15.º do CIVA",
+      "Law": "Artigo 15.º do CIVA",
+      "Description": "As transmissões, transformações, reparações, manutenção, frete e aluguer, incluindo a locação financeira, de embarcações e aeronaves afectas às companhias de navegação aérea e marítima que se dediquem principalmente ao tráfego internacional, assim como as transmissões de bens de abastecimento postos a bordo das mesmas e as prestações de serviços efectuadas com vista à satisfação das suas necessidades directas e da respectiva carga;"
+    },
+    {
+      "TaxExemptionCode": "M35",
+      "TaxExemptionReason": "Isento nos termos da alínea f) do artigo 15.º do CIVA",
+      "Law": "Artigo 15.º do CIVA",
+      "Description": "As transmissões de bens efectuadas no âmbito de relações diplomáticas e consulares cuja isenção resulte de acordos e convénios internacionais celebrados por Angola;"
+    },
+    {
+      "TaxExemptionCode": "M36",
+      "TaxExemptionReason": "Isento nos termos da alínea g) do artigo 15.º do CIVA",
+      "Law": "Artigo 15.º do CIVA",
+      "Description": "As transmissões de bens destinados a organismos internacionais reconhecidos por Angola ou a membros dos mesmos organismos, nos limites e com as condições fixadas em acordos e convénios internacionais celebrados por Angola"
+    },
+    {
+      "TaxExemptionCode": "M37",
+      "TaxExemptionReason": "Isento nos termos da alínea h) do artigo 15.º do CIVA",
+      "Law": "Artigo 15.º do CIVA",
+      "Description": "As transmissões de bens efectuadas no âmbito de tratados e acordos internacionais de que a República de Angola seja parte, quando a isenção resulte desses mesmos tratados e acordos"
+    },
+    {
+      "TaxExemptionCode": "M38",
+      "TaxExemptionReason": "Isento nos termos da alínea i) do artigo 15.º do CIVA",
+      "Law": "Artigo 15.º do CIVA",
+      "Description": "O transporte de pessoas provenientes ou com destino ao estrangeiro."
+    },
+    {
+      "TaxExemptionCode": "M90",
+      "TaxExemptionReason": "Isento nos termos da alinea a) do nº1 do artigo 16.º",
+      "Law": "Artigo 16º do CIVA",
+      "Description": "As importações de bens que, sob controlo aduaneiro e de acordo com as disposições aduaneiras especificamente aplicáveis, sejam postas nos regimes de zona franca, que sejam introduzidos em armazéns de regimes aduaneiros ou lojas francas, enquanto permanecerem sob tais regimes;"
+    },
+    {
+      "TaxExemptionCode": "M91",
+      "TaxExemptionReason": "Isento nos termos da alinea b) do nº1 do artigo 16.º",
+      "Law": "Artigo 16º do CIVA",
+      "Description": "As transmissões de bens que sejam expedidos ou transportados para as zonas ou depósitos mencionados na alínea anterior, bem como as prestações de serviços directamente conexas com tais transmissões;"
+    },
+    {
+      "TaxExemptionCode": "M92",
+      "TaxExemptionReason": "Isento nos termos da alinea c) do nº1 do artigo 16.º",
+      "Law": "Artigo 16º do CIVA",
+      "Description": "As transmissões de bens que se efectuem nos regimes a que se refere a alínea a), assim como as prestações de serviços directamente conexas com tais transmissões, enquanto os bens permanecerem naquelas situações"
+    },
+    {
+      "TaxExemptionCode": "M93",
+      "TaxExemptionReason": "Isento nos termos da alinea d) do nº1 do artigo 16.º",
+      "Law": "Artigo 16º do CIVA",
+      "Description": "As transmissões de bens que se encontrem nos regimes de trânsito, draubaque ou importação temporária e as prestações de serviços directamente conexas com tais operações, enquanto os mesmos forem considerados abrangidos por aqueles regimes"
+    },
+    {
+      "TaxExemptionCode": "M94",
+      "TaxExemptionReason": "Isento nos termos da alinea e) do nº1 do artigo 16.º",
+      "Law": "Artigo 16º do CIVA",
+      "Description": "A reimportação de bens por quem os exportou, no mesmo estado em que foram exportados, quando beneficiem de isenção de direitos aduaneiros"
+    }
+   ]

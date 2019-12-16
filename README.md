@@ -1,4 +1,12 @@
-# SAF-T-AO
+# SAF-T AO
+
+[![GitHub All Releases](https://img.shields.io/github/downloads/assoft-portugal/SAF-T-AO/total)](https://github.com/assoft-portugal/SAF-T-AO/releases)
+[![GitHub issues](https://img.shields.io/github/issues-raw/assoft-portugal/SAF-T-AO)](https://github.com/assoft-portugal/SAF-T-AO/issues)
+[![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/assoft-portugal/SAF-T-AO)](https://github.com/assoft-portugal/SAF-T-AO/releases)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/assoft-portugal/SAF-T-AO/blob/master/LICENSE)
+[![Discussion](https://img.shields.io/badge/discussion-yammer-blue.svg)](https://www.yammer.com/assoft-members/#/threads/inGroup?type=in_group&feedId=17835940&view=all)
+
+
 Official XSD from the Government of Angola for use in SAF-T AO.
 
 > The Standard Audit File for Tax Purposes (SAF-T) is a standardized XML file used for exporting the accounting information of a company to the tax authorities. The file contains accounting data that can be exported from an original accounting system for a specific time period.
