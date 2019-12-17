@@ -157,7 +157,7 @@
     </xs:unique>
   -->
     <xs:keyref name="InvoiceSupplierIDConstraint" refer="SupplierIDConstraint">
-      <xs:selector xpath="ns:SourceDocuments/ns:PurchaseInvoices/ns:Invoices" />
+      <xs:selector xpath="ns:SourceDocuments/ns:PurchaseInvoices/ns:Invoice" />
       <xs:field xpath="ns:SupplierID" />
     </xs:keyref>
   </xs:element>
@@ -696,7 +696,7 @@
                           <xs:element ref="TaxPayable" />
                           <xs:element ref="NetTotal" />
                           <xs:element ref="GrossTotal" />
-                          <xs:group ref="DeductibleTaxes" minOccurs="0" />
+                          <xs:group ref="DeductibleTaxes" minOccurs="0"  maxOccurs="unbounded" />
                           <xs:element minOccurs="0" name="Currency" type="Currency" />
                         </xs:sequence>
                       </xs:complexType>
@@ -864,6 +864,11 @@
   </xs:complexType>
   <!-- Estrutura de Retencao na fonte-->
   <xs:complexType name="WithholdingTax">
+    <xs:annotation>
+      <xs:documentation>
+        Existindo a necessidade de efectuar mais do que uma referência, esta estrutura poderá ser gerada tantas vezes quantas as necessárias.
+      </xs:documentation>
+    </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="1" ref="WithholdingTaxType" />
       <xs:element minOccurs="0" name="WithholdingTaxDescription" type="SAFAOtextTypeMandatoryMax60Car" />
@@ -1179,20 +1184,13 @@
           “FR” – Factura/recibo; 
           “VD” – Venda a dinheiro; 
           “GF” – Factura genérica; 
-          “FG” -Factura global 
+          “FG” - Factura global 
           “AC” – Aviso de cobrança 
-          “AR” – Aviso de cobrança/recibo 
-          “RE” – Recibo 
           “ND” – Nota de débito 
           “NC” – Nota de crédito 
-          “GR” – Guia de remessa 
           “AF” – Factura/recibo (autofacturação) 
-          “TV” – Talão de venda; (a) 
-          “TS” – Talão de serviços prestados; 
+          “TV” – Talão de venda;
           
-          (a) “TD” – Talão de devolução; 
-          (a) “AA” – Alienação de activos; 
-          (a) “DA” – Devolução de activos. 
           (a) Para o sector Segurador quando não deva constar da tabela 4.3. - 
         Documentos de conferência de mercadorias ou de prestação de serviços (WorkingDocuments), 
         pode ainda ser preenchido com: 
@@ -1211,16 +1209,10 @@
         <xs:enumeration value="GF" />
         <xs:enumeration value="FG" />
         <xs:enumeration value="AC" />
-        <xs:enumeration value="AR" />
         <xs:enumeration value="ND" />
         <xs:enumeration value="NC" />
-        <xs:enumeration value="GR" />
         <xs:enumeration value="AF" />
         <xs:enumeration value="TV" />
-        <xs:enumeration value="TS" />
-        <xs:enumeration value="TD" />
-        <xs:enumeration value="AA" />
-        <xs:enumeration value="DA" />
         <!-- Para o sector segurador-->
         <xs:enumeration value="RP" />
         <xs:enumeration value="RE" />
@@ -1477,6 +1469,12 @@
   </xs:element>
   <!-- Indicador de faturacao emitida em nome e por conta de terceiros -->
   <xs:element name="ThirdPartiesBillingIndicator">
+    <xs:annotation>
+      <xs:documentation>
+        Deve ser preenchido com "1" se respeitar a faturação emitida em nome e por conta de terceiros e com "2" se é obrigado a cativar o IVA.
+        Com "3" se cumprir as duas condições e com "0" (zero) no caso de nãi cumprir com nenhuma condição.
+      </xs:documentation>
+    </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:integer">
         <xs:minInclusive value="0" />
@@ -1512,7 +1510,7 @@
           “IRT” – Imposto sobre o rendimento de trabalho; 
           “II” – Imposto sobre o industrial; 
           “IS” – Imposto do selo;
-          "IVA" - Imposto sobre o Valor Acrescentado, quando sujeito a cativação.
+          "IVA" - Imposto sobre o Valor Acrescentado, quando sujeito a retenção/cativação.
         </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
