@@ -29,7 +29,7 @@
         <doc:Contributor name="Paulo Matos" url="https://github.com/batalhadematos" />
         <doc:Contributor name="ITGest" url="https://itgest.co.ao/" />
       </doc:Contributors>
-      <doc:ModificationDate>2017-12-04</doc:ModificationDate>
+      <doc:ModificationDate>2017-12-18</doc:ModificationDate>
     </xs:documentation>
   </xs:annotation>
   <!-- Estrutura do ficheiro SAFT-AO-->
@@ -684,17 +684,17 @@
                 <xs:complexType>
                   <xs:sequence>
                     <xs:element name="InvoiceNo" type="ns:SAFAOtextTypeMandatoryMax70Car" />
+                    <xs:element ref="Hash" minOccurs="0" />
+                    <xs:element ref="SourceID" />
                     <xs:element minOccurs="0" ref="Period" />
                     <xs:element ref="InvoiceDate" />
-                    <xs:element ref="InvoiceType" />
-                    <xs:element ref="SourceID" />
+                    <xs:element ref="PurchaseType" />
                     <xs:element ref="SupplierID" />
                     <xs:element name="DocumentTotals">
                       <xs:complexType>
                         <xs:sequence>
-                          <xs:element ref="InputTax" minOccurs="0"/>
                           <xs:element ref="TaxPayable" />
-                          <xs:element ref="NetTotal" />
+                          <xs:element name="TaxBase" type="ns:SAFMonetaryType2DecimalPlaces" />
                           <xs:element ref="GrossTotal" />
                           <xs:group ref="DeductibleTaxes" minOccurs="0"  maxOccurs="unbounded" />
                           <xs:element minOccurs="0" name="Currency" type="Currency" />
@@ -736,12 +736,12 @@
     </xs:sequence>
   </xs:complexType>
   <!-- Estrutura de valor monetario -->
-  <!-- Este elemento apenas deve ser gerado quando a moeda original do documento for diferente de euro -->
+  <!-- Este elemento apenas deve ser gerado quando a moeda original do documento for diferente de AOA -->
   <xs:complexType name="Currency">
     <xs:sequence>
       <xs:element ref="CurrencyCode" />
       <xs:element ref="CurrencyAmount" />
-      <xs:element minOccurs="0" ref="ExchangeRate" />
+      <xs:element ref="ExchangeRate" />
     </xs:sequence>
   </xs:complexType>
   <!-- Estrutura de caracterização aduaneira de produtos-->
@@ -896,7 +896,7 @@
   <xs:element name="CustomerTaxID" type="SAFAOtextTypeMandatoryMax30Car" />
   <xs:element name="DateCreated" type="SAFAODateSpan" />
   <xs:element name="DebitAmount" type="SAFmonetaryType" />
-  <xs:element name="DeductibleTax" type="SAFMonetaryType2DecimalPlaces"/>
+  <xs:element name="DeductibleAmount" type="SAFMonetaryType2DecimalPlaces"/>
   <xs:element name="DeductiblePercentage" type="SAFdecimalType"/>
   <xs:element name="DeliveryDate" type="SAFdateType" />
   <xs:element name="DeliveryID" type="SAFAOtextTypeMandatoryMax255Car" />
@@ -1077,6 +1077,30 @@
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
+  <!-- Estrutura da tipologia de destino da DP de IVA -->
+  <xs:element name="DeductibleTaxType">
+    <xs:annotation>
+      <xs:documentation>
+        Deve ser preenchido com:
+          "MFI" - Meios Fixos e Investimentos 
+          "INV" - Existências/Inventário 
+          "OBC" - Outros Bens de Consumo 
+          "SERV" - Serviços 
+          "IMPORT" - Importação 
+          "SCE" - Serviços Contratados no Estrangeiro
+      </xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="MFI" />
+        <xs:enumeration value="INV" />
+        <xs:enumeration value="OBC" />
+        <xs:enumeration value="SERV" />
+        <xs:enumeration value="IMPORT" />
+        <xs:enumeration value="SCE" />
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
   <!-- Identificacao unica do documento de movimentacao de mercadorias e de conferencia-->
   <xs:element name="DocumentNumber">
     <xs:simpleType>
@@ -1185,7 +1209,6 @@
           “VD” – Venda a dinheiro; 
           “GF” – Factura genérica; 
           “FG” - Factura global 
-          “AC” – Aviso de cobrança 
           “ND” – Nota de débito 
           “NC” – Nota de crédito 
           “AF” – Factura/recibo (autofacturação) 
@@ -1194,6 +1217,7 @@
           (a) Para o sector Segurador quando não deva constar da tabela 4.3. - 
         Documentos de conferência de mercadorias ou de prestação de serviços (WorkingDocuments), 
         pode ainda ser preenchido com: 
+          “AC” – Aviso de cobrança
           “RP” – Prémio ou recibo de prémio; 
           “RE” – Estorno ou recibo de estorno; 
           “CS” – Imputação a co-seguradoras; 
@@ -1208,12 +1232,12 @@
         <xs:enumeration value="VD" />
         <xs:enumeration value="GF" />
         <xs:enumeration value="FG" />
-        <xs:enumeration value="AC" />
         <xs:enumeration value="ND" />
         <xs:enumeration value="NC" />
         <xs:enumeration value="AF" />
         <xs:enumeration value="TV" />
         <!-- Para o sector segurador-->
+        <xs:enumeration value="AC" />
         <xs:enumeration value="RP" />
         <xs:enumeration value="RE" />
         <xs:enumeration value="CS" />
@@ -1363,6 +1387,37 @@
         <xs:enumeration value="O" />
         <xs:enumeration value="E" />
         <xs:enumeration value="I" />
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="PurchaseType">
+    <xs:annotation>
+      <xs:documentation>
+        Deve ser preenchido com: 
+        “FT” - Factura; 
+        “FR” - Factura/recibo; 
+        “GF” - Factura genérica; 
+        “FG” - Factura global 
+        “AC” - Aviso de cobrança 
+        "AF" - Fatura Recibo de Autofaturação
+        “ND” - Nota de débito
+        “AF” - Factura/recibo (autofacturação)
+        “TV” - Talão de venda;
+        “NL” - Nota de liquidação;
+      </xs:documentation>
+      </xs:annotation>
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="FT" />
+        <xs:enumeration value="FR" />
+        <xs:enumeration value="VD" />
+        <xs:enumeration value="GF" />
+        <xs:enumeration value="FG" />
+        <xs:enumeration value="ND" />
+        <xs:enumeration value="AF" />
+        <xs:enumeration value="TV" />
+        <xs:enumeration value="AC" />
+        <xs:enumeration value="NL" />
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
@@ -1738,14 +1793,19 @@
   <!-- Estrutura de DeductibleTaxes -->
   <xs:group name="DeductibleTaxes">
     <xs:sequence>
-      <xs:element ref="DeductibleTax" minOccurs="1"/>
-      <xs:element ref="DeductiblePercentage" minOccurs="1" ></xs:element>
-      <xs:element minOccurs="0" maxOccurs="1" name="WithholdingTax" type="WithholdingTax">
-        <xs:annotation>
-          <xs:documentation>
-            Informação relativa a impostos retidos pelo fornecedor. 
-          </xs:documentation>
-        </xs:annotation>
+      <xs:element name="Deductible">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="DeductibleAmount"/>
+            <xs:element ref="DeductiblePercentage" />
+            <xs:element ref="DeductibleTaxType" />
+            <xs:element minOccurs="0" maxOccurs="1" name="WithholdingTax" type="WithholdingTax">
+              <xs:annotation>
+                <xs:documentation>Informação relativa a impostos retidos pelo fornecedor.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
       </xs:element>
     </xs:sequence>
   </xs:group>
