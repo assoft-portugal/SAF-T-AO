@@ -29,7 +29,7 @@
         <doc:Contributor name="Paulo Matos" url="https://github.com/batalhadematos" />
         <doc:Contributor name="ITGest" url="https://itgest.co.ao/" />
       </doc:Contributors>
-      <doc:ModificationDate>2017-12-18</doc:ModificationDate>
+      <doc:ModificationDate>2017-12-20</doc:ModificationDate>
     </xs:documentation>
   </xs:annotation>
   <!-- Estrutura do ficheiro SAFT-AO-->
@@ -150,12 +150,6 @@
       <xs:field xpath="ns:CustomerID" />
     </xs:keyref>
   <!-- Constraints de Documentos Comerciais de Fornecedores -->
-  <!--
-    <xs:unique name="InvoicesNoConstraint">
-      <xs:selector xpath="ns:SourceDocuments/ns:PurchaseInvoices/ns:Invoices" />
-      <xs:field xpath="ns:InvoiceNo" />
-    </xs:unique>
-  -->
     <xs:keyref name="InvoiceSupplierIDConstraint" refer="SupplierIDConstraint">
       <xs:selector xpath="ns:SourceDocuments/ns:PurchaseInvoices/ns:Invoice" />
       <xs:field xpath="ns:SupplierID" />
@@ -694,12 +688,17 @@
                       <xs:complexType>
                         <xs:sequence>
                           <xs:element ref="TaxPayable" />
-                          <xs:element name="TaxBase" type="ns:SAFMonetaryType2DecimalPlaces" />
+                          <xs:element ref="NetTotal" />
                           <xs:element ref="GrossTotal" />
                           <xs:group ref="DeductibleTaxes" minOccurs="0"  maxOccurs="unbounded" />
                           <xs:element minOccurs="0" name="Currency" type="Currency" />
                         </xs:sequence>
                       </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" maxOccurs="1" name="WithholdingTax" type="WithholdingTax">
+                      <xs:annotation>
+                        <xs:documentation>Informação relativa a impostos retidos pelo fornecedor.</xs:documentation>
+                      </xs:annotation>
                     </xs:element>
                   </xs:sequence>
                 </xs:complexType>
@@ -1086,7 +1085,7 @@
           "INV" - Existências/Inventário 
           "OBC" - Outros Bens de Consumo 
           "SERV" - Serviços 
-          "IMPORT" - Importação 
+          "IMPT" - Importação 
           "SCE" - Serviços Contratados no Estrangeiro
       </xs:documentation>
     </xs:annotation>
@@ -1096,7 +1095,7 @@
         <xs:enumeration value="INV" />
         <xs:enumeration value="OBC" />
         <xs:enumeration value="SERV" />
-        <xs:enumeration value="IMPORT" />
+        <xs:enumeration value="IMPT" />
         <xs:enumeration value="SCE" />
       </xs:restriction>
     </xs:simpleType>
@@ -1794,16 +1793,17 @@
   <xs:group name="DeductibleTaxes">
     <xs:sequence>
       <xs:element name="Deductible">
+        <xs:annotation>
+          <xs:documentation>
+            Existindo a necessidade de efectuar mais do que uma referência, esta estrutura poderá ser gerada tantas vezes quantas as necessárias.
+          </xs:documentation>
+        </xs:annotation>  
         <xs:complexType>
           <xs:sequence>
+            <xs:element name="TaxBase" type="ns:SAFMonetaryType2DecimalPlaces" />
             <xs:element ref="DeductibleAmount"/>
             <xs:element ref="DeductiblePercentage" />
             <xs:element ref="DeductibleTaxType" />
-            <xs:element minOccurs="0" maxOccurs="1" name="WithholdingTax" type="WithholdingTax">
-              <xs:annotation>
-                <xs:documentation>Informação relativa a impostos retidos pelo fornecedor.</xs:documentation>
-              </xs:annotation>
-            </xs:element>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
