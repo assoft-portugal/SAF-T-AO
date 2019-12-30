@@ -1,1 +1,5 @@
 theme: jekyll-theme-slate
+
+# XML Lint
+- name: XML Lint
+  uses: ChristophWurst/xmllint-action@v1
