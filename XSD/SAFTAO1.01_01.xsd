@@ -29,7 +29,7 @@
         <doc:Contributor name="Paulo Matos" url="https://github.com/batalhadematos" />
         <doc:Contributor name="ITGest" url="https://itgest.co.ao/" />
       </doc:Contributors>
-      <doc:ModificationDate>2020-01-07</doc:ModificationDate>
+      <doc:ModificationDate>2020-01-21</doc:ModificationDate>
     </xs:documentation>
   </xs:annotation>
   <!-- Estrutura do ficheiro SAFT-AO-->
