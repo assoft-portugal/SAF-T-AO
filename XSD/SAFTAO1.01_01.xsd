@@ -678,7 +678,14 @@
                 <xs:complexType>
                   <xs:sequence>
                     <xs:element name="InvoiceNo" type="ns:SAFAOtextTypeMandatoryMax70Car" />
-                    <xs:element ref="Hash" minOccurs="0" />
+                    <xs:element ref="Hash">
+                      <xs:annotation>
+                        <xs:documentation>
+                          Preencher com os 4 valores correspondentes ao Hash constantes no documento impresso. 
+                          O campo deve ser preenchido com “0” (zero), caso não haja obrigatoriedade de validação.
+                        </xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
                     <xs:element ref="SourceID" />
                     <xs:element minOccurs="0" ref="Period" />
                     <xs:element ref="InvoiceDate" />
