@@ -28,8 +28,9 @@
         <doc:Contributor name="Texto Editores (SU) LDA" url="https://www.textoeditores.ao" />
         <doc:Contributor name="Paulo Matos" url="https://github.com/batalhadematos" />
         <doc:Contributor name="ITGest" url="https://itgest.co.ao/" />
+        <doc:Contributor name="Newtec Tecnologias LDA" url="http://www.newtec.co.ao/" />
       </doc:Contributors>
-      <doc:ModificationDate>2017-12-04</doc:ModificationDate>
+      <doc:ModificationDate>2020-01-27</doc:ModificationDate>
     </xs:documentation>
   </xs:annotation>
   <!-- Estrutura do ficheiro SAFT-AO-->
@@ -54,11 +55,11 @@
     </xs:complexType>
     <!-- Constraint-->
     <xs:unique name="AccountIDConstraint">
-      <xs:selector xpath="ns:MasterFiles/ns:GeneralLedgerAccounts" />
+      <xs:selector xpath="ns:MasterFiles/ns:GeneralLedgerAccounts/ns:Account" />
       <xs:field xpath="ns:AccountID" />
     </xs:unique>
     <xs:keyref name="GroupingCodeConstraint" refer="AccountIDConstraint">
-      <xs:selector xpath="ns:MasterFiles/ns:GeneralLedgerAccounts/ns:Account"/>
+      <xs:selector xpath="ns:MasterFiles/ns:GeneralLedgerAccounts/ns:Account" />
       <xs:field xpath="ns:GroupingCode"/>
     </xs:keyref>
     <xs:unique name="CustomerIDConstraint">
