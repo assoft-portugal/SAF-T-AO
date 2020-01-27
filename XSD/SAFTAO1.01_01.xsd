@@ -97,10 +97,6 @@
       <xs:selector xpath="ns:GeneralLedgerEntries/ns:Journal/ns:Transaction"/>
       <xs:field xpath="ns:TransactionID"/>
     </xs:unique>
-    <xs:keyref name="GeneralLedgerEntriesAccountIDConstraint" refer="AccountIDConstraint">
-      <xs:selector xpath="ns:GeneralLedgerEntries/ns:Journal/ns:Transaction/ns:Line" />
-      <xs:field xpath="ns:AccountID" />
-    </xs:keyref>
     <xs:unique name="InvoiceNoConstraint">
       <xs:selector xpath="ns:SourceDocuments/ns:SalesInvoices/ns:Invoice" />
       <xs:field xpath="ns:InvoiceNo" />
