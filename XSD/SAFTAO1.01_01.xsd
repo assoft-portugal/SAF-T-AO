@@ -30,7 +30,7 @@
         <doc:Contributor name="ITGest" url="https://itgest.co.ao/" />
         <doc:Contributor name="Newtec Tecnologias LDA" url="http://www.newtec.co.ao/" />
       </doc:Contributors>
-      <doc:ModificationDate>2020-01-27</doc:ModificationDate>
+      <doc:ModificationDate>2020-02-07</doc:ModificationDate>
     </xs:documentation>
   </xs:annotation>
   <!-- Estrutura do ficheiro SAFT-AO-->
@@ -1412,10 +1412,10 @@
       <xs:restriction base="xs:string">
         <xs:enumeration value="FT" />
         <xs:enumeration value="FR" />
-        <xs:enumeration value="VD" />
         <xs:enumeration value="GF" />
         <xs:enumeration value="FG" />
         <xs:enumeration value="ND" />
+        <xs:enumeration value="AR" />
         <xs:enumeration value="AF" />
         <xs:enumeration value="TV" />
         <xs:enumeration value="AC" />
@@ -1564,10 +1564,11 @@
     <xs:annotation>
       <xs:documentation>
           Neste campo deve ser indicado o tipo de imposto retido, preenchendo-o com:
-          “IRT” – Imposto sobre o rendimento de trabalho; 
-          “II” – Imposto sobre o industrial; 
-          “IS” – Imposto do selo;
-          "IVA" - Imposto sobre o Valor Acrescentado, quando sujeito a retenção/cativação.
+          “IRT” - Imposto sobre o rendimento de trabalho; 
+          “II” - Imposto sobre o industrial; 
+          “IS” - Imposto do selo;
+          "IVA" - Imposto sobre o Valor Acrescentado, quando sujeito a retenção/cativação;
+          "IPU" - Imposto Predial Urbanto.
         </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
@@ -1576,6 +1577,7 @@
         <xs:enumeration value="II" />
         <xs:enumeration value="IS" />
         <xs:enumeration value="IVA" />
+        <xs:enumeration value="IPU" />
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
