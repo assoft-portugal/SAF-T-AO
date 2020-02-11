@@ -23,3 +23,19 @@ The of VAT legislation will take effect starting in October 2019. This deadline 
 * Software creators must apply to a software certification program by the government which is mandatory.
 * Starting from **1 January 2020** it will be mandatory to produce a monthly SAF-T file and send it to the government tax authorities.
 * From 1 January 2020, all taxpayers with an annual turnover of more than AKZ 50,000,000 will be required to produce the above referred SAF-T files and use certified software.
+
+## XML Validation
+
+Unix users can use `xmllint` for validation.  Windows users can use a simple tool like [XmlPad](https://xmlpad-mobile.com/), although the command line xmllint can also be used.
+
+### Instalation
+
+```bash
+sudo apt install libxml2-utils
+```
+
+### Usage
+
+```bash
+xmllint -schema schema.xsd file.xml --noout
+```
