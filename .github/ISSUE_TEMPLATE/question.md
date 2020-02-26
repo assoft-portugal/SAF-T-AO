@@ -1,3 +1,12 @@
+---
+name: Question
+about: Create a question related with this project
+title: ''
+labels: question
+assignees: ''
+
+---
+
 **Describe your question**
 
 A clear and concise description of what the question is.
