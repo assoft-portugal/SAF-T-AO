@@ -29,8 +29,9 @@
         <doc:Contributor name="Paulo Matos" url="https://github.com/batalhadematos" />
         <doc:Contributor name="ITGest" url="https://itgest.co.ao/" />
         <doc:Contributor name="Newtec Tecnologias LDA" url="http://www.newtec.co.ao/" />
+        <doc:Contributor name="Infodelivery S.A." url="http://www.infodelivery.pt" />
       </doc:Contributors>
-      <doc:ModificationDate>2020-02-07</doc:ModificationDate>
+      <doc:ModificationDate>2020-03-26</doc:ModificationDate>
     </xs:documentation>
   </xs:annotation>
   <!-- Estrutura do ficheiro SAFT-AO-->
@@ -1427,18 +1428,13 @@
   <xs:element name="SelfBillingIndicator">
     <xs:annotation>
       <xs:documentation>
-        PROPOSTA:
-        Deve ser preenchido: 
-        com “1” se respeitar a autofacturação,
-        Com “2” se é obrigado a cativar o IVA,
-        Com ”3” se tiver IVA cativo e autofacturação,
-        com “0” (zero) no caso de não cumprir com nenhuma condição .
+        Deve ser preenchido com «1» se respeitar autofaturação, com «0» (zero) no caso contrário.
       </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:integer">
         <xs:minInclusive value="0" />
-        <xs:maxInclusive value="3" />
+        <xs:maxInclusive value="1" />
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
@@ -1718,15 +1714,11 @@
     <xs:annotation>
       <xs:documentation>
           Código da taxa na tabela de impostos.
-          No caso do campo 4.4.4.14.6.1. - Código do tipo de imposto (TaxType) = IVA, deve ser preenchido com:
-
-          “NOR” – Taxa normal; “ISE” – Isenta;
+          Deve ser preenchido com: 
+          “NOR” – Taxa normal; 
+          “ISE” – Isenta;
           “OUT” – Outros, aplicável para os regimes especiais de IVA.
-          No caso do campo 4.4.4.14.6.1.
-          Código do tipo de imposto (TaxType) = IS, deve ser preenchido com:
-          O código da verba respectiva; “ISE” – Isenta.
-
-          No caso de não aplicabilidade de imposto deve ser preenchido com “NA”.
+          No caso de não sujeição deve ser preenchido com «NS».
       </xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
@@ -1845,6 +1837,13 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="SAFAOProductID">
+    <xs:annotation>
+      <xs:documentation>
+        Nome da aplicação que gera o SAF-T(AO).
+        Deve ser indicado o nome comercial do software e da empresa empresa produtora no formato 
+        «Nome da aplicação/Nome da empresa produtora do software».
+      </xs:documentation>
+    </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:pattern value="[^/]+/[^/]+" />
       <xs:minLength value="3" />
