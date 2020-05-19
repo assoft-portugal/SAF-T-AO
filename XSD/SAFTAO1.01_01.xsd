@@ -29,8 +29,9 @@
         <doc:Contributor name="Paulo Matos" url="https://github.com/batalhadematos" />
         <doc:Contributor name="ITGest" url="https://itgest.co.ao/" />
         <doc:Contributor name="Newtec Tecnologias LDA" url="http://www.newtec.co.ao/" />
+        <doc:Contributor name="Infodelivery S.A." url="http://www.infodelivery.pt" />
       </doc:Contributors>
-      <doc:ModificationDate>2020-01-27</doc:ModificationDate>
+      <doc:ModificationDate>2020-05-19</doc:ModificationDate>
     </xs:documentation>
   </xs:annotation>
   <!-- Estrutura do ficheiro SAFT-AO-->
@@ -146,13 +147,9 @@
       <xs:selector xpath="ns:SourceDocuments/ns:Payments/ns:Payment" />
       <xs:field xpath="ns:CustomerID" />
     </xs:keyref>
-    <!-- Constraints de Documentos Comerciais de Fornecedores -->
-    <xs:unique name="InvoicesNoConstraint">
-      <xs:selector xpath="ns:SourceDocuments/ns:PurchaseInvoices/ns:Invoices" />
-      <xs:field xpath="ns:InvoiceNo" />
-    </xs:unique>
+  <!-- Constraints de Documentos Comerciais de Fornecedores -->
     <xs:keyref name="InvoiceSupplierIDConstraint" refer="SupplierIDConstraint">
-      <xs:selector xpath="ns:SourceDocuments/ns:PurchaseInvoices/ns:Invoices" />
+      <xs:selector xpath="ns:SourceDocuments/ns:PurchaseInvoices/ns:Invoice" />
       <xs:field xpath="ns:SupplierID" />
     </xs:keyref>
   </xs:element>
@@ -678,23 +675,35 @@
               <xs:element minOccurs="0" maxOccurs="unbounded" name="Invoice">
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element ref="InvoiceNo" />
+                    <xs:element name="InvoiceNo" type="ns:SAFAOtextTypeMandatoryMax60Car" />
+                    <xs:element ref="Hash">
+                      <xs:annotation>
+                        <xs:documentation>
+                          Preencher com os 4 valores correspondentes ao Hash constantes no documento impresso. 
+                          O campo deve ser preenchido com “0” (zero), caso não haja obrigatoriedade de validação.
+                        </xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="SourceID" />
                     <xs:element minOccurs="0" ref="Period" />
                     <xs:element ref="InvoiceDate" />
-                    <xs:element ref="InvoiceType" />
-                    <xs:element ref="SourceID" />
+                    <xs:element ref="PurchaseType" />
                     <xs:element ref="SupplierID" />
                     <xs:element name="DocumentTotals">
                       <xs:complexType>
                         <xs:sequence>
-                          <xs:element ref="InputTax"/>
                           <xs:element ref="TaxPayable" />
                           <xs:element ref="NetTotal" />
                           <xs:element ref="GrossTotal" />
-                          <xs:group ref="DeductibleTaxes" minOccurs="0" />
+                          <xs:group ref="DeductibleTaxes" minOccurs="0"  maxOccurs="unbounded" />
                           <xs:element minOccurs="0" name="Currency" type="Currency" />
                         </xs:sequence>
                       </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="WithholdingTax" type="WithholdingTax">
+                      <xs:annotation>
+                        <xs:documentation>Informação relativa a impostos retidos pelo fornecedor.</xs:documentation>
+                      </xs:annotation>
                     </xs:element>
                   </xs:sequence>
                 </xs:complexType>
@@ -731,12 +740,12 @@
     </xs:sequence>
   </xs:complexType>
   <!-- Estrutura de valor monetario -->
-  <!-- Este elemento apenas deve ser gerado quando a moeda original do documento for diferente de euro -->
+  <!-- Este elemento apenas deve ser gerado quando a moeda original do documento for diferente de AOA -->
   <xs:complexType name="Currency">
     <xs:sequence>
       <xs:element ref="CurrencyCode" />
       <xs:element ref="CurrencyAmount" />
-      <xs:element minOccurs="0" ref="ExchangeRate" />
+      <xs:element ref="ExchangeRate" />
     </xs:sequence>
   </xs:complexType>
   <!-- Estrutura de caracterização aduaneira de produtos-->
@@ -772,8 +781,21 @@
   </xs:complexType>
   <!-- Estrutura de Referencias ao documento de origem-->
   <xs:complexType name="OrderReferences">
+    <xs:annotation>
+      <xs:documentation>
+        Existindo a necessidade de efectuar mais do que uma referência, esta estrutura poderá ser gerada tantas vezes quantas as necessárias. 
+        O preenchimento é obrigatório, quando o campo 4.1.4.8. for preenchendo com “NC” – Nota de crédito para um documento de ano económico anterior.
+      </xs:documentation>
+    </xs:annotation>
     <xs:sequence>
-      <xs:element minOccurs="0" ref="OriginatingON" />
+      <xs:element minOccurs="0" ref="OriginatingON">
+        <xs:annotation>
+          <xs:documentation>
+            Deve ser indicado o tipo, a série e o número do documento que suporta a emissão deste. 
+            Se o documento estiver contido no SAF-T AO deve ser utilizada a estrutura de numeração do campo de origem.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element minOccurs="0" ref="OrderDate" />
     </xs:sequence>
   </xs:complexType>
@@ -799,8 +821,22 @@
   </xs:complexType>
   <!-- Estrutura de referencias a outros documentos em documentos retificativos de faturas-->
   <xs:complexType name="References">
+    <xs:annotation>
+      <xs:documentation>
+        Referências a facturas nos documentos rectificativos destas. 
+        Existindo a necessidade de efectuar mais do que uma referência, esta estrutura poderá ser gerada tantas vezes quantas as necessárias. 
+        O preenchimento é obrigatório, quando o campo 4.1.4.8. for preenchido com “NC” – Nota de crédito
+      </xs:documentation>
+    </xs:annotation>
     <xs:sequence>
-      <xs:element minOccurs="0" ref="Reference" />
+      <xs:element minOccurs="0" ref="Reference">
+        <xs:annotation>
+          <xs:documentation>
+            Referência à factura, através de identificação única da mesma, nos sistemas em que exista. 
+            Deve ser utilizada a estrutura de numeração do campo de origem.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element minOccurs="0" ref="Reason" />
     </xs:sequence>
   </xs:complexType>
@@ -859,10 +895,27 @@
   </xs:complexType>
   <!-- Estrutura de Retencao na fonte-->
   <xs:complexType name="WithholdingTax">
+    <xs:annotation>
+      <xs:documentation>
+        Existindo a necessidade de efectuar mais do que uma referência, esta estrutura poderá ser gerada tantas vezes quantas as necessárias.
+      </xs:documentation>
+    </xs:annotation>
     <xs:sequence>
-      <xs:element minOccurs="0" ref="WithholdingTaxType" />
-      <xs:element minOccurs="0" name="WithholdingTaxDescription" type="SAFAOtextTypeMandatoryMax60Car" />
-      <xs:element name="WithholdingTaxAmount" type="SAFmonetaryType" />
+      <xs:element minOccurs="1" ref="WithholdingTaxType" />
+      <xs:element minOccurs="0" name="WithholdingTaxDescription" type="SAFAOtextTypeMandatoryMax60Car">
+        <xs:annotation>
+          <xs:documentation>
+            Deve ser indicado o normativo legal aplicável ou a percentagem de imposto aplicável.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="WithholdingTaxAmount" type="SAFmonetaryType">
+        <xs:annotation>
+          <xs:documentation>
+            Deve ser indicado o montante retido de imposto.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
   </xs:complexType>
   <!-- ELEMENTOS SIMPLES -->
@@ -886,7 +939,7 @@
   <xs:element name="CustomerTaxID" type="SAFAOtextTypeMandatoryMax30Car" />
   <xs:element name="DateCreated" type="SAFAODateSpan" />
   <xs:element name="DebitAmount" type="SAFmonetaryType" />
-  <xs:element name="DeductibleTax" type="SAFMonetaryType2DecimalPlaces"/>
+  <xs:element name="DeductibleAmount" type="SAFMonetaryType2DecimalPlaces"/>
   <xs:element name="DeductiblePercentage" type="SAFdecimalType"/>
   <xs:element name="DeliveryDate" type="SAFdateType" />
   <xs:element name="DeliveryID" type="SAFAOtextTypeMandatoryMax255Car" />
@@ -899,7 +952,13 @@
   <xs:element name="GLPostingDate" type="SAFdateType" />
   <xs:element name="GrossTotal" type="SAFMonetaryType2DecimalPlaces" />
   <xs:element name="Hash" type="SAFAOtextTypeMandatoryMax172Car" />
-  <xs:element name="HashControl" type="SAFAOtextTypeMandatoryMax70Car" />
+  <xs:element name="HashControl" type="SAFAOtextTypeMandatoryMax70Car">
+    <xs:annotation>
+      <xs:documentation>
+        O campo deve ser preenchido com “0” (zero), caso o documento seja gerado por um programa não validado.
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="HeaderComment" type="SAFAOtextTypeMandatoryMax255Car" />
   <xs:element name="IECAmount" type="SAFmonetaryType" />
   <xs:element name="InputTax" type="SAFMonetaryType2DecimalPlaces"/>
@@ -1059,16 +1118,47 @@
   </xs:element>
   <!-- Codigo da moeda (ISO 4217) -->
   <xs:element name="CurrencyCode">
-    <!-- Nao consta o AOA por nao existirem situacoes que requeiram este codigo de moeda -->
     <xs:simpleType>
       <xs:restriction base="xs:string">
-        <xs:pattern value="AED|AFN|ALL|AMD|ANG|ARS|AUD|AWG|AZN|BAM|BBD|BDT|BGN|BHD|BIF|BMD|BND|BOB|BOV|BRL|BSD|BTN|BWP|BYR|BZD|CAD|CDF|CHE|CHF|CHW|CLF|CLP|CNY|COP|COU|CRC|CUC|CUP|CVE|CZK|DJF|DKK|DOP|DZD|EGP|ERN|ETB|EUR|FJD|FKP|GBP|GEL|GHS|GIP|GMD|GNF|GTQ|GYD|HKD|HNL|HRK|HTG|HUF|IDR|ILS|INR|IQD|IRR|ISK|JMD|JOD|JPY|KES|KGS|KHR|KMF|KPW|KRW|KWD|KYD|KZT|LAK|LBP|LKR|LRD|LSL|LTL|LVL|LYD|MAD|MDL|MGA|MKD|MMK|MNT|MOP|MRO|MUR|MVR|MWK|MXN|MXV|MYR|MZN|NAD|NGN|NIO|NOK|NPR|NZD|OMR|PAB|PEN|PGK|PHP|PKR|PLN|PYG|QAR|RON|RSD|RUB|RWF|SAR|SBD|SCR|SDG|SEK|SGD|SHP|SLL|SOS|SRD|SSP|STD|SVC|SYP|SZL|THB|TJS|TMT|TND|TOP|TRY|TTD|TWD|TZS|UAH|UGX|USD|USN|USS|UYI|UYU|UZS|VEF|VND|VUV|WST|XAF|XAG|XAU|XBA|XBB|XBC|XBD|XCD|XDR|XFU|XOF|XPD|XPF|XPT|XSU|XUA|YER|ZAR|ZMW|ZWL|EEK|SKK|TMM|ZMK|ZWD|ZWR" />
+        <xs:pattern value="AED|AFN|ALL|AMD|ANG|AOA|ARS|AUD|AWG|AZN|BAM|BBD|BDT|BGN|BHD|BIF|BMD|BND|BOB|BOV|BRL|BSD|BTN|BWP|BYN|BZD|CAD|CDF|CHE|CHF|CHW|CLF|CLP|CNY|COP|COU|CRC|CUC|CUP|CVE|CZK|DJF|DKK|DOP|DZD|EGP|ERN|ETB|EUR|FJD|FKP|GBP|GEL|GHS|GIP|GMD|GNF|GTQ|GYD|HKD|HNL|HRK|HTG|HUF|IDR|ILS|INR|IQD|IRR|ISK|JMD|JOD|JPY|KES|KGS|KHR|KMF|KPW|KRW|KWD|KYD|KZT|LAK|LBP|LKR|LRD|LSL|LYD|MAD|MDL|MGA|MKD|MMK|MNT|MOP|MRU|MUR|MVR|MWK|MXN|MXV|MYR|MZN|NAD|NGN|NIO|NOK|NPR|NZD|OMR|PAB|PEN|PGK|PHP|PKR|PLN|PYG|QAR|RON|RSD|RUB|RWF|SAR|SBD|SCR|SDG|SEK|SGD|SHP|SLL|SOS|SRD|SSP|STN|SVC|SYP|SZL|THB|TJS|TMT|TND|TOP|TRY|TTD|TWD|TZS|UAH|UGX|USD|USN|UYI|UYU|UYW|UZS|VES|VND|VUV|WST|XAF|XAG|XAU|XBA|XBB|XBC|XBD|XCD|XDR|XOF|XPD|XPF|XPT|XSU|XTS|XUA|XXX|YER|ZAR|ZMW|ZWL" />
         <xs:length value="3" />
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <!-- Estrutura da tipologia de destino da DP de IVA -->
+  <xs:element name="DeductibleTaxType">
+    <xs:annotation>
+      <xs:documentation>
+        Deve ser preenchido com: 
+          "MFI" - Meios Fixos e Investimentos 
+          "INV" - Existências/Inventário 
+          "OBC" - Outros Bens de Consumo 
+          "SERV" - Serviços 
+          "IMPT" - Importação 
+          "SCE" - Serviços Contratados no Estrangeiro
+      </xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="MFI" />
+        <xs:enumeration value="INV" />
+        <xs:enumeration value="OBC" />
+        <xs:enumeration value="SERV" />
+        <xs:enumeration value="IMPT" />
+        <xs:enumeration value="SCE" />
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
   <!-- Identificacao unica do documento de movimentacao de mercadorias e de conferencia-->
   <xs:element name="DocumentNumber">
+    <xs:annotation>
+      <xs:documentation>
+        Esta identificação é composta sequencialmente pelos seguintes elementos: 
+          Tipo de documento (MovementType), um espaço, o código interno do tipo de documento atribuído pela aplicação o identificador da série do documento, uma barra (/) e o número sequencial desse documento dentro dessa série. 
+          Não podem existir registos com a mesma identificação. 
+          Não pode ser utilizado o mesmo código interno de tipo de documento em diferentes tipos de documentos.
+      </xs:documentation>
+    </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
         <xs:pattern value="[^ ]+ [^/^ ]+/[0-9]+" />
@@ -1123,10 +1213,14 @@
   <xs:element name="InvoiceNo">
     <xs:annotation>
       <xs:documentation>
-
-        Recomenda-se a utlização do seguinte formato:
-
-        InvoiceType + ESPAÇO + SÉRIE / + NÚMERO SEQUENCIAL
+        Esta identificação é composta sequencialmente pelos seguintes elementos: 
+          Tipo de documento (InvoiceType), um espaço, 
+          o código interno do tipo de documento atribuído pela aplicação o identificador da série do documento, 
+          uma barra (/) e o número sequencial desse documento dentro dessa série. 
+        
+        Não podem existir registos com a mesma identificação. 
+        
+        Não pode ser utilizado o mesmo código interno de tipo de documento em diferentes tipos de documentos.
         
         Exemplos: 
         InvoiceType: FT
@@ -1134,7 +1228,6 @@
 
         InvoiceType: NC
         InvoiceNo: NC S001/1
-
       </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
@@ -1149,11 +1242,11 @@
   <xs:element name="InvoiceStatus">
     <xs:annotation>
       <xs:documentation>
-          Deve ser preenchido com:
-          “N” – Normal;
-          “S” – Autofacturação;
-          “A” – Documento anulado;
-          “R” – Documento de resumo doutros documentos criados noutras aplicações e gerado nesta aplicação;
+        Deve ser preenchido com: 
+          “N” - Normal; 
+          “S” - Autofacturação; 
+          “A” - Documento anulado; 
+          “R” - Documento de resumo doutros documentos criados noutras aplicações e gerado nesta aplicação;
       </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
@@ -1170,32 +1263,23 @@
     <xs:annotation>
       <xs:documentation>
         Deve ser preenchido com: 
-          “FT” – Factura; 
-          “FR” – Factura/recibo; 
-          “VD” – Venda a dinheiro; 
-          “GF” – Factura genérica; 
-          “FG” -Factura global 
-          “AC” – Aviso de cobrança 
-          “AR” – Aviso de cobrança/recibo 
-          “RE” – Recibo 
-          “ND” – Nota de débito 
-          “NC” – Nota de crédito 
-          “GR” – Guia de remessa 
-          “AF” – Factura/recibo (autofacturação) 
-          “TV” – Talão de venda; (a) 
-          “TS” – Talão de serviços prestados; 
-          
-          (a) “TD” – Talão de devolução; 
-          (a) “AA” – Alienação de activos; 
-          (a) “DA” – Devolução de activos. 
-          (a) Para o sector Segurador quando não deva constar da tabela 4.3. - 
-        Documentos de conferência de mercadorias ou de prestação de serviços (WorkingDocuments), 
-        pode ainda ser preenchido com: 
-          “RP” – Prémio ou recibo de prémio; 
-          “RE” – Estorno ou recibo de estorno; 
-          “CS” – Imputação a co-seguradoras; 
-          “LD” – Imputação a co-seguradora líder; 
-          “RA” – Resseguro aceite.
+          “FT” - Factura; 
+          “FR” - Factura/recibo; 
+          “VD” - Venda a dinheiro; 
+          “GF” - Factura genérica; 
+          “FG” - Factura global 
+          “AC” - Aviso de cobrança; 
+          “AR” - Aviso de cobrança/recibo; 
+          “ND” - Nota de débito; 
+          “NC” - Nota de crédito 
+          “AF” - Factura/recibo (autofacturação) 
+          “TV” - Talão de venda 
+          Para o sector Segurador quando não deva constar da tabela 4.3. - Documentos de conferência de mercadorias ou de prestação de serviços (WorkingDocuments), pode ainda ser preenchido com: 
+            “RP” - Prémio ou recibo de prémio; 
+            “RE” - Estorno ou recibo de estorno; 
+            “CS” - Imputação a co-seguradoras; 
+            “LD” - Imputação a co-seguradora líder; 
+            “RA” - Resseguro aceite.
       </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
@@ -1209,13 +1293,8 @@
         <xs:enumeration value="AR" />
         <xs:enumeration value="ND" />
         <xs:enumeration value="NC" />
-        <xs:enumeration value="GR" />
         <xs:enumeration value="AF" />
         <xs:enumeration value="TV" />
-        <xs:enumeration value="TS" />
-        <xs:enumeration value="TD" />
-        <xs:enumeration value="AA" />
-        <xs:enumeration value="DA" />
         <!-- Para o sector segurador-->
         <xs:enumeration value="RP" />
         <xs:enumeration value="RE" />
@@ -1309,6 +1388,14 @@
   </xs:element>
   <!-- Codigo unico do documento de venda -->
   <xs:element name="PaymentRefNo">
+    <xs:annotation>
+      <xs:documentation>
+        Esta identificação é composta sequencialmente pelos seguintes elementos: 
+        Tipo de documento (PaymentType), um espaço, o código interno do tipo de documento atribuído pela aplicação o identificador e a série do documento, uma barra (/) e o número sequencial desse documento dentro dessa série. 
+        Não podem existir registos com a mesma identificação. 
+        Não pode ser utilizado o mesmo código interno de tipo de documento em diferentes tipos de documentos.
+      </xs:documentation>
+    </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
         <xs:pattern value="[^ ]+ [^/^ ]+/[0-9]+" />
@@ -1369,22 +1456,51 @@
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
+  <xs:element name="PurchaseType">
+    <xs:annotation>
+      <xs:documentation>
+        Deve ser preenchido com: 
+          "FT” - Factura; 
+          “FR” - Factura/recibo; 
+          “GF” - Factura genérica; 
+          “FG” - Factura global; 
+          “AC” - Aviso de cobrança; 
+          “AR” - Aviso de cobrança/recibo; 
+          “AF” - Factura/recibo (autofacturação); 
+          “TV” - Talão de venda; 
+          “NL” - Nota de liquidação; 
+        
+        O recibo somente deve ser preenchido por contribuintes enquadrado no regime de caixa 
+          “RC” - Recibo;
+      </xs:documentation>
+      </xs:annotation>
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="FT" />
+        <xs:enumeration value="FR" />
+        <xs:enumeration value="GF" />
+        <xs:enumeration value="FG" />
+        <xs:enumeration value="AC" />
+        <xs:enumeration value="AR" />
+        <xs:enumeration value="AF" />
+        <xs:enumeration value="TV" />
+        <xs:enumeration value="NL" />
+        <!-- Apenas para contribuintes enquadrado no regime de caixa -->
+        <xs:enumeration value="RC" />
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
   <!-- Indicador de Autofaturacao -->
   <xs:element name="SelfBillingIndicator">
     <xs:annotation>
       <xs:documentation>
-        PROPOSTA:
-        Deve ser preenchido: 
-        com “1” se respeitar a autofacturação,
-        Com “2” se é obrigado a cativar o IVA,
-        Com ”3” se tiver IVA cativo e autofacturação,
-        com “0” (zero) no caso de não cumprir com nenhuma condição .
+        Deve ser preenchido com «1» se respeitar autofaturação, com «0» (zero) no caso contrário.
       </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:integer">
         <xs:minInclusive value="0" />
-        <xs:maxInclusive value="3" />
+        <xs:maxInclusive value="1" />
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
@@ -1392,18 +1508,18 @@
   <xs:element name="TaxAccountingBasis">
     <xs:annotation>
       <xs:documentation>
-          Deve ser preenchido com o tipo de programa fornecendo os dados aplicáveis
-          (incluindo os documentos de conferência e os recibos emitidos, quando existam):
-            "A" -Aquisição de bens e serviços;
-            “I” -Contabilidade integrada com a facturação;
-            “C” -Contabilidade;
-            “F” -Facturação;
-            “P” -Facturação parcial;
-            "Q  -Aquisição de bens e serviços integrada com a facturação;
-            “R” -Recibos;
-            “S” -Autofacturação.
+        Deve ser preenchido com o tipo de programa fornecendo os dados aplicáveis
+        (incluindo os documentos de conferência e os recibos emitidos, quando existam): 
+          “I” - Contabilidade integrada com a facturação; 
+          “C” - Contabilidade; 
+          “F” - Facturação; 
+          “P” - Facturação parcial; 
+          “R” - Recibos; 
+          “A” - Aquisição de bens e serviços; 
+          ”Q” - Aquisição de bens e serviços integrada com a facturação: 
+          “S” - Autofacturação. 
             (a) Deve ser indicado este tipo de programa se este emitir só este tipo de documento. 
-            Caso contrário, deverá ser utilizado o tipo “C”, “F” 
+            Caso contrário, deverá ser utilizado o tipo “C”, “F”
       </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
@@ -1423,15 +1539,15 @@
   <xs:element name="TaxCode">
     <xs:annotation>
       <xs:documentation>
-            Código da taxa na tabela de impostos.
-            No caso do campo 4.4.4.14.6.1. - Código do tipo de imposto (TaxType) = IVA, deve ser preenchido com:
-            “NOR” – Taxa normal; 
-            “ISE” – Isenta;
-            “OUT” – Outros, aplicável para os regimes especiais de IVA.
-            No caso do campo 4.4.4.14.6.1.
-            Código do tipo de imposto (TaxType) = IS, deve ser preenchido com:
-            O código da verba respectiva; “ISE” – Isenta.
-            No caso de não aplicabilidade de imposto deve ser preenchido com “NA”.
+        Código da taxa na tabela de impostos.
+        No caso do campo 4.4.4.14.6.1. - Código do tipo de imposto (TaxType) = IVA, deve ser preenchido com:
+          “NOR” – Taxa normal; 
+          “ISE” – Isenta;
+          “OUT” – Outros, aplicável para os regimes especiais de IVA.
+        No caso do campo 4.4.4.14.6.1.
+        Código do tipo de imposto (TaxType) = IS, deve ser preenchido com:
+        O código da verba respectiva; “ISE” – Isenta.
+        No caso de não aplicabilidade de imposto deve ser preenchido com “NA”.
       </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
@@ -1446,9 +1562,9 @@
   <xs:element name="TaxCountryRegion">
     <xs:simpleType>
       <xs:restriction base="xs:string">
-        <xs:pattern value="AD|AE|AF|AG|AI|AL|AM|AO|AQ|AR|AS|AT|AU|AW|AX|AZ|BA|BB|BD|BE|BF|BG|BH|BI|BJ|BL|BM|BN|BO|BQ|BR|BS|BT|BV|BW|BY|BZ|CA|CC|CD|CF|CG|CH|CI|CK|CL|CM|CN|CO|CR|CU|CV|CW|CX|CY|CZ|DE|DJ|DK|DM|DO|DZ|EC|EE|EG|EH|ER|ES|ET|FI|FJ|FK|FM|FO|FR|GA|GB|GD|GE|GF|GG|GH|GI|GL|GM|GN|GP|GQ|GR|GS|GT|GU|GW|GY|HK|HM|HN|HR|HT|HU|ID|IE|IL|IM|IN|IO|IQ|IR|IS|IT|JE|JM|JO|JP|KE|KG|KH|KI|KM|KN|KP|KR|KW|KY|KZ|LA|LB|LC|LI|LK|LR|LS|LT|LU|LV|LY|MA|MC|MD|ME|MF|MG|MH|MK|ML|MM|MN|MO|MP|MQ|MR|MS|MT|MU|MV|MW|MX|MY|MZ|NA|NC|NE|NF|NG|NI|NL|NO|NP|NR|NU|NZ|OM|PA|PE|PF|PG|PH|PK|PL|PM|PN|PR|PS|PT|PW|PY|QA|RE|RO|RS|RU|RW|SA|SB|SC|SD|SE|SG|SH|SI|SJ|SK|SL|SM|SN|SO|SR|SS|ST|SV|SX|SY|SZ|TC|TD|TF|TG|TH|TJ|TK|TL|TM|TN|TO|TR|TT|TV|TW|TZ|UA|UG|UM|US|UY|UZ|VA|VC|VE|VG|VI|VN|VU|WF|WS|XK|YE|YT|ZA|ZM|ZW|PT-AC|PT-MA" />
+        <xs:pattern value="AD|AE|AF|AG|AI|AL|AM|AO|AO-CAB|AQ|AR|AS|AT|AU|AW|AX|AZ|BA|BB|BD|BE|BF|BG|BH|BI|BJ|BL|BM|BN|BO|BQ|BR|BS|BT|BV|BW|BY|BZ|CA|CC|CD|CF|CG|CH|CI|CK|CL|CM|CN|CO|CR|CU|CV|CW|CX|CY|CZ|DE|DJ|DK|DM|DO|DZ|EC|EE|EG|EH|ER|ES|ET|FI|FJ|FK|FM|FO|FR|GA|GB|GD|GE|GF|GG|GH|GI|GL|GM|GN|GP|GQ|GR|GS|GT|GU|GW|GY|HK|HM|HN|HR|HT|HU|ID|IE|IL|IM|IN|IO|IQ|IR|IS|IT|JE|JM|JO|JP|KE|KG|KH|KI|KM|KN|KP|KR|KW|KY|KZ|LA|LB|LC|LI|LK|LR|LS|LT|LU|LV|LY|MA|MC|MD|ME|MF|MG|MH|MK|ML|MM|MN|MO|MP|MQ|MR|MS|MT|MU|MV|MW|MX|MY|MZ|NA|NC|NE|NF|NG|NI|NL|NO|NP|NR|NU|NZ|OM|PA|PE|PF|PG|PH|PK|PL|PM|PN|PR|PS|PT|PW|PY|QA|RE|RO|RS|RU|RW|SA|SB|SC|SD|SE|SG|SH|SI|SJ|SK|SL|SM|SN|SO|SR|SS|ST|SV|SX|SY|SZ|TC|TD|TF|TG|TH|TJ|TK|TL|TM|TN|TO|TR|TT|TV|TW|TZ|UA|UG|UM|US|UY|UZ|VA|VC|VE|VG|VI|VN|VU|WF|WS|XK|YE|YT|ZA|ZM|ZW|PT-AC|PT-MA" />
         <xs:minLength value="2" />
-        <xs:maxLength value="5" />
+        <xs:maxLength value="6" />
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
@@ -1472,6 +1588,12 @@
   </xs:element>
   <!-- Indicador de faturacao emitida em nome e por conta de terceiros -->
   <xs:element name="ThirdPartiesBillingIndicator">
+    <xs:annotation>
+      <xs:documentation>
+        Deve ser preenchido com "1" se respeitar a faturação emitida em nome e por conta de terceiros e com "2" se é obrigado a cativar o IVA.
+        Com "3" se cumprir as duas condições e com "0" (zero) no caso de nãi cumprir com nenhuma condição.
+      </xs:documentation>
+    </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:integer">
         <xs:minInclusive value="0" />
@@ -1503,15 +1625,21 @@
   <xs:element name="WithholdingTaxType">
     <xs:annotation>
       <xs:documentation>
-          Neste campo deve ser indicado o tipo de imposto retido, preenchendo-o com:
-          “IRT” – Imposto sobre o rendimento de trabalho; “II” – Imposto sobre o industrial; “IS” – Imposto do selo. 
-      </xs:documentation>
+        Neste campo deve ser indicado o tipo de imposto retido, preenchendo- o com: 
+          “IRT” - Imposto sobre o rendimento de trabalho; 
+          “II” - Imposto industrial; 
+          “IS” - Imposto do selo; 
+          “IVA” - IVA Cativo; 
+          “IPU” - Imposto predial urbano.
+        </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
         <xs:enumeration value="IRT" />
         <xs:enumeration value="II" />
         <xs:enumeration value="IS" />
+        <xs:enumeration value="IVA" />
+        <xs:enumeration value="IPU" />
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
@@ -1652,15 +1780,11 @@
     <xs:annotation>
       <xs:documentation>
           Código da taxa na tabela de impostos.
-          No caso do campo 4.4.4.14.6.1. - Código do tipo de imposto (TaxType) = IVA, deve ser preenchido com:
-
-          “NOR” – Taxa normal; “ISE” – Isenta;
+          Deve ser preenchido com: 
+          “NOR” – Taxa normal; 
+          “ISE” – Isenta;
           “OUT” – Outros, aplicável para os regimes especiais de IVA.
-          No caso do campo 4.4.4.14.6.1.
-          Código do tipo de imposto (TaxType) = IS, deve ser preenchido com:
-          O código da verba respectiva; “ISE” – Isenta.
-
-          No caso de não aplicabilidade de imposto deve ser preenchido com “NA”.
+          No caso de não sujeição deve ser preenchido com «NS».
       </xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
@@ -1678,6 +1802,11 @@
   </xs:simpleType>
   <!-- Codigo do motivo de isencao de imposto -->
   <xs:simpleType name="SAFAOTaxExemptionCode">
+    <xs:annotation>
+      <xs:documentation>
+        Consultar: https://github.com/assoft-portugal/SAF-T-AO/wiki/Tax-Exemption-Codes
+      </xs:documentation>
+    </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:pattern value="(M[0-9]{2})+" />
     </xs:restriction>
@@ -1731,8 +1860,21 @@
   <!-- Estrutura de DeductibleTaxes -->
   <xs:group name="DeductibleTaxes">
     <xs:sequence>
-      <xs:element ref="DeductibleTax" minOccurs="1"/>
-      <xs:element ref="DeductiblePercentage" minOccurs="1"></xs:element>
+      <xs:element name="Deductible">
+        <xs:annotation>
+          <xs:documentation>
+            Existindo a necessidade de efectuar mais do que uma referência, esta estrutura poderá ser gerada tantas vezes quantas as necessárias.
+          </xs:documentation>
+        </xs:annotation>  
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="TaxBase" type="ns:SAFMonetaryType2DecimalPlaces" />
+            <xs:element ref="DeductibleAmount"/>
+            <xs:element ref="DeductiblePercentage" />
+            <xs:element ref="DeductibleTaxType" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
     </xs:sequence>
   </xs:group>
   <xs:simpleType name="SAFTAOPaymentType">
@@ -1766,6 +1908,13 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="SAFAOProductID">
+    <xs:annotation>
+      <xs:documentation>
+        Nome da aplicação que gera o SAF-T(AO).
+        Deve ser indicado o nome comercial do software e da empresa empresa produtora no formato 
+        «Nome da aplicação/Nome da empresa produtora do software».
+      </xs:documentation>
+    </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:pattern value="[^/]+/[^/]+" />
       <xs:minLength value="3" />
@@ -1909,7 +2058,8 @@
   <xs:simpleType name="SAFAOtextValidationNumber">
     <xs:annotation>
       <xs:documentation>
-        Número da validação, atribuído à entidade produtora do software.
+        Número da validação. atribuído à entidade produtora do software. 
+        Deve ser preenchido com: NNN/AGT/AAAA.
         Se não aplicável, deve ser preenchido com «0» (zero).
       </xs:documentation>
     </xs:annotation>
