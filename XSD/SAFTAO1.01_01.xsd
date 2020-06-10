@@ -31,7 +31,7 @@
         <doc:Contributor name="Newtec Tecnologias LDA" url="http://www.newtec.co.ao/" />
         <doc:Contributor name="Infodelivery S.A." url="http://www.infodelivery.pt" />
       </doc:Contributors>
-      <doc:ModificationDate>2020-05-19</doc:ModificationDate>
+      <doc:ModificationDate>2020-06-10</doc:ModificationDate>
     </xs:documentation>
   </xs:annotation>
   <!-- Estrutura do ficheiro SAFT-AO-->
@@ -676,6 +676,7 @@
                 <xs:complexType>
                   <xs:sequence>
                     <xs:element name="InvoiceNo" type="ns:SAFAOtextTypeMandatoryMax60Car" />
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="References" type="PurchaseReferences" />
                     <xs:element ref="Hash">
                       <xs:annotation>
                         <xs:documentation>
@@ -838,6 +839,26 @@
         </xs:annotation>
       </xs:element>
       <xs:element minOccurs="0" ref="Reason" />
+    </xs:sequence>
+  </xs:complexType>
+  <!-- Estrutura de referencias a outros documentos em PurchaseInvoices -->
+  <xs:complexType name="PurchaseReferences">
+    <xs:annotation>
+      <xs:documentation>
+        Referências a facturas nos documentos rectificativos destas. 
+        Existindo a necessidade de efectuar mais do que uma referência, esta estrutura poderá ser gerada tantas vezes quantas as necessárias. 
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" ref="Reference">
+        <xs:annotation>
+          <xs:documentation>
+            Referência à factura, através de identificação única da mesma, nos sistemas em que exista. 
+            Deve ser utilizada a estrutura de numeração do campo de origem.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" ref="InvoiceDate" />
     </xs:sequence>
   </xs:complexType>
   <!-- Estrutura de Acordos entre cliente e fornecedor-->
@@ -1469,6 +1490,7 @@
           “AF” - Factura/recibo (autofacturação); 
           “TV” - Talão de venda; 
           “NL” - Nota de liquidação; 
+          "NC" - Nota de crédito;
         
         O recibo somente deve ser preenchido por contribuintes enquadrado no regime de caixa 
           “RC” - Recibo;
@@ -1485,6 +1507,7 @@
         <xs:enumeration value="AF" />
         <xs:enumeration value="TV" />
         <xs:enumeration value="NL" />
+        <xs:enumeration value="NC" />
         <!-- Apenas para contribuintes enquadrado no regime de caixa -->
         <xs:enumeration value="RC" />
       </xs:restriction>
