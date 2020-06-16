@@ -954,12 +954,26 @@
   <xs:element name="CompanyAddress" type="AddressStructureAO" />
   <xs:element name="CompanyName" type="SAFAOtextTypeMandatoryMax200Car" />
   <xs:element name="Contact" type="SAFAOtextTypeMandatoryMax50Car" />
-  <xs:element name="CreditAmount" type="SAFmonetaryType" />
+  <xs:element name="CreditAmount" type="SAFmonetaryType">
+    <xs:annotation>
+      <xs:documentation>
+        Valor da linha, sem impostos, dos documentos a crédito.
+        Este valor é deduzido dos descontos de linha e cabeçalho.
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="CurrencyAmount" type="SAFmonetaryType" />
   <xs:element name="CustomerID" type="SAFAOtextTypeMandatoryMax30Car" />
   <xs:element name="CustomerTaxID" type="SAFAOtextTypeMandatoryMax30Car" />
   <xs:element name="DateCreated" type="SAFAODateSpan" />
-  <xs:element name="DebitAmount" type="SAFmonetaryType" />
+  <xs:element name="DebitAmount" type="SAFmonetaryType">
+    <xs:annotation>
+      <xs:documentation>
+        Valor da linha, sem impostos, dos documentos a débito. 
+        Este valor é deduzido dos descontos de linha e cabeçalho.
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="DeductibleAmount" type="SAFMonetaryType2DecimalPlaces"/>
   <xs:element name="DeductiblePercentage" type="SAFdecimalType"/>
   <xs:element name="DeliveryDate" type="SAFdateType" />
@@ -1083,7 +1097,13 @@
   <xs:element name="TransactionDate" type="SAFdateType" />
   <xs:element name="TransactionID" type="SAFAOTransactionID" />
   <xs:element name="UnitOfMeasure" type="SAFAOtextTypeMandatoryMax20Car" />
-  <xs:element name="UnitPrice" type="SAFmonetaryType" />
+  <xs:element name="UnitPrice" type="SAFmonetaryType">
+    <xs:annotation>
+      <xs:documentation>
+        Preço unitário deduzido dos descontos de linha e de cabeçalho, sem incluir impostos.
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="UNNumber" type="SAFAOUNNumber" />
   <xs:element name="WarehouseID" type="SAFAOtextTypeMandatoryMax50Car" />
   <xs:element name="Website" type="SAFAOtextTypeMandatoryMax60Car" />
