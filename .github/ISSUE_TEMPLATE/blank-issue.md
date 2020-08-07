@@ -7,6 +7,6 @@ assignees: ''
 
 ---
 
-**Be awere**
+**Be aware**
 
 Never give out your password or any other personal or private information!

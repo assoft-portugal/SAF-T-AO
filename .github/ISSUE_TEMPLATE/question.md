@@ -42,6 +42,6 @@ If applicable, add screenshots to help explain your problem.
 
 Add any other context about the problem here.
 
-**Be awere**
+**Be aware**
 
 Never give out your password or any other personal or private information!
