@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<AuditFile xmlns="urn:OECD:StandardAuditFile-Tax:AO_1.01_01" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:OECD:StandardAuditFile-Tax:AO_1.01_01 https://raw.githubusercontent.com/assoft-portugal/SAF-T-AO/dev_PurchaseInvoices/XSD/SAFTAO1.01_01.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AuditFile xmlns="urn:OECD:StandardAuditFile-Tax:AO_1.01_01" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:OECD:StandardAuditFile-Tax:AO_1.01_01 https://raw.githubusercontent.com/assoft-portugal/SAF-T-AO/master/XSD/SAFTAO1.01_01.xsd">
 	<Header>
 		<AuditFileVersion>1.01_01</AuditFileVersion>
 		<CompanyID>1428854 510310500</CompanyID>
@@ -14,10 +14,10 @@
 			<Country>AO</Country>
 		</CompanyAddress>
 		<FiscalYear>2019</FiscalYear>
-		<StartDate>2019-01-01</StartDate>
-		<EndDate>2019-12-31</EndDate>
+		<StartDate>2019-06-01</StartDate>
+		<EndDate>2019-06-30</EndDate>
 		<CurrencyCode>AOA</CurrencyCode>
-		<DateCreated>2019-05-10</DateCreated>
+		<DateCreated>2019-06-30</DateCreated>
 		<TaxEntity>Global</TaxEntity>
 		<ProductCompanyTaxID>54173354</ProductCompanyTaxID>
 		<SoftwareValidationNumber>0/AGT/2020</SoftwareValidationNumber>
@@ -61,14 +61,54 @@
 	</MasterFiles>
 	<SourceDocuments>
 		<PurchaseInvoices>
-			<NumberOfEntries>1</NumberOfEntries>
+			<NumberOfEntries>2</NumberOfEntries>
 			<Invoice>
 				<InvoiceNo>FT 2019A1/12360</InvoiceNo>
 				<Hash>ZPi2</Hash>
 				<SourceID>ADM</SourceID>
-				<Period>5</Period>
+				<Period>6</Period>
 				<InvoiceDate>2019-06-09</InvoiceDate>
 				<PurchaseType>FT</PurchaseType>
+				<SupplierID>ADM190</SupplierID>
+				<DocumentTotals>
+					<TaxPayable>42000.00</TaxPayable>
+					<NetTotal>300000.00</NetTotal>
+					<GrossTotal>342000.00</GrossTotal>
+					<Deductible>
+						<TaxBase>200000.00</TaxBase>
+						<DeductibleAmount>28000.00</DeductibleAmount>
+						<DeductiblePercentage>100.00</DeductiblePercentage>
+						<DeductibleTaxType>INV</DeductibleTaxType>
+					</Deductible>
+					<Deductible>
+						<TaxBase>100000.00</TaxBase>
+						<DeductibleAmount>14000.00</DeductibleAmount>
+						<DeductiblePercentage>100.00</DeductiblePercentage>
+						<DeductibleTaxType>INV</DeductibleTaxType>
+					</Deductible>
+					<Currency>
+						<CurrencyCode>USD</CurrencyCode>
+						<CurrencyAmount>482.27</CurrencyAmount>
+						<ExchangeRate>2077.98</ExchangeRate>
+					</Currency>
+				</DocumentTotals>
+				<WithholdingTax>
+					<WithholdingTaxType>IVA</WithholdingTaxType>
+					<WithholdingTaxDescription>50.00</WithholdingTaxDescription>
+					<WithholdingTaxAmount>21000.00</WithholdingTaxAmount>
+				</WithholdingTax>
+			</Invoice>
+			<Invoice>
+				<InvoiceNo>NC 2019A1/1</InvoiceNo>
+				<References>
+					<Reference>FT 2019A1/12360</Reference>
+					<InvoiceDate>2019-06-09</InvoiceDate>
+				</References>
+				<Hash>AgIe</Hash>
+				<SourceID>ADM</SourceID>
+				<Period>6</Period>
+				<InvoiceDate>2019-06-30</InvoiceDate>
+				<PurchaseType>NC</PurchaseType>
 				<SupplierID>ADM190</SupplierID>
 				<DocumentTotals>
 					<TaxPayable>42000.00</TaxPayable>
