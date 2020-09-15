@@ -1460,7 +1460,7 @@
   <!-- Codigo de de Imposto de pagamento-->
   <xs:simpleType name="PaymentTaxCode">
     <xs:restriction base="xs:string">
-      <xs:pattern value="NOR|ISE|OUT|([0-9.])*|NA|NS" />
+      <xs:pattern value="RED|NOR|ISE|OUT|([0-9.])*|NA|NS" />
       <xs:minLength value="1" />
       <xs:maxLength value="10" />
     </xs:restriction>
@@ -1584,9 +1584,10 @@
       <xs:documentation>
         Código da taxa na tabela de impostos.
         No caso do campo 4.4.4.14.6.1. - Código do tipo de imposto (TaxType) = IVA, deve ser preenchido com:
-          “NOR” – Taxa normal; 
-          “ISE” – Isenta;
-          “OUT” – Outros, aplicável para os regimes especiais de IVA.
+        “RED” – Taxa reduzida;
+        “NOR” – Taxa normal;
+        “ISE” – Isenta;
+        “OUT” – Outros, aplicável para os regimes especiais de IVA.
         No caso do campo 4.4.4.14.6.1.
         Código do tipo de imposto (TaxType) = IS, deve ser preenchido com:
         O código da verba respectiva; “ISE” – Isenta.
@@ -1595,7 +1596,7 @@
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
-        <xs:pattern value="NOR|ISE|OUT|([0-9.])*|NS|NA" />
+        <xs:pattern value="RED|NOR|ISE|OUT|([0-9.])*|NS|NA" />
         <xs:minLength value="1" />
         <xs:maxLength value="10" />
       </xs:restriction>
@@ -1614,7 +1615,7 @@
   <!-- Tipo de Imposto da tabela de impostos-->
   <xs:simpleType name="TaxTableEntryTaxCode">
     <xs:restriction base="xs:string">
-      <xs:pattern value="NOR|ISE|OUT|([0-9.])*|NS|NA" />
+      <xs:pattern value="RED|NOR|ISE|OUT|([0-9.])*|NS|NA" />
       <xs:minLength value="1" />
       <xs:maxLength value="10" />
     </xs:restriction>
@@ -1822,16 +1823,17 @@
   <xs:simpleType name="SAFTAOMovementTaxCode">
     <xs:annotation>
       <xs:documentation>
-          Código da taxa na tabela de impostos.
-          Deve ser preenchido com: 
-          “NOR” – Taxa normal; 
-          “ISE” – Isenta;
-          “OUT” – Outros, aplicável para os regimes especiais de IVA.
-          No caso de não sujeição deve ser preenchido com «NS».
+        Código da taxa na tabela de impostos.
+        Deve ser preenchido com:
+        “RED” – Taxa reduzida;
+        “NOR” – Taxa normal;
+        “ISE” – Isenta;
+        “OUT” – Outros, aplicável para os regimes especiais de IVA.
+        No caso de não sujeição deve ser preenchido com «NS».
       </xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
-      <xs:pattern value="NOR|ISE|OUT|NS|NA" />
+      <xs:pattern value="RED|NOR|ISE|OUT|NS|NA" />
       <xs:minLength value="1" />
       <xs:maxLength value="3" />
     </xs:restriction>
