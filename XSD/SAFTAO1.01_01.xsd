@@ -31,7 +31,7 @@
         <doc:Contributor name="Newtec Tecnologias LDA" url="http://www.newtec.co.ao/" />
         <doc:Contributor name="Infodelivery S.A." url="http://www.infodelivery.pt" />
       </doc:Contributors>
-      <doc:ModificationDate>2020-06-10</doc:ModificationDate>
+      <doc:ModificationDate>2020-09-18</doc:ModificationDate>
     </xs:documentation>
   </xs:annotation>
   <!-- Estrutura do ficheiro SAFT-AO-->
@@ -1861,6 +1861,7 @@
     <xs:annotation>
       <xs:documentation>
         Quando aplicável, obriga ao preenchimento de ambos os campos.
+        Se a taxa de IVA for 0 os campos "TaxExemptionReason" e "TaxExemptionCode" são de preenchimento obrigatório.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
