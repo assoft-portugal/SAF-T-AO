@@ -1,1 +1,1 @@
-This area contains resources that may help you to understand the SAF-T (AO).
+Here you can find resources that may help you to understand the SAF-T (AO).

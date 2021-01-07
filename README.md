@@ -25,7 +25,14 @@ The VAT legislation will take effect starting in October 2019. This deadline app
 
 ## XML Validation
 
-Unix users can use `xmllint` for validation.  Windows users can use a simple tool like [XmlPad](https://xmlpad-mobile.com/), although the command line xmllint can also be used.
+### Unix
+
+- [xmllint](http://xmlsoft.org/xmllint.html)
+
+### Windows
+
+- [XmlPad](https://xmlpad-mobile.com/) with a graphical user interface
+- [Test-XML](https://www.powershellgallery.com/packages/Test-XML/1.0) with [PowerShell](https://docs.microsoft.com/en-us/powershell/)
 
 ### Installing xmllint
 
