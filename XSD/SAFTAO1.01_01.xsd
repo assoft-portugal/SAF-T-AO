@@ -10,7 +10,7 @@
       <doc:Copyright>Copyright OECD</doc:Copyright>
       <doc:Version>
         <doc:Number>1.01_01</doc:Number>
-        <doc:Status>Developement</doc:Status>
+        <doc:Status>Development</doc:Status>
         <doc:Repository>https://github.com/assoft-portugal/SAF-T-AO/</doc:Repository>
       </doc:Version>
       <doc:Author>AGT - Administração Geral Tributária</doc:Author>
@@ -31,7 +31,7 @@
         <doc:Contributor name="Newtec Tecnologias LDA" url="http://www.newtec.co.ao/" />
         <doc:Contributor name="Infodelivery S.A." url="http://www.infodelivery.pt" />
       </doc:Contributors>
-      <doc:ModificationDate>2020-09-18</doc:ModificationDate>
+      <doc:ModificationDate>2021-02-01</doc:ModificationDate>
     </xs:documentation>
   </xs:annotation>
   <!-- Estrutura do ficheiro SAFT-AO-->
@@ -1675,6 +1675,8 @@
           “IS” - Imposto do selo; 
           “IVA” - IVA Cativo; 
           “IPU” - Imposto predial urbano.
+          "IAC" - Imposto sobre a aplicação de capitais
+          "OU" - Outros tipos de impostos retidos
         </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
@@ -1684,6 +1686,8 @@
         <xs:enumeration value="IS" />
         <xs:enumeration value="IVA" />
         <xs:enumeration value="IPU" />
+        <xs:enumeration value="IAC" />
+        <xs:enumeration value="OU" /> 
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
@@ -1862,6 +1866,7 @@
       <xs:documentation>
         Quando aplicável, obriga ao preenchimento de ambos os campos.
         Se a taxa de IVA for 0 os campos "TaxExemptionReason" e "TaxExemptionCode" são de preenchimento obrigatório.
+        Consultar: https://github.com/assoft-portugal/SAF-T-AO/wiki/Tax-Exemption-Codes
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
