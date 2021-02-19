@@ -31,7 +31,7 @@
         <doc:Contributor name="Newtec Tecnologias LDA" url="http://www.newtec.co.ao/" />
         <doc:Contributor name="Infodelivery S.A." url="http://www.infodelivery.pt" />
       </doc:Contributors>
-      <doc:ModificationDate>2021-02-17</doc:ModificationDate>
+      <doc:ModificationDate>2021-02-19</doc:ModificationDate>
     </xs:documentation>
   </xs:annotation>
   <!-- Estrutura do ficheiro SAFT-AO-->
@@ -1627,8 +1627,7 @@
           Deve ser preenchido com:
           “GR” – Guia de remessa;
           “GT” – Guia de transporte (incluir aqui as guias globais);
-          “GA” – Guia de movimentação de activos fixos próprios; 
-          “GC” – Guia de consignação;
+          “GA” – Guia de movimentação de activos fixos próprios;           
           “GD” – Guia ou nota de devolução. 
       </xs:documentation>
     </xs:annotation>
@@ -1637,8 +1636,7 @@
         <xs:enumeration value="GR" />
         <xs:enumeration value="GT" />
         <xs:enumeration value="GA" />
-        <xs:enumeration value="GD" />
-        <xs:enumeration value="GC" />
+        <xs:enumeration value="GD" />        
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
@@ -1970,20 +1968,23 @@
   <xs:element name="WorkType">
     <xs:annotation>
       <xs:documentation>
-          Deve ser preenchido com:
-          “CM” – Consultas de mesa;
-          “CC” – Credito de consignação;
-          “GR” – Guia de remessa;
-          “NR” – Nota de remessa;
-          “FO” – Folhas de obra;
-          “NE” – Nota de Encomenda;
-          “OU” – Outros;
-          “OR” – Orçamentos;
-          “PF” – Pró-forma;
-          “DC” – Documentos emitidos que sejam susceptíveis de apresentação ao cliente para conferência de mercadorias ou de prestação de serviços. Para o sector Segurador quando para os tipos de documentos a seguir identificados também deva existir na tabela 4.1 - Documentos comerciais a clientes (SalesInvoices) a correspondente factura ou documento rectificativo de factura, ainda pode ser preenchido com:
-          “RP” – Prémio ou recibo de prémio;
-          “RE” – Estorno ou recibo de estorno;
-          “CS” – Imputação a co-seguradoras; “LD” – Imputação a co-seguradora líder; “RA” – Resseguro aceite.
+        Deve ser preenchido com:
+        “CM” – Consultas de mesa;
+        “CC” – Credito de consignação;
+        “GR” – Guia de remessa;
+        “NR” – Nota de remessa;
+        “FO” – Folhas de obra;
+        “NE” – Nota de Encomenda;
+        “OU” – Outros;
+        “OR” – Orçamentos;
+        “PF” – Pró-forma;
+        “DC” – Documentos emitidos que sejam susceptíveis de apresentação ao cliente para conferência de mercadorias ou de prestação de serviços. Para o sector Segurador quando para os tipos de documentos a seguir identificados também deva existir na tabela 4.1 - Documentos comerciais a clientes (SalesInvoices) a correspondente factura ou documento rectificativo de factura, ainda pode ser preenchido com:
+        “RP” – Prémio ou recibo de prémio;
+        “RE” – Estorno ou recibo de estorno;
+        “CS” – Imputação a co-seguradoras;
+        “LD” – Imputação a co-seguradora líder;
+        “RA” – Resseguro aceite;
+        “GC” – Guia de consignação;
       </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
@@ -2004,6 +2005,7 @@
         <xs:enumeration value="LD" />
         <xs:enumeration value="RA" />
         <xs:enumeration value="PP" />
+        <xs:enumeration value="GC" />
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
