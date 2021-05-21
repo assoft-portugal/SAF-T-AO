@@ -4,7 +4,7 @@
 [![GitHub issues](https://img.shields.io/github/issues-raw/assoft-portugal/SAF-T-AO)](https://github.com/assoft-portugal/SAF-T-AO/issues)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/assoft-portugal/SAF-T-AO)](https://github.com/assoft-portugal/SAF-T-AO/releases)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/assoft-portugal/SAF-T-AO/blob/master/LICENSE)
-[![Discussion](https://img.shields.io/badge/discussion-yammer-blue.svg)](https://www.yammer.com/assoft-members/#/threads/inGroup?type=in_group&feedId=17835940&view=all)
+[![Discussion](https://img.shields.io/badge/discusion-telegram-blue)](https://t.me/saftao)
 
 Official XSD from the Government of Angola for use in SAF-T AO.
 
@@ -16,7 +16,7 @@ Official XSD from the Government of Angola for use in SAF-T AO.
 
 ## VAT implementation in Angola
 
-The VAT legislation will take effect starting in October 2019. This deadline applies to software billing solutions, SAF-T file, and invoicing rules:
+The VAT [legislation](Resources/Legislation/README.md) will take effect starting in October 2019. The deadline applies to software billing solutions, SAF-T file, and invoicing rules:
 
 - Software solutions must follow the requirements of the new legal system in order to process sales documents, invoices, and other financial documents in accordance with the legal framework. This rule applies to all the subjects of the VAT scheme.
 - Software creators must apply to a software certification program by the government which is mandatory.
