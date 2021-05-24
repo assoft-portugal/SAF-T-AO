@@ -6,7 +6,7 @@
       {
         "TaxExemption": {
           "TaxExemptionCode": "M00",
-          "TaxExemptionReason": "IVA - Regime Simplificado",
+          "TaxExemptionReason": "IVA – Regime Simplificado",
           "Law": "Lei n.º 42/20",
           "Description": "Foi utilizado até 31-12-2020 como IVA - Regime transitório"
         }
@@ -22,7 +22,7 @@
       {
         "TaxExemption": {
           "TaxExemptionCode": "M04",
-          "TaxExemptionReason": "IVA - Regime de Exclusão",
+          "TaxExemptionReason": "IVA – Regime de Exclusão",
           "Law": "Lei n.º 42/20",
           "Description": "Foi utilizado até 31-12-2020 como IVA - Regime de não sujeição"
         }

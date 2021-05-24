@@ -5,7 +5,7 @@
 	<TaxExemptions>
 		<TaxExemption>
 			<TaxExemptionCode>M00</TaxExemptionCode>
-			<TaxExemptionReason>IVA - Regime Simplificado</TaxExemptionReason>
+			<TaxExemptionReason>IVA &#x2013; Regime Simplificado</TaxExemptionReason>
 			<Law>Lei n.º 42/20</Law>
 			<Description>Foi utilizado até 31-12-2020 como IVA - Regime transitório</Description>
 		</TaxExemption>
@@ -19,7 +19,7 @@
 	<TaxExemptions>
 		<TaxExemption>
 			<TaxExemptionCode>M04</TaxExemptionCode>
-			<TaxExemptionReason>IVA - Regime de Exclusão</TaxExemptionReason>
+			<TaxExemptionReason>IVA &#x2013; Regime de Exclusão</TaxExemptionReason>
 			<Law>Lei n.º 42/20</Law>
 			<Description>Foi utilizado até 31-12-2020 como IVA - Regime de não sujeição</Description>
 		</TaxExemption>
