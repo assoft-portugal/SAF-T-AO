@@ -30,8 +30,9 @@
         <doc:Contributor name="ITGest" url="https://itgest.co.ao/" />
         <doc:Contributor name="Newtec Tecnologias LDA" url="http://www.newtec.co.ao/" />
         <doc:Contributor name="Infodelivery S.A." url="http://www.infodelivery.pt" />
+        <doc:Contributor name="Arquiconsult S.A." url="https://www.arquiconsult.com" />
       </doc:Contributors>
-      <doc:ModificationDate>2021-04-20</doc:ModificationDate>
+      <doc:ModificationDate>2023-02-22</doc:ModificationDate>
     </xs:documentation>
   </xs:annotation>
   <!-- Estrutura do ficheiro SAFT-AO-->
@@ -686,8 +687,10 @@
                           <xs:element ref="Quantity" />
                           <xs:element ref="UnitOfMeasure" />
                           <xs:element ref="UnitPrice" />
+                          <xs:element ref="TaxBase" />
                           <xs:element ref="TaxPointDate" />
                           <xs:element ref="Description" />
+                          <xs:element minOccurs="0" maxOccurs="unbounded" name="References" type="References" />
                           <xs:element name="ProductSerialNumber" type="ProductSerialNumber" minOccurs="0" />
                           <xs:choice>
                             <xs:element ref="DebitAmount" />
@@ -696,6 +699,7 @@
                           <xs:element minOccurs="0" name="Tax" type="Tax" />
                           <xs:group ref="TaxExemptions" minOccurs="0" />
                           <xs:element minOccurs="0" ref="SettlementAmount" />
+                          <xs:element name="CustomsInformation" type="CustomsInformation" minOccurs="0" />
                         </xs:sequence>
                       </xs:complexType>
                     </xs:element>
@@ -961,10 +965,27 @@
   </xs:complexType>
   <!-- Estrutura de pagamentos-->
   <xs:complexType name="PaymentMethod">
+    <xs:annotation>
+      <xs:documentation>
+        Relativo à forma e ao método de pagamento. Havendo mais que um, pode ser repetido quantas vezes forem necessárias.
+      </xs:documentation>
+    </xs:annotation>
     <xs:sequence>
       <xs:element ref="PaymentMechanism" minOccurs="0" />
-      <xs:element name="PaymentAmount" type="SAFmonetaryType" />
-      <xs:element name="PaymentDate" type="SAFdateType" />
+      <xs:element name="PaymentAmount" type="SAFmonetaryType">
+        <xs:annotation>
+          <xs:documentation>
+            Montante por meio de pagamento.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PaymentDate" type="SAFdateType">
+        <xs:annotation>
+          <xs:documentation>
+            Data do pagamento.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
   </xs:complexType>
   <!-- Estrutura de Taxa dos recibos-->
@@ -1022,11 +1043,40 @@
   </xs:complexType>
   <!-- Estrutura de Acordos entre cliente e fornecedor-->
   <xs:complexType name="Settlement">
+    <xs:annotation>
+      <xs:documentation>
+        Acordos ou formas de pagamento. Existindo a necessidade de efectuar mais do que uma referência, esta estrutura poderá ser gerada tantas vezes quantas as necessárias.
+      </xs:documentation>
+    </xs:annotation>
     <xs:sequence>
-      <xs:element minOccurs="0" name="SettlementDiscount" type="SAFAOtextTypeMandatoryMax30Car" />
-      <xs:element minOccurs="0" name="SettlementAmount" type="SAFmonetaryType" />
-      <xs:element minOccurs="0" name="SettlementDate" type="SAFdateType" />
-      <xs:element minOccurs="0" name="PaymentTerms" type="SAFAOtextTypeMandatoryMax100Car" />
+      <xs:element minOccurs="0" name="SettlementDiscount" type="SAFAOtextTypeMandatoryMax30Car">
+        <xs:annotation>
+          <xs:documentation>
+            Deve ser preenchido com os acordos de descontos a aplicar no futuro sobre o valor presente.
+          </xs:documentation>
+        </xs:annotation>    
+      </xs:element>
+      <xs:element minOccurs="0" name="SettlementAmount" type="SAFmonetaryType">
+        <xs:annotation>
+          <xs:documentation>
+            Representa o valor acordado para desconto futuro, mas que não concorre para o GrossTotal do documento.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="SettlementDate" type="SAFdateType">
+        <xs:annotation>
+          <xs:documentation>
+            Data acordada para o pagamento com desconto.
+          </xs:documentation>
+        </xs:annotation>    
+      </xs:element>
+      <xs:element minOccurs="0" name="PaymentTerms" type="SAFAOtextTypeMandatoryMax100Car">
+        <xs:annotation>
+          <xs:documentation>
+            Descrição dos acordos estabelecidos ou a data limite de pagamento.
+          </xs:documentation>
+        </xs:annotation>  
+      </xs:element>
     </xs:sequence>
   </xs:complexType>
   <!-- Estrutura de entregas de produtos -->
@@ -2059,7 +2109,7 @@
   <xs:element name="PaymentMechanism">
     <xs:annotation>
       <xs:documentation>
-          Deve ser preenchido com:
+          Meio de pagamento:
           “CC” – Cartão crédito;
           “CD” – Cartão débito;
           “CH” – Cheque bancário;
@@ -2488,8 +2538,7 @@
   <!-- Codigo Postal de Portugal -->
   <xs:simpleType name="PostalCodePT">
     <xs:restriction base="xs:string">
-      <!--  
-    <xs:pattern value="([0-9]{4}-[0-9]{3})" /> -->
+    <xs:pattern value="([0-9]{4}-[0-9]{3})" />
     </xs:restriction>
   </xs:simpleType>
   <!-- Codigo Postal de Angola -->

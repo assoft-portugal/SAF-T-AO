@@ -45,3 +45,11 @@ sudo apt install libxml2-utils
 ```bash
 xmllint -schema schema.xsd file.xml --noout
 ```
+
+## Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute]](CONTRIBUTING.md).
+
+<a href="https://github.com/assoft-portugal/SAF-T-AO/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=assoft-portugal/SAF-T-AO" />
+</a>
