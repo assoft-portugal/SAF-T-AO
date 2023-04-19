@@ -687,7 +687,7 @@
                           <xs:element ref="Quantity" />
                           <xs:element ref="UnitOfMeasure" />
                           <xs:element ref="UnitPrice" />
-                          <xs:element ref="TaxBase" />
+                          <xs:element ref="TaxBase" minOccurs="0" />
                           <xs:element ref="TaxPointDate" />
                           <xs:element ref="Description" />
                           <xs:element minOccurs="0" maxOccurs="unbounded" name="References" type="References" />
