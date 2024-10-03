@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/assoft-portugal/SAF-T-AO/blob/master/LICENSE)
 [![Discussion](https://img.shields.io/badge/discusion-telegram-blue)](https://t.me/saftao)
 
-Official XSD from the Government of Angola for use in SAF-T AO.
+Official XSD from the Government of Angola for use in SAF-T AO. The purpose of this schema is to standardize the format of tax-related data, facilitating auditing and compliance with Angolan tax regulations.
 
 > The Standard Audit File for Tax Purposes (SAF-T) is a standardized XML file used for exporting the accounting information of a company to the tax authorities. The file contains accounting data that can be exported from an original accounting system for a specific time period.
 >
@@ -22,6 +22,16 @@ The VAT [legislation](Resources/Legislation/README.md) will take effect starting
 - Software creators must apply to a software certification program by the government which is mandatory.
 - Starting from 1 January 2020 it will be mandatory to produce a monthly SAF-T file and send it to the government tax authorities.
 - From 1 January 2020, all taxpayers with an annual turnover of more than AKZ 50,000,000 will be required to produce the above referred SAF-T files and use certified software.
+
+## Schema Structure
+
+The XML schema is organized into the following main elements:
+
+- **AuditFile**: The root element containing all audit file data.
+- **Header**: Metadata about the audit file.
+- **MasterFiles**: Master data files such as general ledger accounts, customers, suppliers, products, and tax tables.
+- **GeneralLedgerEntries**: General ledger entries.
+- **SourceDocuments**: Source documents such as sales invoices, purchase invoices, and movement of goods.
 
 ## XML Validation
 
