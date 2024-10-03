@@ -32,7 +32,7 @@
         <doc:Contributor name="Infodelivery S.A." url="http://www.infodelivery.pt" />
         <doc:Contributor name="Arquiconsult S.A." url="https://www.arquiconsult.com" />
       </doc:Contributors>
-      <doc:ModificationDate>2023-02-22</doc:ModificationDate>
+      <doc:ModificationDate>2021-02-19</doc:ModificationDate>
     </xs:documentation>
   </xs:annotation>
   <!-- Estrutura do ficheiro SAFT-AO-->
@@ -2101,7 +2101,7 @@
         <xs:enumeration value="GR" />
         <xs:enumeration value="GT" />
         <xs:enumeration value="GA" />
-        <xs:enumeration value="GD" />
+        <xs:enumeration value="GD" />        
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
