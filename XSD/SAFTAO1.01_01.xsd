@@ -32,7 +32,7 @@
         <doc:Contributor name="Infodelivery S.A." url="http://www.infodelivery.pt" />
         <doc:Contributor name="Arquiconsult S.A." url="https://www.arquiconsult.com" />
       </doc:Contributors>
-      <doc:ModificationDate>2021-02-19</doc:ModificationDate>
+      <doc:ModificationDate>2024-10-16</doc:ModificationDate>
     </xs:documentation>
   </xs:annotation>
   <!-- Estrutura do ficheiro SAFT-AO-->
@@ -2175,8 +2175,17 @@
   </xs:element>
   <!-- Codigo de de Imposto de pagamento-->
   <xs:simpleType name="PaymentTaxCode">
+    <xs:annotation>
+      <xs:documentation>
+        "NOR" - Taxa normal; 
+        "RED" - Taxa reduzida;
+        "INT" - Taxa intermédia;
+        "ISE" - Isenta; 
+        "OUT" - Outros, aplicável para os regimes especiais de IVA. 
+      </xs:documentation>
+    </xs:annotation>
     <xs:restriction base="xs:string">
-      <xs:pattern value="RED|NOR|ISE|OUT|([0-9.])*|NA|NS" />
+      <xs:pattern value="RED|INT|NOR|ISE|OUT|([0-9.])*|NA|NS" />
       <xs:minLength value="1" />
       <xs:maxLength value="10" />
     </xs:restriction>
