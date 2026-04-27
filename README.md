@@ -1,5 +1,8 @@
 # SAF-T AO
 
+[English](README.md) | [Português](README.pt-AO.md)
+
+
 [![GitHub All Releases](https://img.shields.io/github/downloads/assoft-portugal/SAF-T-AO/total)](https://github.com/assoft-portugal/SAF-T-AO/releases)
 [![GitHub issues](https://img.shields.io/github/issues-raw/assoft-portugal/SAF-T-AO)](https://github.com/assoft-portugal/SAF-T-AO/issues)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/assoft-portugal/SAF-T-AO)](https://github.com/assoft-portugal/SAF-T-AO/releases)
