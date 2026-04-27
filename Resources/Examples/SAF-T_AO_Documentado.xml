@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- 
+    SAF-T AO (Angola) - Exemplo Documentado
+    Este ficheiro serve para explicar a estrutura e os campos obrigatórios do SAF-T de Angola.
+-->
+<AuditFile xmlns="urn:OECD:StandardAuditFile-Tax:AO_1.01_01" 
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+           xsi:schemaLocation="urn:OECD:StandardAuditFile-Tax:AO_1.01_01 https://raw.githubusercontent.com/assoft-portugal/SAF-T-AO/master/XSD/SAFTAO1.01_01.xsd">
+
+    <!-- 1. CABEÇALHO (Header): Identificação da empresa, software e período do ficheiro -->
+    <Header>
+        <!-- Versão do layout do SAF-T AO (atualmente 1.01_01) -->
+        <AuditFileVersion>1.01_01</AuditFileVersion>
+        
+        <!-- Identificador interno da empresa no sistema de software -->
+        <CompanyID>ID_INTERNO_12345</CompanyID>
+        
+        <!-- NIF da empresa (Número de Identificação Fiscal) -->
+        <TaxRegistrationNumber>5103105000</TaxRegistrationNumber>
+        
+        <!-- Base de contabilidade: 'A' (Contabilidade), 'F' (Faturação), 'I' (Integrado) -->
+        <TaxAccountingBasis>F</TaxAccountingBasis>
+        
+        <!-- Nome oficial da empresa -->
+        <CompanyName>EMPRESA EXEMPLO ANGOLA, LDA</CompanyName>
+        
+        <!-- Nome comercial (opcional) -->
+        <BusinessName>NOME COMERCIAL EXEMPLO</BusinessName>
+        
+        <!-- Endereço fiscal da empresa -->
+        <CompanyAddress>
+            <AddressDetail>Rua Principal, n.º 100</AddressDetail>
+            <City>Luanda</City>
+            <PostalCode>0000</PostalCode>
+            <Country>AO</Country>
+        </CompanyAddress>
+        
+        <!-- Ano fiscal a que o ficheiro se refere -->
+        <FiscalYear>2024</FiscalYear>
+        
+        <!-- Data de início e fim do período exportado -->
+        <StartDate>2024-01-01</StartDate>
+        <EndDate>2024-01-31</EndDate>
+        
+        <!-- Código da moeda (AOA para Kwanza) -->
+        <CurrencyCode>AOA</CurrencyCode>
+        
+        <!-- Data em que o ficheiro foi gerado pelo software -->
+        <DateCreated>2024-02-05</DateCreated>
+        
+        <!-- Entidade fiscal: 'Global' (para faturação geral) ou 'Sede' (para contabilidade) -->
+        <TaxEntity>Global</TaxEntity>
+        
+        <!-- NIF da empresa que produziu o software de faturação -->
+        <ProductCompanyTaxID>54173354</ProductCompanyTaxID>
+        
+        <!-- Número de certificado do software emitido pela AGT -->
+        <SoftwareValidationNumber>0/AGT/2020</SoftwareValidationNumber>
+        
+        <!-- Identificador do software (Nome/Sigla) -->
+        <ProductID>MEU_SISTEMA/AO</ProductID>
+        
+        <!-- Versão atual do software de faturação -->
+        <ProductVersion>2.5.0</ProductVersion>
+    </Header>
+
+    <!-- 2. FICHEIROS MESTRE (MasterFiles): Tabelas de apoio (Clientes, Fornecedores, Produtos, Impostos) -->
+    <MasterFiles>
+        
+        <!-- Tabela de Fornecedores (Obrigatório em exportações de Faturas de Compra) -->
+        <Supplier>
+            <!-- ID Único do fornecedor no sistema -->
+            <SupplierID>FORN_001</SupplierID>
+            <!-- Código da conta no Plano de Contas (ou 'Desconhecido') -->
+            <AccountID>Desconhecido</AccountID>
+            <!-- NIF do fornecedor -->
+            <SupplierTaxID>123456789</SupplierTaxID>
+            <CompanyName>FORNECEDOR DE MATÉRIAS PRIMAS, SA</CompanyName>
+            <BillingAddress>
+                <AddressDetail>Zona Industrial de Viana</AddressDetail>
+                <City>Viana</City>
+                <Country>AO</Country>
+            </BillingAddress>
+            <!-- Indicador de Autofaturação: 0 (Não), 1 (Sim) -->
+            <SelfBillingIndicator>0</SelfBillingIndicator>
+        </Supplier>
+
+        <!-- Tabela de Produtos ou Serviços -->
+        <Product>
+            <!-- Tipo: P (Produto), S (Serviço), O (Outros), E (Impostos Específicos) -->
+            <ProductType>P</ProductType>
+            <!-- Código interno do produto -->
+            <ProductCode>ART_001</ProductCode>
+            <ProductDescription>Cimento CP-32 Sacos de 50kg</ProductDescription>
+            <ProductNumberCode>ART_001</ProductNumberCode>
+        </Product>
+
+        <!-- Tabela de Impostos (TaxTable): Definição das taxas utilizadas -->
+        <TaxTable>
+            <TaxTableEntry>
+                <!-- Tipo de Imposto: IVA, IS (Imposto de Selo) -->
+                <TaxType>IVA</TaxType>
+                <TaxCountryRegion>AO</TaxCountryRegion>
+                <!-- Código do Imposto: NOR (Normal), ISE (Isento), OUT (Outros) -->
+                <TaxCode>NOR</TaxCode>
+                <Description>Taxa Normal de IVA</Description>
+                <!-- Percentagem do imposto -->
+                <TaxPercentage>14.00</TaxPercentage>
+            </TaxTableEntry>
+        </TaxTable>
+    </MasterFiles>
+
+    <!-- 3. DOCUMENTOS DE ORIGEM (SourceDocuments): Transações efetuadas -->
+    <SourceDocuments>
+        
+        <!-- Secção de Faturas de Compra (PurchaseInvoices) -->
+        <PurchaseInvoices>
+            <!-- Total de faturas registadas neste ficheiro -->
+            <NumberOfEntries>1</NumberOfEntries>
+            
+            <Invoice>
+                <!-- Número do documento (Série/Número) -->
+                <InvoiceNo>FT COMPRA/2024/001</InvoiceNo>
+                
+                <!-- Assinatura digital (Hash) gerada pelo software -->
+                <Hash>ZPi2...</Hash>
+                
+                <!-- ID do utilizador que registou o documento -->
+                <SourceID>OPERADOR_01</SourceID>
+                
+                <!-- Mês do período fiscal (1 a 12) -->
+                <Period>1</Period>
+                
+                <!-- Data de emissão do documento pelo fornecedor -->
+                <InvoiceDate>2024-01-15</InvoiceDate>
+                
+                <!-- Tipo de documento: FT (Fatura), FR (Fatura-Recibo), NC (Nota de Crédito) -->
+                <PurchaseType>FT</PurchaseType>
+                
+                <!-- Ligação ao ID do Fornecedor definido nos MasterFiles -->
+                <SupplierID>FORN_001</SupplierID>
+
+                <!-- Totais do Documento -->
+                <DocumentTotals>
+                    <!-- Total de imposto a pagar -->
+                    <TaxPayable>1400.00</TaxPayable>
+                    <!-- Total líquido (sem impostos) -->
+                    <NetTotal>10000.00</NetTotal>
+                    <!-- Total bruto (com impostos) -->
+                    <GrossTotal>11400.00</GrossTotal>
+                    
+                    <!-- Informação de dedutibilidade (Específico de Angola) -->
+                    <Deductible>
+                        <TaxBase>10000.00</TaxBase>
+                        <DeductibleAmount>1400.00</DeductibleAmount>
+                        <!-- Percentagem de IVA dedutível (ex: 100% ou 50%) -->
+                        <DeductiblePercentage>100.00</DeductiblePercentage>
+                        <!-- Tipo de dedutibilidade: INV (Inventários), IMOB (Imobilizado), etc -->
+                        <DeductibleTaxType>INV</DeductibleTaxType>
+                    </Deductible>
+                </DocumentTotals>
+
+                <!-- Retenção na Fonte (se aplicável) -->
+                <WithholdingTax>
+                    <!-- Tipo: IVA, IS, etc -->
+                    <WithholdingTaxType>IVA</WithholdingTaxType>
+                    <WithholdingTaxDescription>Retenção de 50% de IVA</WithholdingTaxDescription>
+                    <!-- Valor retido -->
+                    <WithholdingTaxAmount>700.00</WithholdingTaxAmount>
+                </WithholdingTax>
+            </Invoice>
+        </PurchaseInvoices>
+    </SourceDocuments>
+</AuditFile>
